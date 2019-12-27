@@ -1,0 +1,2 @@
+include ':app', ':toolbar', ':rx', ':rxlifecycle', ':or', ':commonlibrary', ':code-lifecycle', ':code', ':box'
+rootProject.name='SlcBoxs'

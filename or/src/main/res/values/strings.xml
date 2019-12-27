@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">or</string>
+    <string name="net_date_is_loading">正在加载&#8230;</string>
+    <string name="net_date_acquisition_failed">获取数据失败</string>
+    <string name="net_date_is_null">数据为空</string>
+    <string name="net_date_list_is_null">数据列表为空</string>
+
+    <string name="net_date_connection_failure">连接服务器失败</string>
+
+    <string name="net_date_network_unavailable">网络不可用</string>
+    <string name="net_date_url_format_error">Url格式错误</string>
+    <string name="net_date_url_specified_server_not_found">没有找到Url指定服务器</string>
+    <string name="net_date_connection_server_timed_out_please_try_again">连接服务器超时，请重试！</string>
+    <string name="net_date_sending_data_error_please_check_the_network">发送数据错误，请检查网络！</string>
+    <string name="net_date_read_data_error_please_check_the_network">读取服务器数据超时，请检查网络！</string>
+    <string name="net_date_parsing_data_exception">解析数据异常</string>
+    <string name="net_date_an_unknown_exception_occurred">发生未知异常，请稍后重试！</string>
+</resources>
