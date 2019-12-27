@@ -3,15 +3,11 @@ apply plugin: 'maven'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 28
-
-    lintOptions {
-        abortOnError false
-    }
+    compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion 28
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -24,8 +20,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -41,7 +37,7 @@ publish {
     userOrg = "sunlunchang"
     groupId = 'android.slc'
     artifactId = 'toolbar'
-    publishVersion = "$boxsVersion"
+    publishVersion = "$publishVersion"
     desc = 'Develop Android apps quickly'
     website = "https://github.com/sunlunchang1994/$rootProject.name"
 }

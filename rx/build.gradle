@@ -24,7 +24,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -39,7 +42,7 @@ publish {
     userOrg = "sunlunchang"
     groupId = 'android.slc'
     artifactId = 'rx'
-    publishVersion = "$boxsVersion"
+    publishVersion = "$publishVersion"
     desc = 'Develop Android apps quickly'
     website = "https://github.com/sunlunchang1994/$rootProject.name"
 }
