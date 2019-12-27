@@ -47,5 +47,5 @@ ext {
     fragmentationx = '1.0.2'
     boxsVersion = '0.0.+'
     //Publish
-    publishVersion = '0.0.4'
+    publishVersion = '0.0.5'
 }
