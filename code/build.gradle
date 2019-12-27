@@ -1,5 +1,12 @@
 apply from: "${project.rootDir}/app_module_config.gradle"
-
+android {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            res.srcDirs = ['src/main/res', 'src/main/res-preference']
+        }
+    }
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     api "me.yokeyword:fragmentationx-core:$fragmentationx"
