@@ -7,6 +7,7 @@ import android.slc.code.exception.MvpUninitializedException;
 import android.slc.code.ui.activity.MvpActivity;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
 
 public abstract class BasePreferenceFragment<P extends MvpContract.BasePresenter> extends PreferenceFragment
         implements MvpContract.BaseMvpView<P> {
@@ -37,6 +38,11 @@ public abstract class BasePreferenceFragment<P extends MvpContract.BasePresenter
 
         this.isInitPresenter = true;
         this.mPresenter = presenter;
+    }
+
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return this;
     }
 
     protected P getPresenter() {
