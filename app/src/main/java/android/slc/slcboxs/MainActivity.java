@@ -8,6 +8,9 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.slc.commonlibrary.util.SlcCacheDiskUtils;
+import android.slc.commonlibrary.util.SlcFileUtils;
+import android.slc.commonlibrary.util.SlcPathUtils;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;

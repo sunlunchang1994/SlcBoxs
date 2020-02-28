@@ -26,16 +26,17 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 ext {
-// Sdk and tools
-// Support library and architecture components support minSdk 14 and above.
+    // Sdk and tools
+    // Support library and architecture components support minSdk 14 and above.
     minSdkVersion = 19
     targetSdkVersion = 28
     compileSdkVersion = 29
 
-// App dependencies
-    androidXAppcompat = '1.1.0'
-    androidXConstraintlayout = '1.1.3'
-    googleAndroidMaterial = '1.0.0'
+    // App dependencies
+    androidXAppcompat = '1.1.+'
+    androidXLifecycle = '2.2.+'
+    androidXConstraintlayout = '1.1.+'
+    googleAndroidMaterial = '1.0.+'
     rxAndroid = '2.1.1'
     rxJava = '2.2.13'
     rxLifecycle = '3.1.0'
@@ -46,6 +47,6 @@ ext {
     adapterRxjava2 = '2.6.2'
     fragmentationx = '1.0.2'
     boxsVersion = '0.0.+'
-//Publish
-    publishVersion = '0.0.5'
+    //Publish
+    publishVersion = '0.0.6'
 }

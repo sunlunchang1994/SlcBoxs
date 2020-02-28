@@ -9,6 +9,7 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api "androidx.lifecycle:lifecycle-extensions:$androidXLifecycle"
     api "me.yokeyword:fragmentationx-core:$fragmentationx"
     implementation "com.google.android.material:material:$googleAndroidMaterial"
     api "android.slc:toolbar:$boxsVersion"

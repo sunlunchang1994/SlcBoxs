@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT" />
-        </compositeConfiguration>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/box" />
+            <option value="$PROJECT_DIR$/code" />
+            <option value="$PROJECT_DIR$/code-lifecycle" />
+            <option value="$PROJECT_DIR$/commonlibrary" />
+            <option value="$PROJECT_DIR$/or" />
+            <option value="$PROJECT_DIR$/rx" />
+            <option value="$PROJECT_DIR$/rxlifecycle" />
+            <option value="$PROJECT_DIR$/toolbar" />
+          </set>
+        </option>
         <option name="resolveModulePerSourceSet" value="false" />
-        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>
