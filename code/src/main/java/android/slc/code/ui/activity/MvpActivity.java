@@ -1,9 +1,11 @@
 package android.slc.code.ui.activity;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.content.Intent;
 
+import android.os.Bundle;
 import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
@@ -12,12 +14,21 @@ import android.slc.code.exception.MvpUninitializedException;
  * Created by on the way on 2018/11/5.
  */
 
-public class MvpActivity<P extends MvpContract.BasePresenter> extends EnhanceActivity implements MvpContract.BaseMvpView<P> {
+public abstract class MvpActivity<P extends MvpContract.BasePresenter> extends BaseActivity implements MvpContract.BaseMvpView<P> {
     /**
      * mvp模式的主持者
      */
     private P mPresenter;
     private boolean isInitPresenter;//是否初始化Presenter
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initPresenter();
+    }
+
+    protected void initPresenter() {
+    }
 
     @Override
     public MvpActivity getMvpContext() {

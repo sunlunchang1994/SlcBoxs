@@ -1,23 +1,40 @@
 package android.slc.code.ui.fragment;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
 import android.slc.code.ui.activity.MvpActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by on the way on 2018/11/5.
  */
 
-public class MvpFragment<P extends MvpContract.BasePresenter> extends EnhanceFragment implements MvpContract.BaseMvpView<P> {
+public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends BaseFragment implements MvpContract.BaseMvpView<P> {
     /**
      * mvp模式的主持者
      */
     private P mPresenter;
     private boolean isInitPresenter;//是否初始化Presenter
+
+    @Nullable
+    @Override
+    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View contentView = super.onCreateView(inflater, container, savedInstanceState);
+        initPresenter();
+        return contentView;
+
+    }
+
+    protected void initPresenter() {
+    }
 
     @Override
     public MvpActivity getMvpContext() {
@@ -74,6 +91,7 @@ public class MvpFragment<P extends MvpContract.BasePresenter> extends EnhanceFra
             //TODO
         }
     }
+
     @Override
     public void onDestroy() {
         if (mPresenter != null) {

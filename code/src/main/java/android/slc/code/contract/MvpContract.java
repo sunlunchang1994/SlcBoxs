@@ -43,17 +43,18 @@ public interface MvpContract {
     }
 
     interface BasePresenter<V extends BaseMvpView> extends LifecycleObserver {
+
+        /**
+         * 开始方法，一般在activity或fragment初始化完试图之后调用
+         */
+        void init();
+
         /**
          * 设置model
          *
          * @param view
          */
         void setView(V view);
-
-        /**
-         * 开始方法，一般在activity或fragment初始化完试图之后调用
-         */
-        void init();
 
         /**
          * activity的结果返回

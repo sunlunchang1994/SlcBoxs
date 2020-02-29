@@ -1,14 +1,14 @@
 package android.slc.codelifecycle.ui;
 
 import android.os.Bundle;
+import android.slc.code.ui.fragment.MvpFragment;
 import android.slc.codelifecycle.contract.RxBaseContract;
-import android.slc.code.ui.fragment.BaseFragment;
 import android.slc.rxlifecycle.RxLifecycleDelegate;
 import android.slc.rxlifecycle.RxLifecycleDelegateImp;
 
 import androidx.annotation.Nullable;
 
-public abstract class RxBaseFragment<P extends RxBaseContract.RxBasePresenter> extends BaseFragment<P>
+public abstract class RxMvpFragment<P extends RxBaseContract.RxBasePresenter> extends MvpFragment<P>
         implements RxBaseContract.RxBaseView<P> {
     private RxLifecycleDelegate rxLifecycleDelegate;
 

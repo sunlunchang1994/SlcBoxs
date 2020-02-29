@@ -1,12 +1,12 @@
 package android.slc.code.ui.activity;
 
 import android.os.Bundle;
+import android.slc.code.ui.CreateViewAuxiliaryBox;
 import android.slc.toolbar.ISlcToolBarDelegate;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
-import android.slc.code.contract.MvpContract;
 import android.slc.code.ui.views.BaseActivityDelegate;
 
 import android.slc.commonlibrary.util.compat.SlcBarCompatUtils;
@@ -16,7 +16,7 @@ import android.slc.commonlibrary.util.compat.SlcBarCompatUtils;
  * Created by on the way on 2017/12/6.
  */
 
-public abstract class BaseActivity<P extends MvpContract.BasePresenter> extends MvpActivity<P> implements BaseActivityDelegate {
+public abstract class BaseActivity extends EnhanceActivity implements BaseActivityDelegate {
     protected boolean mBarIsLight = false;//是否为高亮Bar
     protected ISlcToolBarDelegate mSlcToolBarDelegate;
 
@@ -25,6 +25,28 @@ public abstract class BaseActivity<P extends MvpContract.BasePresenter> extends 
         super.onCreate(savedInstanceState);
         initViewBefore();
         Object layoutObj = setContentView();
+        interfereLoadView(new CreateViewAuxiliaryBox(layoutObj, savedInstanceState));
+        mBarIsLight = initBarStyle();
+        syncBarStyle();
+        mSlcToolBarDelegate = initSlcToolBarDelegate();
+        onBindView(savedInstanceState);
+        initViewLater();
+    }
+
+    /**
+     * 设置主内容视图
+     *
+     * @return
+     */
+    protected abstract Object setContentView();
+
+    /**
+     * 干扰视图加载方式
+     *
+     * @param createViewAuxiliaryBox
+     */
+    protected void interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+        Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
         if (layoutObj instanceof Integer) {
             setContentView((Integer) layoutObj);
         } else if (layoutObj instanceof View) {
@@ -32,16 +54,7 @@ public abstract class BaseActivity<P extends MvpContract.BasePresenter> extends 
         } else {
             throw new ClassCastException("setContentView() type must be int or View");
         }
-        mBarIsLight = initBarStyle();
-        syncBarStyle();
-        mSlcToolBarDelegate = initSlcToolBarDelegate();
-        onBindView(savedInstanceState);
-        initViewLater();
-        initPresenter();
     }
-
-
-    protected abstract Object setContentView();
 
     /**
      * 获取 ISlcToolBarDelegate
@@ -49,11 +62,6 @@ public abstract class BaseActivity<P extends MvpContract.BasePresenter> extends 
      * @return
      */
     protected ISlcToolBarDelegate initSlcToolBarDelegate() {
-        /*return new SlcToolBarNormalDelegate.Builder()
-                .setThemeMode(barIsLight() ?
-                SlcToolBarDelegate.ThemeMode.Light : SlcToolBarDelegate.ThemeMode.Dark)
-                .setFitsSystemWindows(true)
-                .create(this);*/
         return null;
     }
 
@@ -76,9 +84,6 @@ public abstract class BaseActivity<P extends MvpContract.BasePresenter> extends 
     protected void initViewLater() {
     }
 
-    protected void initPresenter() {
-
-    }
 
     @Override
     public final boolean barIsLight() {
@@ -106,11 +111,5 @@ public abstract class BaseActivity<P extends MvpContract.BasePresenter> extends 
     protected boolean initBarStyle() {
         return mBarIsLight;
     }
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }*/
 
 }
