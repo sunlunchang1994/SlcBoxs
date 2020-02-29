@@ -1,20 +1,26 @@
 apply from: "${project.rootDir}/app_module_config.gradle"
+if (module_code_lifecycle.toBoolean()) {
+    apply plugin: 'maven'
+    apply plugin: 'com.novoda.bintray-release'
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "androidx.appcompat:appcompat:$androidXAppcompat"
-    api "android.slc:code:$boxsVersion"
-    api "android.slc:rx:$boxsVersion"
-    api "android.slc:rxlifecycle:$boxsVersion"
+    api "android.slc:code:$codeVersion"
+    api "android.slc:rx:$rxVersion"
+    api "android.slc:rxlifecycle:$rxLifecycleVersion"
 }
 
-publish {
-    repoName = 'code'
-    userOrg = "sunlunchang"
-    groupId = 'android.slc'
-    artifactId = 'code-lifecycle'
-    publishVersion = "$publishVersion"
-    desc = 'Develop Android apps quickly'
-    website = "https://github.com/sunlunchang1994/$rootProject.name"
+if (module_code_lifecycle.toBoolean()) {
+    publish {
+        repoName = 'code'
+        userOrg = "sunlunchang"
+        groupId = 'android.slc'
+        artifactId = 'code-lifecycle'
+        publishVersion = "$codeLifecyclePublishVersion"
+        desc = 'Develop Android apps quickly'
+        website = "https://github.com/sunlunchang1994/$rootProject.name"
+    }
 }

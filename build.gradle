@@ -16,9 +16,11 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url 'https://dl.bintray.com/sunlunchang/code/'
+        }
         google()
         jcenter()
-
     }
 }
 
@@ -33,10 +35,10 @@ ext {
     compileSdkVersion = 29
 
     // App dependencies
-    androidXAppcompat = '1.1.+'
+    androidXAppcompat = '1.+'
     androidXLifecycle = '2.2.+'
-    androidXConstraintlayout = '1.1.+'
-    googleAndroidMaterial = '1.0.+'
+    androidXConstraintlayout = '1.+'
+    googleAndroidMaterial = '1.+'
     rxAndroid = '2.1.1'
     rxJava = '2.2.13'
     rxLifecycle = '3.1.0'
@@ -46,7 +48,31 @@ ext {
     converterGson = '2.6.2'
     adapterRxjava2 = '2.6.2'
     fragmentationx = '1.0.2'
-    boxsVersion = '0.0.+'
-    //Publish
-    publishVersion = '0.0.6'
+    //模块版本
+    //常用包
+    commonLibreyVersion = '0.0.6'
+    commonLibreyPublishVersion = '0.0.6'
+    //工具栏
+    toolbarVersion = '0.0.6'
+    toolbarPublishVersion = '0.0.6'
+    //核心包
+    codeVersion = '0.0.6'
+    codePublishVersion = '0.0.7'
+    //核心生命周期包
+    codeLifecycleVersion = '0.0.6'
+    codeLifecyclePublishVersion = '0.0.6'
+    //网络
+    orVersion = '0.0.6'
+    orPublishVersion = '0.0.6'
+    //rxJava
+    rxVersion = '0.0.6'
+    rxPublishVersion = '0.0.6'
+    //rx生命周期
+    rxLifecycleVersion = '0.0.6'
+    rxLifecyclePublishVersion = '0.0.6'
+    //继承盒子
+    boxsVersion = '0.0.6'
+    boxsPublishVersion = '0.0.6'
+    //Publish版本
+    //publishVersion = '0.0.6'
 }

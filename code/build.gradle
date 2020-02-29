@@ -1,4 +1,8 @@
 apply from: "${project.rootDir}/app_module_config.gradle"
+if (module_code.toBoolean()) {
+    apply plugin: 'maven'
+    apply plugin: 'com.novoda.bintray-release'
+}
 android {
     sourceSets {
         main {
@@ -9,19 +13,19 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api "androidx.lifecycle:lifecycle-extensions:$androidXLifecycle"
     api "me.yokeyword:fragmentationx-core:$fragmentationx"
     implementation "com.google.android.material:material:$googleAndroidMaterial"
-    api "android.slc:toolbar:$boxsVersion"
-    api "android.slc:commonlibrary:$boxsVersion"
+    api "android.slc:toolbar:$toolbarVersion"
+    api "android.slc:commonlibrary:$commonLibreyVersion"
 }
-
-publish {
-    repoName = 'code'
-    userOrg = "sunlunchang"
-    groupId = 'android.slc'
-    artifactId = 'code'
-    publishVersion = "$publishVersion"
-    desc = 'Develop Android apps quickly'
-    website = "https://github.com/sunlunchang1994/$rootProject.name"
+if (module_code.toBoolean()) {
+    publish {
+        repoName = 'code'
+        userOrg = "sunlunchang"
+        groupId = 'android.slc'
+        artifactId = 'code'
+        publishVersion = "$codePublishVersion"
+        desc = 'Develop Android apps quickly'
+        website = "https://github.com/sunlunchang1994/$rootProject.name"
+    }
 }

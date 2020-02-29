@@ -1,17 +1,22 @@
 apply from: "${project.rootDir}/app_module_config.gradle"
-
+if (module_toolbar.toBoolean()) {
+    apply plugin: 'maven'
+    apply plugin: 'com.novoda.bintray-release'
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     implementation "com.google.android.material:material:$googleAndroidMaterial"
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
 }
-publish {
-    repoName = 'code'
-    userOrg = "sunlunchang"
-    groupId = 'android.slc'
-    artifactId = 'toolbar'
-    publishVersion = "$publishVersion"
-    desc = 'Develop Android apps quickly'
-    website = "https://github.com/sunlunchang1994/$rootProject.name"
+if (module_toolbar.toBoolean()) {
+    publish {
+        repoName = 'code'
+        userOrg = "sunlunchang"
+        groupId = 'android.slc'
+        artifactId = 'toolbar'
+        publishVersion = "$toolbarPublishVersion"
+        desc = 'Develop Android apps quickly'
+        website = "https://github.com/sunlunchang1994/$rootProject.name"
+    }
 }

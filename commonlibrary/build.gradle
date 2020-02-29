@@ -1,4 +1,8 @@
 apply from: "${project.rootDir}/app_module_config.gradle"
+if (commonLibreyVersion.toBoolean()) {
+    apply plugin: 'maven'
+    apply plugin: 'com.novoda.bintray-release'
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -6,12 +10,14 @@ dependencies {
     implementation "com.google.android.material:material:$googleAndroidMaterial"
     implementation "com.google.code.gson:gson:$gson"
 }
-publish {
-    repoName = 'code'
-    userOrg = "sunlunchang"
-    groupId = 'android.slc'
-    artifactId = 'commonlibrary'
-    publishVersion = "$publishVersion"
-    desc = 'Develop Android apps quickly'
-    website = "https://github.com/sunlunchang1994/$rootProject.name"
+if (commonLibreyVersion.toBoolean()) {
+    publish {
+        repoName = 'code'
+        userOrg = "sunlunchang"
+        groupId = 'android.slc'
+        artifactId = 'commonlibrary'
+        publishVersion = "$commonLibreyPublishVersion"
+        desc = 'Develop Android apps quickly'
+        website = "https://github.com/sunlunchang1994/$rootProject.name"
+    }
 }

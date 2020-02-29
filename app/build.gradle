@@ -27,5 +27,5 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
     implementation "com.google.android.material:material:$googleAndroidMaterial"
-    implementation 'android.slc:box:0.0.5'
+    implementation "android.slc:box:$boxsVersion"
 }
