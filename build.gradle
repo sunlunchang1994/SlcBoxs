@@ -52,15 +52,15 @@ ext {
     //常用包
     commonLibreyVersion = '0.0.6'
     commonLibreyPublishVersion = '0.0.6'
-    //工具栏
+    //toolbar
     toolbarVersion = '0.0.6'
     toolbarPublishVersion = '0.0.6'
     //核心包
-    codeVersion = '0.0.6'
+    codeVersion = '0.0.7'
     codePublishVersion = '0.0.7'
     //核心生命周期包
-    codeLifecycleVersion = '0.0.6'
-    codeLifecyclePublishVersion = '0.0.6'
+    codeLifecycleVersion = '0.0.7'
+    codeLifecyclePublishVersion = '0.0.7'
     //网络
     orVersion = '0.0.6'
     orPublishVersion = '0.0.6'
@@ -71,8 +71,8 @@ ext {
     rxLifecycleVersion = '0.0.6'
     rxLifecyclePublishVersion = '0.0.6'
     //继承盒子
-    boxsVersion = '0.0.6'
-    boxsPublishVersion = '0.0.6'
+    boxsVersion = '0.0.+'
+    boxsPublishVersion = '0.0.7'
     //Publish版本
     //publishVersion = '0.0.6'
 }
