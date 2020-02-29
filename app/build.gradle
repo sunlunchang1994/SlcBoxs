@@ -27,5 +27,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
     implementation "com.google.android.material:material:$googleAndroidMaterial"
-    implementation "android.slc:box:$boxsVersion"
+    if (module_box.toBoolean()) {
+        implementation 'android.slc:box:+'
+    } else {
+        implementation "android.slc:box:$boxsVersion"
+    }
 }
