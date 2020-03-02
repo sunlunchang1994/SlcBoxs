@@ -4,6 +4,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
 
     }
     dependencies {
@@ -16,11 +17,10 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {
-            url 'https://dl.bintray.com/sunlunchang/code/'
-        }
         google()
         jcenter()
+        maven { url 'https://dl.bintray.com/sunlunchang/code/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
     }
 }
 
@@ -35,9 +35,11 @@ ext {
     compileSdkVersion = 29
 
     // App dependencies
-    androidXAppcompat = '1.+'
-    androidXLifecycle = '2.2.+'
-    androidXConstraintlayout = '1.+'
+    androidXAppcompat = '+'
+    androidXActivity = '+'
+    androidXFragment = '+'
+    androidXLifecycle = '2.+'
+    androidXConstraintlayout = '+'
     googleAndroidMaterial = '1.+'
     rxAndroid = '2.1.1'
     rxJava = '2.2.13'

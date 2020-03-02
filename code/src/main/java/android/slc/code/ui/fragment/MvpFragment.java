@@ -93,11 +93,11 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
+        super.onDestroyView();
         if (mPresenter != null) {
             mPresenter.destroy();
             mPresenter = null;
         }
-        super.onDestroy();
     }
 }

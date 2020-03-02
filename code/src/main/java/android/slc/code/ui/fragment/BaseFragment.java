@@ -30,7 +30,7 @@ public abstract class BaseFragment extends EnhanceFragment {
                              @Nullable Bundle savedInstanceState) {
         initViewBefore();
         Object layoutObj = setContentView();
-        interfereLoadView(new CreateViewAuxiliaryBox(layoutObj, inflater, container, savedInstanceState));
+        mContentView = interfereLoadView(new CreateViewAuxiliaryBox(layoutObj, inflater, container, savedInstanceState));
         mSlcToolBarDelegate = initSlcToolBarDelegate();
         onBindView(savedInstanceState);
         initViewLater();
@@ -49,15 +49,17 @@ public abstract class BaseFragment extends EnhanceFragment {
      *
      * @param createViewAuxiliaryBox
      */
-    protected void interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+    protected View interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+        View contentView = null;
         Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
         if (layoutObj instanceof Integer) {
-            mContentView = createViewAuxiliaryBox.getInflater().inflate((Integer) layoutObj, createViewAuxiliaryBox.getContainer(), false);
+            contentView = createViewAuxiliaryBox.getInflater().inflate((Integer) layoutObj, createViewAuxiliaryBox.getContainer(), false);
         } else if (layoutObj instanceof View) {
-            mContentView = (View) layoutObj;
+            contentView = (View) layoutObj;
         } else {
             throw new ClassCastException("setContentView() type must be int or View");
         }
+        return contentView;
     }
 
     protected View getContentView() {

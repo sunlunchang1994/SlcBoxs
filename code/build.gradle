@@ -10,14 +10,20 @@ android {
             res.srcDirs = ['src/main/res', 'src/main/res-preference']
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api "androidx.activity:activity:$androidXActivity"
+    api "androidx.fragment:fragment:$androidXFragment"
     api "me.yokeyword:fragmentationx-core:$fragmentationx"
-    implementation "com.google.android.material:material:$googleAndroidMaterial"
+    api "com.google.android.material:material:$googleAndroidMaterial"
     api "android.slc:toolbar:$toolbarVersion"
     api "android.slc:commonlibrary:$commonLibreyVersion"
 }
+
 if (module_code.toBoolean()) {
     publish {
         repoName = 'code'
