@@ -21,22 +21,24 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
 
     @Override
     protected View interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+        View contentView = null;
         Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
         if (createViewAuxiliaryBox.getLayoutObj() instanceof Integer) {
             int contentViewLayout = (int) layoutObj;
             dataBinding = DataBindingUtil.inflate(createViewAuxiliaryBox.getInflater(), contentViewLayout, createViewAuxiliaryBox.getContainer(), false);
+            if (dataBinding == null) {
+                contentView = createViewAuxiliaryBox.getInflater().inflate((Integer) layoutObj, createViewAuxiliaryBox.getContainer(), false);
+            } else {
+                contentView = dataBinding.getRoot();
+            }
         } else if (layoutObj instanceof View) {
-            View contentView = (View) layoutObj;
+            contentView = (View) layoutObj;
             dataBinding = DataBindingUtil.bind(contentView);
         } else {
             throw new ClassCastException("setContentView() type must be int or View");
         }
         initDataBinding();
-        if (dataBinding != null) {
-            return dataBinding.getRoot();
-        } else {
-            return super.interfereLoadView(createViewAuxiliaryBox);
-        }
+        return contentView;
     }
 
     /**

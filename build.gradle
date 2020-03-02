@@ -4,7 +4,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
 
     }
     dependencies {
@@ -20,7 +19,6 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://dl.bintray.com/sunlunchang/code/' }
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
     }
 }
 
@@ -59,7 +57,7 @@ ext {
     toolbarPublishVersion = '0.0.6'
     //核心包
     codeVersion = '0.0.8'
-    codePublishVersion = '0.0.8'
+    codePublishVersion = '0.0.9'
     //核心生命周期包
     codeLifecycleVersion = '0.0.8'
     codeLifecyclePublishVersion = '0.0.8'
