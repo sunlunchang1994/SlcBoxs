@@ -1,13 +1,12 @@
 package android.slc.code.ui.activity;
 
-import android.os.Bundle;
 import android.slc.code.ui.CreateViewAuxiliaryBox;
 import android.slc.code.vm.BaseViewModel;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.lang.reflect.ParameterizedType;
@@ -22,11 +21,6 @@ import java.lang.reflect.Type;
 public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity {
     protected V dataBinding;
     protected VM viewModel;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected void interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
@@ -61,10 +55,29 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getActivityViewModelProvider().get(modelClass);
+        registerLiveEvent();
         if (dataBinding != null) {
             dataBinding.setLifecycleOwner(this);
             bindingVariable();
         }
+    }
+
+    /**
+     * 注册liveData事件
+     */
+    protected void registerLiveEvent() {
+        viewModel.getFinishLiveData().observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(Void aVoid) {
+                finish();
+            }
+        });
+        viewModel.getBackPressedLiveData().observe(this, new Observer<Void>() {
+            @Override
+            public void onChanged(Void aVoid) {
+                onBackPressed();
+            }
+        });
     }
 
     /**

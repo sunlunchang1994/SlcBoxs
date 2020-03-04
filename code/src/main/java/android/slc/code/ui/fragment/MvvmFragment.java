@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.lang.reflect.ParameterizedType;
@@ -55,10 +56,19 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getFragmentViewModelProvider().get(modelClass);
+        registerLiveEvent();
         if (dataBinding != null) {
             dataBinding.setLifecycleOwner(this);
             bindingVariable();
         }
+    }
+
+    /**
+     * 注册liveData事件
+     */
+    protected void registerLiveEvent() {
+        viewModel.getFinishLiveData().observe(this, aVoid -> _mActivity.finish());
+        viewModel.getBackPressedLiveData().observe(this, aVoid -> _mActivity.onBackPressed());
     }
 
     /**
