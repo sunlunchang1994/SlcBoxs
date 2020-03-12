@@ -58,7 +58,6 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getActivityViewModelProvider().get(modelClass);
-        viewModel.initViewDelegate(this);
         registerLiveEvent();
         if (dataBinding != null) {
             dataBinding.setLifecycleOwner(this);
@@ -70,18 +69,9 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
      * 注册liveData事件
      */
     protected void registerLiveEvent() {
-        viewModel.getFinishLiveData().observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(Void aVoid) {
-                finish();
-            }
-        });
-        viewModel.getBackPressedLiveData().observe(this, new Observer<Void>() {
-            @Override
-            public void onChanged(Void aVoid) {
-                onBackPressed();
-            }
-        });
+        viewModel.initViewDelegate(this);
+        viewModel.getFinishLiveData().observe(this, aVoid -> finish());
+        viewModel.getBackPressedLiveData().observe(this, aVoid -> onBackPressed());
     }
 
     /**

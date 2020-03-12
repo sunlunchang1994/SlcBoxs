@@ -59,7 +59,6 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getFragmentViewModelProvider().get(modelClass);
-        viewModel.initViewDelegate(this);
         registerLiveEvent();
         if (dataBinding != null) {
             dataBinding.setLifecycleOwner(this);
@@ -71,6 +70,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
      * 注册liveData事件
      */
     protected void registerLiveEvent() {
+        viewModel.initViewDelegate(this);
         viewModel.getFinishLiveData().observe(this, aVoid -> _mActivity.finish());
         viewModel.getBackPressedLiveData().observe(this, aVoid -> _mActivity.onBackPressed());
     }
