@@ -1,5 +1,6 @@
 package android.slc.code.contract;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -7,6 +8,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.slc.code.ui.activity.BaseActivity;
 import android.slc.code.ui.activity.MvpActivity;
 
 /**
@@ -20,7 +22,7 @@ public interface MvpContract {
          *
          * @return
          */
-        MvpActivity getMvpContext();
+        AppCompatActivity getMvpContext();
 
         /**
          * 设置Presenter

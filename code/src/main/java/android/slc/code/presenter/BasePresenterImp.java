@@ -9,13 +9,15 @@ import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * Created by on the way on 2017/12/19.
  */
 
 public class BasePresenterImp<V extends MvpContract.BaseMvpView> implements MvpContract.BasePresenter<V> {
     public final String TAG = getClass().getSimpleName();
-    private MvpActivity mContext;
+    private AppCompatActivity mContext;
     private V mView;
     private boolean isInitView;//是否初始化Model
 
@@ -28,7 +30,7 @@ public class BasePresenterImp<V extends MvpContract.BaseMvpView> implements MvpC
      *
      * @return
      */
-    protected MvpActivity getMvpContext() {
+    protected AppCompatActivity getMvpContext() {
         if (mContext != null) {
             return mContext;
         } else {

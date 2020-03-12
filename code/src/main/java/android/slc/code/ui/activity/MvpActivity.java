@@ -1,6 +1,7 @@
 package android.slc.code.ui.activity;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.content.Intent;
@@ -31,7 +32,7 @@ public abstract class MvpActivity<P extends MvpContract.BasePresenter> extends B
     }
 
     @Override
-    public MvpActivity getMvpContext() {
+    public AppCompatActivity getMvpContext() {
         return this;
     }
 

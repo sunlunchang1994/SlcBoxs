@@ -1,6 +1,7 @@
 package android.slc.code.ui.fragment;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.content.Intent;
@@ -37,8 +38,8 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
     }
 
     @Override
-    public MvpActivity getMvpContext() {
-        return (MvpActivity) getActivity();
+    public AppCompatActivity getMvpContext() {
+        return _mActivity;
     }
 
     /**
