@@ -8,6 +8,8 @@ import android.slc.rxlifecycle.RxLifecycleDelegateImp;
 
 import androidx.annotation.NonNull;
 
+import com.trello.rxlifecycle3.LifecycleTransformer;
+
 /**
  * @author slc
  * @date 2020/3/12 10:09
@@ -25,13 +27,22 @@ public class RxViewModel extends BaseViewModel {
         super.initViewDelegate(viewDelegate);
         rxLifecycleDelegate = RxLifecycleDelegateImp.create(viewDelegate.getLifecycleOwner().getLifecycle());
     }
+    /**
+     * 绑定生命周期
+     *
+     * @param <T>
+     * @return
+     */
+    protected <T> LifecycleTransformer<T> bindToLifecycle() {
+        return rxLifecycleDelegate.bindToLifecycle();
+    }
 
     /**
      * 获取rxLifecycleDelegate
      *
      * @return
      */
-    public RxLifecycleDelegate getRxLifecycleDelegate() {
+    protected RxLifecycleDelegate getRxLifecycleDelegate() {
         return rxLifecycleDelegate;
     }
 }
