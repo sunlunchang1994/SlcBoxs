@@ -59,8 +59,8 @@ ext {
     codeVersion = '0.1.3'
     codePublishVersion = '0.1.3'
     //核心生命周期包
-    codeLifecycleVersion = '0.1.3'
-    codeLifecyclePublishVersion = '0.1.3'
+    codeLifecycleVersion = '0.1.4'
+    codeLifecyclePublishVersion = '0.1.4'
     //网络
     orVersion = '0.0.6'
     orPublishVersion = '0.0.6'
@@ -71,8 +71,8 @@ ext {
     rxLifecycleVersion = '0.0.6'
     rxLifecyclePublishVersion = '0.0.6'
     //继承盒子
-    boxsVersion = '0.1.4'
-    boxsPublishVersion = '0.1.4'
+    boxsVersion = '0.1.5'
+    boxsPublishVersion = '0.1.5'
     //Publish版本
     //publishVersion = '0.0.6'
 }
