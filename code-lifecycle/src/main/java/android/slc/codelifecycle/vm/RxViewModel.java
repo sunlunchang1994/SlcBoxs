@@ -1,8 +1,10 @@
 package android.slc.codelifecycle.vm;
 
 import android.app.Application;
+import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
 import android.slc.rxlifecycle.RxLifecycleDelegate;
+import android.slc.rxlifecycle.RxLifecycleDelegateImp;
 
 import androidx.annotation.NonNull;
 
@@ -16,6 +18,12 @@ public class RxViewModel extends BaseViewModel {
 
     public RxViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    @Override
+    public void initViewDelegate(ViewDelegate viewDelegate) {
+        super.initViewDelegate(viewDelegate);
+        rxLifecycleDelegate = RxLifecycleDelegateImp.create(viewDelegate.getLifecycleOwner().getLifecycle());
     }
 
     /**
