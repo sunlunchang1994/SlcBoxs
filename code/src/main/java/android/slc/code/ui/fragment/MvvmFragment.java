@@ -1,11 +1,14 @@
 package android.slc.code.ui.fragment;
 
 import android.slc.code.ui.CreateViewAuxiliaryBox;
+import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,7 +19,7 @@ import java.lang.reflect.Type;
  * @author slc
  * @date 2020/3/2 11:04
  */
-public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseFragment {
+public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseFragment implements ViewDelegate {
     protected V dataBinding;
     protected VM viewModel;
 
@@ -56,6 +59,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getFragmentViewModelProvider().get(modelClass);
+        viewModel.initViewDelegate(this);
         registerLiveEvent();
         if (dataBinding != null) {
             dataBinding.setLifecycleOwner(this);
@@ -103,6 +107,15 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
         return new ViewModelProvider(this, getDefaultViewModelProviderFactory());
     }
 
+    @Override
+    public AppCompatActivity getActivityContext() {
+        return _mActivity;
+    }
+
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return this;
+    }
 
     @Override
     public void onDestroyView() {

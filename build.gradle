@@ -57,7 +57,7 @@ ext {
     toolbarPublishVersion = '0.0.6'
     //核心包
     codeVersion = '0.1.0'
-    codePublishVersion = '0.1.0'
+    codePublishVersion = '0.1.1'
     //核心生命周期包
     codeLifecycleVersion = '0.1.0'
     codeLifecyclePublishVersion = '0.1.0'

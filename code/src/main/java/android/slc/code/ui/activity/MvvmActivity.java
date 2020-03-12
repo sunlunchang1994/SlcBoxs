@@ -1,11 +1,14 @@
 package android.slc.code.ui.activity;
 
 import android.slc.code.ui.CreateViewAuxiliaryBox;
+import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,7 +21,7 @@ import java.lang.reflect.Type;
  * @author slc
  * @date 2020/3/2 9:48
  */
-public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity {
+public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseActivity implements ViewDelegate {
     protected V dataBinding;
     protected VM viewModel;
 
@@ -55,6 +58,7 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getActivityViewModelProvider().get(modelClass);
+        viewModel.initViewDelegate(this);
         registerLiveEvent();
         if (dataBinding != null) {
             dataBinding.setLifecycleOwner(this);
@@ -101,6 +105,16 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
      */
     protected ViewModelProvider getActivityViewModelProvider() {
         return new ViewModelProvider(this, getDefaultViewModelProviderFactory());
+    }
+
+    @Override
+    public AppCompatActivity getActivityContext() {
+        return this;
+    }
+
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return this;
     }
 
     @Override

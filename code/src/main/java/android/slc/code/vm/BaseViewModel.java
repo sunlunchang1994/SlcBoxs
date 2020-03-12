@@ -1,6 +1,8 @@
 package android.slc.code.vm;
 
 import android.app.Application;
+import android.slc.code.exception.MvvmNullPointerException;
+import android.slc.code.ui.views.ViewDelegate;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -13,13 +15,19 @@ import androidx.lifecycle.MutableLiveData;
 public class BaseViewModel extends AndroidViewModel {
     private SingleLiveEvent<Void> finishLiveData = new SingleLiveEvent<>();
     private SingleLiveEvent<Void> backPressedLiveData = new SingleLiveEvent<>();
+    private ViewDelegate viewDelegate;
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }
 
+    public void initViewDelegate(ViewDelegate viewDelegate) {
+        this.viewDelegate = viewDelegate;
+    }
+
     /**
      * 获取返回按压liveData
+     *
      * @return
      */
     public MutableLiveData<Void> getBackPressedLiveData() {
@@ -28,6 +36,7 @@ public class BaseViewModel extends AndroidViewModel {
 
     /**
      * 获取销毁livaData
+     *
      * @return
      */
     public MutableLiveData<Void> getFinishLiveData() {
@@ -46,5 +55,18 @@ public class BaseViewModel extends AndroidViewModel {
      */
     protected void backPressed() {
         backPressedLiveData.call();
+    }
+
+    protected ViewDelegate getViewDelegate() {
+        if (viewDelegate == null) {
+            throw new MvvmNullPointerException("VM on Cleared");
+        }
+        return viewDelegate;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        viewDelegate = null;
     }
 }
