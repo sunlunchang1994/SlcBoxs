@@ -27,13 +27,14 @@ public class RxViewModel extends BaseViewModel {
         super.initViewDelegate(viewDelegate);
         rxLifecycleDelegate = RxLifecycleDelegateImp.create(viewDelegate.getLifecycleOwner().getLifecycle());
     }
+
     /**
      * 绑定生命周期
      *
      * @param <T>
      * @return
      */
-    protected <T> LifecycleTransformer<T> bindToLifecycle() {
+    public <T> LifecycleTransformer<T> bindToLifecycle() {
         return rxLifecycleDelegate.bindToLifecycle();
     }
 
@@ -42,7 +43,7 @@ public class RxViewModel extends BaseViewModel {
      *
      * @return
      */
-    protected RxLifecycleDelegate getRxLifecycleDelegate() {
+    public RxLifecycleDelegate getRxLifecycleDelegate() {
         return rxLifecycleDelegate;
     }
 }

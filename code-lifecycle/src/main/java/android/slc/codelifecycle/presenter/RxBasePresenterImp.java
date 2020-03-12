@@ -16,7 +16,6 @@ public class RxBasePresenterImp<V extends MvpContract.BaseMvpView>
         super(view);
         rxLifecycleDelegate = RxLifecycleDelegateImp.create(view.getLifecycleOwner().getLifecycle());
     }
-
     /**
      * 绑定生命周期
      *
@@ -25,6 +24,15 @@ public class RxBasePresenterImp<V extends MvpContract.BaseMvpView>
      */
     protected <T> LifecycleTransformer<T> bindToLifecycle() {
         return rxLifecycleDelegate.bindToLifecycle();
+    }
+
+    /**
+     * 获取rxLifecycleDelegate
+     *
+     * @return
+     */
+    protected RxLifecycleDelegate getRxLifecycleDelegate() {
+        return rxLifecycleDelegate;
     }
 
 }
