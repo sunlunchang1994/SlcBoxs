@@ -1,10 +1,14 @@
 package android.slc.codelifecycle.vm;
 
 import android.app.Application;
+import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
 import android.slc.rxlifecycle.RxLifecycleDelegate;
+import android.slc.rxlifecycle.RxLifecycleDelegateImp;
 
 import androidx.annotation.NonNull;
+
+import com.trello.rxlifecycle3.LifecycleTransformer;
 
 /**
  * @author slc
@@ -18,12 +22,27 @@ public class RxViewModel extends BaseViewModel {
         super(application);
     }
 
+    @Override
+    public void initViewDelegate(ViewDelegate viewDelegate) {
+        super.initViewDelegate(viewDelegate);
+        rxLifecycleDelegate = RxLifecycleDelegateImp.create(viewDelegate.getLifecycleOwner().getLifecycle());
+    }
+    /**
+     * 绑定生命周期
+     *
+     * @param <T>
+     * @return
+     */
+    protected <T> LifecycleTransformer<T> bindToLifecycle() {
+        return rxLifecycleDelegate.bindToLifecycle();
+    }
+
     /**
      * 获取rxLifecycleDelegate
      *
      * @return
      */
-    public RxLifecycleDelegate getRxLifecycleDelegate() {
+    protected RxLifecycleDelegate getRxLifecycleDelegate() {
         return rxLifecycleDelegate;
     }
 }

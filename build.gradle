@@ -56,11 +56,11 @@ ext {
     toolbarVersion = '0.0.6'
     toolbarPublishVersion = '0.0.6'
     //核心包
-    codeVersion = '0.1.0'
-    codePublishVersion = '0.1.1'
+    codeVersion = '0.1.2'
+    codePublishVersion = '0.1.2'
     //核心生命周期包
-    codeLifecycleVersion = '0.1.0'
-    codeLifecyclePublishVersion = '0.1.0'
+    codeLifecycleVersion = '0.1.2'
+    codeLifecyclePublishVersion = '0.1.2'
     //网络
     orVersion = '0.0.6'
     orPublishVersion = '0.0.6'
@@ -72,7 +72,7 @@ ext {
     rxLifecyclePublishVersion = '0.0.6'
     //继承盒子
     boxsVersion = '0.1.0'
-    boxsPublishVersion = '0.1.0'
+    boxsPublishVersion = '0.1.2'
     //Publish版本
     //publishVersion = '0.0.6'
 }

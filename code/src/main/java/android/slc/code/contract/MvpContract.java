@@ -30,13 +30,6 @@ public interface MvpContract {
         void setPresenter(P presenter);
 
         /**
-         * 获取生命周期管理工具
-         *
-         * @return
-         */
-        Lifecycle getLifecycle();
-
-        /**
          * 获取生命周期所有者
          *
          * @return
