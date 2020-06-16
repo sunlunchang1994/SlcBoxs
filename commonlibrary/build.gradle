@@ -12,6 +12,7 @@ dependencies {
     implementation "com.blankj:utilcodex:$utilcodex"
 }
 if (commonLibreyVersion.toBoolean()) {
+    apply plugin: 'com.novoda.bintray-release'
     publish {
         repoName = 'code'
         userOrg = "sunlunchang"
