@@ -32,7 +32,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import java.lang.reflect.Method;
 
 import android.slc.commonlibrary.R;
-import android.slc.commonlibrary.util.SlcUtils;
+
+import com.blankj.utilcode.util.Utils;
 
 import static android.Manifest.permission.EXPAND_STATUS_BAR;
 
@@ -62,7 +63,7 @@ public final class SlcBarCompatUtils {
      * @return 返回高度像素
      */
     public static int getStatusBarHeight() {
-        Resources resources = SlcUtils.getApp().getResources();
+        Resources resources = Utils.getApp().getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         return resources.getDimensionPixelSize(resourceId);
     }
@@ -565,9 +566,9 @@ public final class SlcBarCompatUtils {
      */
     public static int getActionBarHeight() {
         TypedValue tv = new TypedValue();
-        if (SlcUtils.getApp().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+        if (Utils.getApp().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             return TypedValue.complexToDimensionPixelSize(
-                    tv.data, SlcUtils.getApp().getResources().getDisplayMetrics()
+                    tv.data, Utils.getApp().getResources().getDisplayMetrics()
             );
         }
         return 0;
@@ -597,7 +598,7 @@ public final class SlcBarCompatUtils {
     private static void invokePanels(final String methodName) {
         try {
             @SuppressLint("WrongConstant")
-            Object service = SlcUtils.getApp().getSystemService("statusbar");
+            Object service = Utils.getApp().getSystemService("statusbar");
             @SuppressLint("PrivateApi")
             Class<?> statusBarManager = Class.forName("android.app.StatusBarManager");
             Method expand = statusBarManager.getMethod(methodName);
@@ -617,7 +618,7 @@ public final class SlcBarCompatUtils {
      * @return the navigation bar's height
      */
     public static int getNavBarHeight() {
-        Resources res = SlcUtils.getApp().getResources();
+        Resources res = Utils.getApp().getResources();
         int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId != 0) {
             return res.getDimensionPixelSize(resourceId);
@@ -650,7 +651,7 @@ public final class SlcBarCompatUtils {
             final View child = decorView.getChildAt(i);
             final int id = child.getId();
             if (id != View.NO_ID) {
-                String resourceEntryName = SlcUtils.getApp()
+                String resourceEntryName = Utils.getApp()
                         .getResources()
                         .getResourceEntryName(id);
                 if ("navigationBarBackground".equals(resourceEntryName)) {
@@ -693,7 +694,7 @@ public final class SlcBarCompatUtils {
             final View child = decorView.getChildAt(i);
             final int id = child.getId();
             if (id != View.NO_ID) {
-                String resourceEntryName = SlcUtils.getApp()
+                String resourceEntryName = Utils.getApp()
                         .getResources()
                         .getResourceEntryName(id);
                 if ("navigationBarBackground".equals(resourceEntryName)
@@ -762,7 +763,7 @@ public final class SlcBarCompatUtils {
      */
     public static boolean isSupportNavBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            WindowManager wm = (WindowManager) SlcUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) Utils.getApp().getSystemService(Context.WINDOW_SERVICE);
             if (wm == null) return false;
             Display display = wm.getDefaultDisplay();
             Point size = new Point();
@@ -771,7 +772,7 @@ public final class SlcBarCompatUtils {
             display.getRealSize(realSize);
             return realSize.y != size.y || realSize.x != size.x;
         }
-        boolean menu = ViewConfiguration.get(SlcUtils.getApp()).hasPermanentMenuKey();
+        boolean menu = ViewConfiguration.get(Utils.getApp()).hasPermanentMenuKey();
         boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
         return !menu && !back;
     }

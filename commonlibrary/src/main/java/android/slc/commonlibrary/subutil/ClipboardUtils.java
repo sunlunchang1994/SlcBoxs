@@ -6,14 +6,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import android.slc.commonlibrary.util.SlcUtils;
+import com.blankj.utilcode.util.Utils;
 
 /**
  * 剪切板
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2016/09/25
+ *     desc  : 剪贴板相关工具类
+ * </pre>
  */
-public final class SlcClipboardUtils {
+public final class ClipboardUtils {
 
-    private SlcClipboardUtils() {
+    private ClipboardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -23,8 +29,7 @@ public final class SlcClipboardUtils {
      * @param text 文本
      */
     public static void copyText(final CharSequence text) {
-        ClipboardManager cm = (ClipboardManager) SlcUtils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
-        //noinspection ConstantConditions
+        ClipboardManager cm = (ClipboardManager) Utils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newPlainText("text", text));
     }
 
@@ -34,11 +39,10 @@ public final class SlcClipboardUtils {
      * @return 剪贴板的文本
      */
     public static CharSequence getText() {
-        ClipboardManager cm = (ClipboardManager) SlcUtils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
-        //noinspection ConstantConditions
+        ClipboardManager cm = (ClipboardManager) Utils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = cm.getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0) {
-            return clip.getItemAt(0).coerceToText(SlcUtils.getApp());
+            return clip.getItemAt(0).coerceToText(Utils.getApp());
         }
         return null;
     }
@@ -49,9 +53,8 @@ public final class SlcClipboardUtils {
      * @param uri uri
      */
     public static void copyUri(final Uri uri) {
-        ClipboardManager cm = (ClipboardManager) SlcUtils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
-        //noinspection ConstantConditions
-        cm.setPrimaryClip(ClipData.newUri(SlcUtils.getApp().getContentResolver(), "uri", uri));
+        ClipboardManager cm = (ClipboardManager) Utils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setPrimaryClip(ClipData.newUri(Utils.getApp().getContentResolver(), "uri", uri));
     }
 
     /**
@@ -60,8 +63,7 @@ public final class SlcClipboardUtils {
      * @return 剪贴板的uri
      */
     public static Uri getUri() {
-        ClipboardManager cm = (ClipboardManager) SlcUtils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
-        //noinspection ConstantConditions
+        ClipboardManager cm = (ClipboardManager) Utils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = cm.getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0) {
             return clip.getItemAt(0).getUri();
@@ -75,8 +77,7 @@ public final class SlcClipboardUtils {
      * @param intent 意图
      */
     public static void copyIntent(final Intent intent) {
-        ClipboardManager cm = (ClipboardManager) SlcUtils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
-        //noinspection ConstantConditions
+        ClipboardManager cm = (ClipboardManager) Utils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setPrimaryClip(ClipData.newIntent("intent", intent));
     }
 
@@ -86,8 +87,7 @@ public final class SlcClipboardUtils {
      * @return 剪贴板的意图
      */
     public static Intent getIntent() {
-        ClipboardManager cm = (ClipboardManager) SlcUtils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
-        //noinspection ConstantConditions
+        ClipboardManager cm = (ClipboardManager) Utils.getApp().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = cm.getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0) {
             return clip.getItemAt(0).getIntent();

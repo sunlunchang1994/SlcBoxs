@@ -12,28 +12,28 @@ import android.util.Log;
 
 import androidx.annotation.RequiresPermission;
 
+import com.blankj.utilcode.util.IntentUtils;
+import com.blankj.utilcode.util.ShellUtils;
+import com.blankj.utilcode.util.Utils;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.List;
-
-import android.slc.commonlibrary.util.SlcShellUtils;
-import android.slc.commonlibrary.util.SlcUtils;
 
 import static android.Manifest.permission.MODIFY_PHONE_STATE;
 import static android.Manifest.permission.SEND_SMS;
 
 /**
  * <pre>
- *     危险相关
  *     author: Blankj
  *     blog  : http://blankj.com
  *     time  : 2019/06/29
  *     desc  :
  * </pre>
  */
-public class SlcDangerousUtils {
+public class DangerousUtils {
 
-    private SlcDangerousUtils() {
+    private DangerousUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -115,7 +115,7 @@ public class SlcDangerousUtils {
         String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm install " +
                 (params == null ? "" : params + " ")
                 + filePath;
-        SlcShellUtils.CommandResult commandResult = SlcShellUtils.execCmd(command, isRooted);
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRooted);
         if (commandResult.successMsg != null
                 && commandResult.successMsg.toLowerCase().contains("success")) {
             return true;
@@ -171,7 +171,7 @@ public class SlcDangerousUtils {
         String command = "LD_LIBRARY_PATH=/vendor/lib*:/system/lib* pm uninstall "
                 + (isKeepData ? "-k " : "")
                 + packageName;
-        SlcShellUtils.CommandResult commandResult = SlcShellUtils.execCmd(command, isRooted);
+        ShellUtils.CommandResult commandResult = ShellUtils.execCmd(command, isRooted);
         if (commandResult.successMsg != null
                 && commandResult.successMsg.toLowerCase().contains("success")) {
             return true;
@@ -229,11 +229,9 @@ public class SlcDangerousUtils {
      */
     public static boolean shutdown() {
         try {
-            SlcShellUtils.CommandResult result = SlcShellUtils.execCmd("reboot -p", true);
+            ShellUtils.CommandResult result = ShellUtils.execCmd("reboot -p", true);
             if (result.result == 0) return true;
-            Intent intent = new Intent("android.intent.action.ACTION_REQUEST_SHUTDOWN");
-            intent.putExtra("android.intent.extra.KEY_CONFIRM", false);
-            SlcUtils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            Utils.getApp().startActivity(IntentUtils.getShutdownIntent());
             return true;
         } catch (Exception e) {
             return false;
@@ -249,13 +247,13 @@ public class SlcDangerousUtils {
      */
     public static boolean reboot() {
         try {
-            SlcShellUtils.CommandResult result = SlcShellUtils.execCmd("reboot", true);
+            ShellUtils.CommandResult result = ShellUtils.execCmd("reboot", true);
             if (result.result == 0) return true;
             Intent intent = new Intent(Intent.ACTION_REBOOT);
             intent.putExtra("nowait", 1);
             intent.putExtra("interval", 1);
             intent.putExtra("window", 0);
-            SlcUtils.getApp().sendBroadcast(intent);
+            Utils.getApp().sendBroadcast(intent);
             return true;
         } catch (Exception e) {
             return false;
@@ -274,7 +272,7 @@ public class SlcDangerousUtils {
      */
     public static boolean reboot(final String reason) {
         try {
-            PowerManager pm = (PowerManager) SlcUtils.getApp().getSystemService(Context.POWER_SERVICE);
+            PowerManager pm = (PowerManager) Utils.getApp().getSystemService(Context.POWER_SERVICE);
             pm.reboot(reason);
             return true;
         } catch (Exception e) {
@@ -289,7 +287,7 @@ public class SlcDangerousUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean reboot2Recovery() {
-        SlcShellUtils.CommandResult result = SlcShellUtils.execCmd("reboot recovery", true);
+        ShellUtils.CommandResult result = ShellUtils.execCmd("reboot recovery", true);
         return result.result == 0;
     }
 
@@ -300,7 +298,7 @@ public class SlcDangerousUtils {
      * @return {@code true}: success<br>{@code false}: fail
      */
     public static boolean reboot2Bootloader() {
-        SlcShellUtils.CommandResult result = SlcShellUtils.execCmd("reboot bootloader", true);
+        ShellUtils.CommandResult result = ShellUtils.execCmd("reboot bootloader", true);
         return result.result == 0;
     }
 
@@ -317,7 +315,7 @@ public class SlcDangerousUtils {
     public static boolean setMobileDataEnabled(final boolean enabled) {
         try {
             TelephonyManager tm =
-                    (TelephonyManager) SlcUtils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+                    (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
             if (tm == null) return false;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 tm.setDataEnabled(enabled);
@@ -343,7 +341,7 @@ public class SlcDangerousUtils {
     @RequiresPermission(SEND_SMS)
     public static void sendSmsSilent(final String phoneNumber, final String content) {
         if (TextUtils.isEmpty(content)) return;
-        PendingIntent sentIntent = PendingIntent.getBroadcast(SlcUtils.getApp(), 0, new Intent("send"), 0);
+        PendingIntent sentIntent = PendingIntent.getBroadcast(Utils.getApp(), 0, new Intent("send"), 0);
         SmsManager smsManager = SmsManager.getDefault();
         if (content.length() >= 70) {
             List<String> ms = smsManager.divideMessage(content);

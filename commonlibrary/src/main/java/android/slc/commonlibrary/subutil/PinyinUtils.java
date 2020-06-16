@@ -1,4 +1,6 @@
 package android.slc.commonlibrary.subutil;
+
+
 import androidx.collection.SimpleArrayMap;
 
 /**
@@ -9,9 +11,9 @@ import androidx.collection.SimpleArrayMap;
  *     desc  : 拼音相关工具类
  * </pre>
  */
-public final class SlcPinyinUtils {
+public final class PinyinUtils {
 
-    private SlcPinyinUtils() {
+    private PinyinUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

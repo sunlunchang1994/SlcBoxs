@@ -4,14 +4,20 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.telephony.TelephonyManager;
 
-import java.util.HashMap;
+import com.blankj.utilcode.util.Utils;
 
-import android.slc.commonlibrary.util.SlcUtils;
+import java.util.HashMap;
 
 /**
  * 国家相关
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2019/06/11
+ *     desc  : utils about country code
+ * </pre>
  */
-public class SlcCountryUtils {
+public class CountryUtils {
 
     private static HashMap<String, String> countryCodeMap;
 
@@ -49,7 +55,7 @@ public class SlcCountryUtils {
      * @return the country
      */
     public static String getCountryBySim() {
-        TelephonyManager manager = (TelephonyManager) SlcUtils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager manager = (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
         if (manager != null) {
             return manager.getSimCountryIso().toUpperCase();
         }

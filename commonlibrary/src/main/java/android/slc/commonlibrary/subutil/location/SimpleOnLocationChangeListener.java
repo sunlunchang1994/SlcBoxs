@@ -2,10 +2,9 @@ package android.slc.commonlibrary.subutil.location;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.slc.commonlibrary.subutil.LocationUtils;
 
-import android.slc.commonlibrary.subutil.SlcLocationUtils;
-
-public abstract class SimpleOnLocationChangeListener implements SlcLocationUtils.OnLocationChangeListener {
+public abstract class SimpleOnLocationChangeListener implements LocationUtils.OnLocationChangeListener {
     @Override
     public void getLastKnownLocation(Location location) {
 

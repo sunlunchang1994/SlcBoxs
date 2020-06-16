@@ -8,15 +8,21 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.blankj.utilcode.util.RomUtils;
+import com.blankj.utilcode.util.Utils;
+
 import java.util.List;
 
-import android.slc.commonlibrary.util.SlcRomUtils;
-import android.slc.commonlibrary.util.SlcUtils;
-
 /**
- * 应用商店相关
+ * 应用商店
+ * <pre>
+ *     author: Blankj
+ *     blog  : http://blankj.com
+ *     time  : 2019/05/20
+ *     desc  : utils about app store
+ * </pre>
  */
-public class SlcAppStoreUtils {
+public final class AppStoreUtils {
 
     private static final String TAG = "AppStoreUtils";
 
@@ -28,7 +34,7 @@ public class SlcAppStoreUtils {
      * @return 跳转到应用商店的 Intent
      */
     public static Intent getAppStoreIntent() {
-        return getAppStoreIntent(SlcUtils.getApp().getPackageName(), false);
+        return getAppStoreIntent(Utils.getApp().getPackageName(), false);
     }
 
     /**
@@ -38,7 +44,7 @@ public class SlcAppStoreUtils {
      * @return 跳转到应用商店的 Intent
      */
     public static Intent getAppStoreIntent(boolean isIncludeGooglePlayStore) {
-        return getAppStoreIntent(SlcUtils.getApp().getPackageName(), isIncludeGooglePlayStore);
+        return getAppStoreIntent(Utils.getApp().getPackageName(), isIncludeGooglePlayStore);
     }
 
     /**
@@ -60,11 +66,11 @@ public class SlcAppStoreUtils {
      * @return 跳转到应用商店的 Intent
      */
     public static Intent getAppStoreIntent(final String packageName, boolean isIncludeGooglePlayStore) {
-        if (SlcRomUtils.isSamsung()) {// 三星单独处理跳转三星市场
+        if (RomUtils.isSamsung()) {// 三星单独处理跳转三星市场
             Intent samsungAppStoreIntent = getSamsungAppStoreIntent(packageName);
             if (samsungAppStoreIntent != null) return samsungAppStoreIntent;
         }
-        if (SlcRomUtils.isLeeco()) {// 乐视单独处理跳转乐视市场
+        if (RomUtils.isLeeco()) {// 乐视单独处理跳转乐视市场
             Intent leecoAppStoreIntent = getLeecoAppStoreIntent(packageName);
             if (leecoAppStoreIntent != null) return leecoAppStoreIntent;
         }
@@ -73,7 +79,7 @@ public class SlcAppStoreUtils {
         Intent intent = new Intent();
         intent.setData(uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        List<ResolveInfo> resolveInfos = SlcUtils.getApp().getPackageManager()
+        List<ResolveInfo> resolveInfos = Utils.getApp().getPackageManager()
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         if (resolveInfos == null || resolveInfos.size() == 0) {
             Log.e(TAG, "No app store!");
@@ -105,13 +111,13 @@ public class SlcAppStoreUtils {
         if (intent == null) return false;
         intent.setData(Uri.parse("market://details?id=" + packageName));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        SlcUtils.getApp().startActivity(intent);
+        Utils.getApp().startActivity(intent);
         return true;
     }
 
     private static Intent getNormalAppStoreIntent() {
         Intent intent = new Intent();
-        Uri uri = Uri.parse("market://details?id=" + SlcUtils.getApp().getPackageName());
+        Uri uri = Uri.parse("market://details?id=" + Utils.getApp().getPackageName());
         intent.setData(uri);
         if (getAvailableIntentSize(intent) > 0) {
             return intent;
@@ -143,7 +149,7 @@ public class SlcAppStoreUtils {
     }
 
     private static int getAvailableIntentSize(final Intent intent) {
-        return SlcUtils.getApp().getPackageManager()
+        return Utils.getApp().getPackageManager()
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
                 .size();
     }
@@ -151,7 +157,7 @@ public class SlcAppStoreUtils {
     private static boolean isAppSystem(final String packageName) {
         if (TextUtils.isEmpty(packageName)) return false;
         try {
-            PackageManager pm = SlcUtils.getApp().getPackageManager();
+            PackageManager pm = Utils.getApp().getPackageManager();
             ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             return ai != null && (ai.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
         } catch (PackageManager.NameNotFoundException e) {

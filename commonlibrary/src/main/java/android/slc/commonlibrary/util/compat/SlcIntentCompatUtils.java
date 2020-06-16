@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.webkit.MimeTypeMap;
 
 import androidx.core.content.FileProvider;
 
-import android.webkit.MimeTypeMap;
+import com.blankj.utilcode.util.ToastUtils;
 
 import java.io.File;
-
-import android.slc.commonlibrary.util.SlcToastUtils;
 
 public class SlcIntentCompatUtils {
     /**
@@ -48,7 +47,7 @@ public class SlcIntentCompatUtils {
         try {
             context.startActivity(intent);
         } catch (Exception e) {
-            SlcToastUtils.showShort("找不到打开此文件的应用！");
+            ToastUtils.showShort("找不到打开此文件的应用！");
         }
     }
 

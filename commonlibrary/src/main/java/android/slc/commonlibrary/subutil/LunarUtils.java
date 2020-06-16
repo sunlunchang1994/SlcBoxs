@@ -8,9 +8,9 @@ package android.slc.commonlibrary.subutil;
  *     desc  : 日历相关工具类
  * </pre>
  */
-public final class SlcLunarUtils {
+public final class LunarUtils {
 
-    private SlcLunarUtils() {
+    private LunarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -225,3 +225,4 @@ public final class SlcLunarUtils {
         }
     }
 }
+

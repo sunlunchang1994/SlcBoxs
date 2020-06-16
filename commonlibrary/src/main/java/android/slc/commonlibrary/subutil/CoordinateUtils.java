@@ -3,6 +3,7 @@ package android.slc.commonlibrary.subutil;
 import static java.lang.Math.PI;
 
 /**
+ * 地理位置转换
  * <pre>
  *     author: Blankj
  *     blog  : http://blankj.com
@@ -10,7 +11,7 @@ import static java.lang.Math.PI;
  *     desc  : 坐标相关工具类
  * </pre>
  */
-public final class SlcCoordinateUtils {
+public final class CoordinateUtils {
 
     private final static double X_PI = 3.14159265358979324 * 3000.0 / 180.0;
     private final static double A    = 6378245.0;

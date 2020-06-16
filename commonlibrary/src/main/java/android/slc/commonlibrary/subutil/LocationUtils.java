@@ -11,14 +11,15 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.RequiresPermission;
 import android.util.Log;
+
+import androidx.annotation.RequiresPermission;
+
+import com.blankj.utilcode.util.Utils;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
-import android.slc.commonlibrary.util.SlcUtils;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -31,15 +32,15 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
  *     desc  : 定位相关工具类
  * </pre>
  */
-public final class SlcLocationUtils {
+public final class LocationUtils {
 
     private static final int TWO_MINUTES = 1000 * 60 * 2;
 
     private static OnLocationChangeListener mListener;
-    private static MyLocationListener myLocationListener;
-    private static LocationManager mLocationManager;
+    private static MyLocationListener       myLocationListener;
+    private static LocationManager          mLocationManager;
 
-    private SlcLocationUtils() {
+    private LocationUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -115,8 +116,7 @@ public final class SlcLocationUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isGpsEnabled() {
-        LocationManager lm = (LocationManager) SlcUtils.getApp().getSystemService(Context.LOCATION_SERVICE);
-        //noinspection ConstantConditions
+        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
@@ -126,8 +126,7 @@ public final class SlcLocationUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isLocationEnabled() {
-        LocationManager lm = (LocationManager) SlcUtils.getApp().getSystemService(Context.LOCATION_SERVICE);
-        //noinspection ConstantConditions
+        LocationManager lm = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
         return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
                 || lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -137,7 +136,7 @@ public final class SlcLocationUtils {
      */
     public static void openGpsSettings() {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        SlcUtils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        Utils.getApp().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
@@ -158,11 +157,10 @@ public final class SlcLocationUtils {
     @RequiresPermission(ACCESS_FINE_LOCATION)
     public static boolean register(long minTime, long minDistance, OnLocationChangeListener listener) {
         if (listener == null) return false;
-        mLocationManager = (LocationManager) SlcUtils.getApp().getSystemService(Context.LOCATION_SERVICE);
-        //noinspection ConstantConditions
+        mLocationManager = (LocationManager) Utils.getApp().getSystemService(Context.LOCATION_SERVICE);
         if (!mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
                 && !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Log.d("SlcLocationUtils", "无法定位，请打开定位服务");
+            Log.d("LocationUtils", "无法定位，请打开定位服务");
             return false;
         }
         mListener = listener;
@@ -199,7 +197,7 @@ public final class SlcLocationUtils {
     private static Criteria getCriteria() {
         Criteria criteria = new Criteria();
         // 设置定位精确度 Criteria.ACCURACY_COARSE比较粗略，Criteria.ACCURACY_FINE则比较精细
-        criteria.setAccuracy(isGpsEnabled()?Criteria.ACCURACY_FINE:Criteria.ACCURACY_COARSE);
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
         // 设置是否要求速度
         criteria.setSpeedRequired(false);
         // 设置是否允许运营商收费
@@ -221,7 +219,7 @@ public final class SlcLocationUtils {
      * @return {@link Address}
      */
     public static Address getAddress(double latitude, double longitude) {
-        Geocoder geocoder = new Geocoder(SlcUtils.getApp(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(Utils.getApp(), Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) return addresses.get(0);
@@ -304,7 +302,7 @@ public final class SlcLocationUtils {
         // Check if the old and new location are from the same provider
         boolean isFromSameProvider = isSameProvider(newLocation.getProvider(), currentBestLocation.getProvider());
 
-        // Determine location quality using cpb_complete_state_selector combination of timeliness and accuracy
+        // Determine location quality using a combination of timeliness and accuracy
         if (isMoreAccurate) {
             return true;
         } else if (isNewer && !isLessAccurate) {
@@ -357,13 +355,13 @@ public final class SlcLocationUtils {
             }
             switch (status) {
                 case LocationProvider.AVAILABLE:
-                    Log.d("SlcLocationUtils", "当前GPS状态为可见状态");
+                    Log.d("LocationUtils", "当前GPS状态为可见状态");
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    Log.d("SlcLocationUtils", "当前GPS状态为服务区外状态");
+                    Log.d("LocationUtils", "当前GPS状态为服务区外状态");
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    Log.d("SlcLocationUtils", "当前GPS状态为暂停服务状态");
+                    Log.d("LocationUtils", "当前GPS状态为暂停服务状态");
                     break;
             }
         }

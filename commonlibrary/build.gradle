@@ -9,6 +9,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     implementation "com.google.android.material:material:$googleAndroidMaterial"
     implementation "com.google.code.gson:gson:$gson"
+    implementation "com.blankj:utilcodex:$utilcodex"
 }
 if (commonLibreyVersion.toBoolean()) {
     publish {

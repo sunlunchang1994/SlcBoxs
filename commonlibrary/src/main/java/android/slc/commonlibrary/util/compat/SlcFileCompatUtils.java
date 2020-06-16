@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
+import com.blankj.utilcode.util.FileUtils;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import android.slc.commonlibrary.util.SlcFileUtils;
 
 /**
  * <pre>
@@ -148,11 +148,11 @@ public final class SlcFileCompatUtils {
             if (fileType.equals(MIME_MAP_TABLE[i][0])) type = MIME_MAP_TABLE[i][1];
         }
         return type;*/
-        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(SlcFileUtils.getFileExtension(file));
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
     }
 
     public static String getMimeType(@NonNull String path) {
-        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(SlcFileUtils.getFileExtension(path));
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(path));
     }
 
     /**

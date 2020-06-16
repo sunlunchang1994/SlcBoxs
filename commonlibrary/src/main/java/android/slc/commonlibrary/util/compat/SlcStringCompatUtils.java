@@ -1,8 +1,8 @@
 package android.slc.commonlibrary.util.compat;
 
-import java.util.UUID;
+import com.blankj.utilcode.util.StringUtils;
 
-import android.slc.commonlibrary.util.SlcStringUtils;
+import java.util.UUID;
 
 /**
  * 字符串操作类
@@ -25,7 +25,7 @@ public class SlcStringCompatUtils {
      * @return
      */
     public static String toStringOfPlaceholder(String text, String placeholder) {
-        if (SlcStringUtils.isEmpty(text)) {
+        if (StringUtils.isEmpty(text)) {
             return placeholder;
         }
         return text;
@@ -38,7 +38,7 @@ public class SlcStringCompatUtils {
      * @return
      */
     public static String toStringOfReplace(String text, String replaceS, String replaceR) {
-        if (SlcStringUtils.isEmpty(text) || text.equals(replaceS)) {
+        if (StringUtils.isEmpty(text) || text.equals(replaceS)) {
             return replaceR;
         }
         return text;

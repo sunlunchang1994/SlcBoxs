@@ -11,7 +11,8 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
 import android.slc.commonlibrary.R;
-import android.slc.commonlibrary.util.SlcUtils;
+
+import com.blankj.utilcode.util.Utils;
 
 /**
  * 通知工具
@@ -25,7 +26,7 @@ public class SlcNotifyCompatUtils {
     private NotificationManager notificationManager;
 
     public static class Holder {
-        private static SlcNotifyCompatUtils INSTANCE = new SlcNotifyCompatUtils(SlcUtils.getApp());
+        private static SlcNotifyCompatUtils INSTANCE = new SlcNotifyCompatUtils(Utils.getApp());
     }
 
     /**
@@ -56,8 +57,8 @@ public class SlcNotifyCompatUtils {
      */
     public void sendTestNotify() {
         if (notificationManager != null) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(SlcUtils.getApp(), SlcNotifyCompatUtils.DEF_CHANNEL_ID)
-                    .setContentIntent(PendingIntent.getActivity(SlcUtils.getApp(), 0, new Intent("com.android.slc.mle.msg.im"), PendingIntent.FLAG_UPDATE_CURRENT))
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(Utils.getApp(), SlcNotifyCompatUtils.DEF_CHANNEL_ID)
+                    .setContentIntent(PendingIntent.getActivity(Utils.getApp(), 0, new Intent("com.android.slc.mle.msg.im"), PendingIntent.FLAG_UPDATE_CURRENT))
                     .setContentTitle("测试通知")
                     .setContentText("测试通知内容")
                     .setGroup(SlcNotifyCompatUtils.DEF_CHANNEL_ID)

@@ -3,11 +3,11 @@ package android.slc.commonlibrary.util.compat;
 
 import androidx.annotation.NonNull;
 
+import com.blankj.utilcode.util.GsonUtils;
+
 import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.Map;
-
-import android.slc.commonlibrary.util.SlcGsonUtils;
 
 public class SlcConvertCompatUtils {
     /**
@@ -17,7 +17,7 @@ public class SlcConvertCompatUtils {
      * @return
      */
     public static <T> Map<String, Object> objToMap(@NonNull T t) {
-        Map<String, Object> map = SlcGsonUtils.fromJson(SlcGsonUtils.toJson(t), SlcGsonUtils.getMapType(String.class, Object.class));
+        Map<String, Object> map = GsonUtils.fromJson(GsonUtils.toJson(t), GsonUtils.getMapType(String.class, Object.class));
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             //此处将小数点后为0的Double类型转成整形
             if (entry.getValue() instanceof Double) {
@@ -59,6 +59,6 @@ public class SlcConvertCompatUtils {
      * @return
      */
     public static <T> T mapToObj(@NonNull Map map, @NonNull Type type) {
-        return SlcGsonUtils.fromJson(SlcGsonUtils.toJson(map), type);
+        return GsonUtils.fromJson(GsonUtils.toJson(map), type);
     }
 }
