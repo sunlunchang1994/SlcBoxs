@@ -1,5 +1,5 @@
 apply from: "${project.rootDir}/app_module_config.gradle"
-if (commonLibreyVersion.toBoolean()) {
+if (module_commonlibrey.toBoolean()) {
     apply plugin: 'maven'
     apply plugin: 'com.novoda.bintray-release'
 }
@@ -9,9 +9,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     implementation "com.google.android.material:material:$googleAndroidMaterial"
     implementation "com.google.code.gson:gson:$gson"
-    implementation "com.blankj:utilcodex:$utilcodex"
+    api "com.blankj:utilcodex:$utilcodex"
 }
-if (commonLibreyVersion.toBoolean()) {
+if (module_commonlibrey.toBoolean()) {
     apply plugin: 'com.novoda.bintray-release'
     publish {
         repoName = 'code'
