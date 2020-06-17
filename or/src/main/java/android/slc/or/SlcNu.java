@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SlcNu {
     private static SlcNu SLC_NU = new SlcNu();
-    private final static SimpleArrayMap<String, SlcNu> otherSlcNu = new SimpleArrayMap<>();
+    private static final SimpleArrayMap<String, SlcNu> otherSlcNu = new SimpleArrayMap<>();
     protected Context mAppContext;
     protected OkHttpClient mGlobalOkHttpClient;
     protected Retrofit mGlobalRetrofit;
@@ -54,7 +54,7 @@ public class SlcNu {
     public static SlcNu getInstance(String key) {
         SlcNu slcNu = otherSlcNu.get(key);
         if (slcNu == null) {
-            synchronized (SlcNu.class) {
+            synchronized (otherSlcNu) {
                 slcNu = otherSlcNu.get(key);
                 if (slcNu == null) {
                     slcNu = new SlcNu();
