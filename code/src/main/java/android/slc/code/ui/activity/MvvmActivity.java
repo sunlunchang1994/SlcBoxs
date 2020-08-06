@@ -3,13 +3,13 @@ package android.slc.code.ui.activity;
 import android.slc.code.ui.CreateViewAuxiliaryBox;
 import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
+import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.lang.reflect.ParameterizedType;
@@ -85,7 +85,7 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
      * @return
      */
     protected ViewModelProvider getAppViewModelProvider() {
-        return new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()));
+        return ViewModelProviderFactory.getAppViewModelProvider();
     }
 
     /**

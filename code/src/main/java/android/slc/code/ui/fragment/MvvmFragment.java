@@ -3,6 +3,7 @@ package android.slc.code.ui.fragment;
 import android.slc.code.ui.CreateViewAuxiliaryBox;
 import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
+import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -86,7 +87,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
      * @return
      */
     protected ViewModelProvider getAppViewModelProvider() {
-        return new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(_mActivity.getApplication()));
+        return ViewModelProviderFactory.getAppViewModelProvider();
     }
 
     /**
