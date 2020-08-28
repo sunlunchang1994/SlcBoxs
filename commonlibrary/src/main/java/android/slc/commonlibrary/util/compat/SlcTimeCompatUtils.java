@@ -4,9 +4,12 @@ import android.text.TextUtils;
 
 import androidx.collection.SimpleArrayMap;
 
+import com.blankj.utilcode.util.ArrayUtils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -75,8 +78,14 @@ public class SlcTimeCompatUtils {
         return getDateByPattern(pattern, date, new Date());
     }
 
+    public static void clearCalendarField(Calendar calendar, int... field) {
+        if (calendar != null) {
+            ArrayUtils.forAllDo(field, (ArrayUtils.Closure<Integer>) (index, item) -> calendar.set(item, 0));
+        }
+    }
+
     public static synchronized Date getDateByPattern(String pattern, String date, Date defDate) {
-        if(TextUtils.isEmpty(date)){
+        if (TextUtils.isEmpty(date)) {
             return defDate;
         }
         DateFormat dateFormat = getDateFormatByPattern(pattern);
@@ -91,7 +100,7 @@ public class SlcTimeCompatUtils {
     }
 
     private static synchronized DateFormat getDateFormatByPattern(String pattern) {
-        if(TextUtils.isEmpty(pattern)){
+        if (TextUtils.isEmpty(pattern)) {
             return null;
         }
         DateFormat dateFormat = dateFormatMap.get(pattern);
