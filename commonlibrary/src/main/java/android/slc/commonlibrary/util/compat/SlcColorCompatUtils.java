@@ -2,6 +2,7 @@ package android.slc.commonlibrary.util.compat;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.slc.commonlibrary.R;
 import android.util.TypedValue;
 
 import androidx.annotation.ColorRes;
@@ -12,8 +13,6 @@ import com.google.android.material.animation.ArgbEvaluatorCompat;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.slc.commonlibrary.R;
 
 public class SlcColorCompatUtils {
     public static final int[] COLOR_ARRAY_RGB = new int[]{0xFFFF0000, 0xFFFF00FF,

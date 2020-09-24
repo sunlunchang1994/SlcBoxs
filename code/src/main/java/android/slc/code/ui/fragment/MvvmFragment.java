@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.lang.reflect.ParameterizedType;
@@ -26,6 +25,18 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
 
     @Override
     protected View interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+        View contentView = initDataBinding(createViewAuxiliaryBox);
+        initViewModel();
+        registerLiveEvent();
+        registerViewDelegate();
+        if (dataBinding != null) {
+            dataBinding.setLifecycleOwner(this);
+            bindingVariable();
+        }
+        return contentView;
+    }
+
+    protected View initDataBinding(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
         View contentView = null;
         Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
         if (createViewAuxiliaryBox.getLayoutObj() instanceof Integer) {
@@ -42,7 +53,6 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
         } else {
             throw new ClassCastException("setContentView() type must be int or View");
         }
-        initDataBinding();
         return contentView;
     }
 
@@ -50,7 +60,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
      * 初始化dataBind
      */
     @SuppressWarnings("unchecked")
-    protected void initDataBinding() {
+    protected void initViewModel() {
         Class modelClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
@@ -60,20 +70,18 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getFragmentViewModelProvider().get(modelClass);
-        registerLiveEvent();
-        if (dataBinding != null) {
-            dataBinding.setLifecycleOwner(this);
-            bindingVariable();
-        }
     }
 
     /**
      * 注册liveData事件
      */
     protected void registerLiveEvent() {
-        viewModel.initViewDelegate(this);
         viewModel.getFinishLiveData().observe(this, aVoid -> _mActivity.finish());
         viewModel.getBackPressedLiveData().observe(this, aVoid -> _mActivity.onBackPressed());
+    }
+
+    protected void registerViewDelegate() {
+        viewModel.initViewDelegate(this);
     }
 
     /**

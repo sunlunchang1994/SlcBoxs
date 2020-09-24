@@ -1,15 +1,13 @@
 package android.slc.code.contract;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.slc.code.ui.activity.BaseActivity;
-import android.slc.code.ui.activity.MvpActivity;
 
 /**
  * Created by on the way on 2018/11/5.

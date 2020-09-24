@@ -2,12 +2,10 @@ package android.slc.code.presenter;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.slc.code.ui.activity.MvpActivity;
-import android.util.Log;
-
 import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,15 +1,14 @@
 package android.slc.code.ui.activity;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
-
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 
 /**
  * Created by on the way on 2018/11/5.

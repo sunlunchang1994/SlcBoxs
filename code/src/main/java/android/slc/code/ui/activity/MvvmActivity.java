@@ -27,6 +27,17 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
 
     @Override
     protected void interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+        initDataBinding(createViewAuxiliaryBox);
+        initViewModel();
+        registerLiveEvent();
+        registerViewDelegate();
+        if (dataBinding != null) {
+            dataBinding.setLifecycleOwner(this);
+            bindingVariable();
+        }
+    }
+
+    protected void initDataBinding(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
         Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
         if (layoutObj instanceof Integer) {
             int contentViewLayout = (int) layoutObj;
@@ -41,14 +52,13 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
         } else {
             throw new ClassCastException("setContentView() type must be int or View");
         }
-        initDataBinding();
     }
 
     /**
      * 初始化dataBind
      */
     @SuppressWarnings("unchecked")
-    protected void initDataBinding() {
+    protected void initViewModel() {
         Class modelClass;
         Type type = getClass().getGenericSuperclass();
         if (type instanceof ParameterizedType) {
@@ -58,20 +68,18 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
             modelClass = BaseViewModel.class;
         }
         viewModel = (VM) getActivityViewModelProvider().get(modelClass);
-        registerLiveEvent();
-        if (dataBinding != null) {
-            dataBinding.setLifecycleOwner(this);
-            bindingVariable();
-        }
     }
 
     /**
      * 注册liveData事件
      */
     protected void registerLiveEvent() {
-        viewModel.initViewDelegate(this);
         viewModel.getFinishLiveData().observe(this, aVoid -> finish());
         viewModel.getBackPressedLiveData().observe(this, aVoid -> onBackPressed());
+    }
+
+    protected void registerViewDelegate() {
+        viewModel.initViewDelegate(this);
     }
 
     /**

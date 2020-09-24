@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.slc.commonlibrary.R;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -29,11 +30,9 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import java.lang.reflect.Method;
-
-import android.slc.commonlibrary.R;
-
 import com.blankj.utilcode.util.Utils;
+
+import java.lang.reflect.Method;
 
 import static android.Manifest.permission.EXPAND_STATUS_BAR;
 

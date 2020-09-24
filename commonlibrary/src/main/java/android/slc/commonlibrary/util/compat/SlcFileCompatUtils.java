@@ -6,11 +6,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.StatFs;
 import android.provider.MediaStore;
-
-import androidx.annotation.NonNull;
-
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
+
+import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.FileUtils;
 

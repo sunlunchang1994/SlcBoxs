@@ -10,14 +10,13 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.slc.code.R;
+import android.slc.code.ui.fragment.EnhanceFragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import android.slc.code.ui.fragment.EnhanceFragment;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

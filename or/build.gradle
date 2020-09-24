@@ -1,4 +1,4 @@
-apply from: "${project.rootDir}/app_module_config.gradle"
+apply from: "${project.rootDir}/code_module_config.gradle"
 if (module_or.toBoolean()) {
     apply plugin: 'maven'
     apply plugin: 'com.novoda.bintray-release'

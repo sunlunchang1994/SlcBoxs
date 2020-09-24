@@ -2,14 +2,12 @@ package android.slc.code.ui.activity;
 
 import android.os.Bundle;
 import android.slc.code.ui.CreateViewAuxiliaryBox;
+import android.slc.code.ui.views.BaseActivityDelegate;
+import android.slc.commonlibrary.util.compat.SlcBarCompatUtils;
 import android.slc.toolbar.ISlcToolBarDelegate;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-
-import android.slc.code.ui.views.BaseActivityDelegate;
-
-import android.slc.commonlibrary.util.compat.SlcBarCompatUtils;
 
 
 /**

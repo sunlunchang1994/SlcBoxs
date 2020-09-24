@@ -2,9 +2,9 @@ package android.slc.code.ui.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.slc.code.contract.MvpContract;
 import android.slc.code.ui.CreateViewAuxiliaryBox;
 import android.slc.code.ui.views.BaseActivityDelegate;
+import android.slc.toolbar.ISlcToolBarDelegate;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
-
-import android.slc.toolbar.ISlcToolBarDelegate;
 
 /**
  * Created by on the way on 2017/12/6.
