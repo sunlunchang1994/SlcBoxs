@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.slc.commonlibrary.util.compat.po.CutOutPhoto;
 import android.webkit.MimeTypeMap;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultCaller;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -90,20 +92,15 @@ public class SlcIntentCompatUtils {
         return new Intent(Intent.ACTION_VIEW, uri);
     }
 
-    public static void takePhoto(Context context,
-                                 ActivityResultCaller activityResultCaller,
-                                 ActivityResultCallback<Uri> activityResultCallback) {
-        takePhoto(context, activityResultCaller, SlcUriCompatUtils.image2UriByInsert(context), activityResultCallback);
-    }
+    public static ActivityResultLauncher<Uri> takePhoto(ActivityResultCaller activityResultCaller,
+                                                        ActivityResultCallback<Uri> activityResultCallback) {
+        return activityResultCaller.registerForActivityResult(new ActivityResultContract<Uri, Uri>() {
+            private Uri input;
 
-    public static void takePhoto(Context context,
-                                 ActivityResultCaller activityResultCaller,
-                                 Uri photoUri,
-                                 ActivityResultCallback<Uri> activityResultCallback) {
-        activityResultCaller.registerForActivityResult(new ActivityResultContract<Uri, Uri>() {
             @NonNull
             @Override
             public Intent createIntent(@NonNull Context context, Uri input) {
+                this.input = input;
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -114,32 +111,25 @@ public class SlcIntentCompatUtils {
             @Override
             public Uri parseResult(int resultCode, @Nullable Intent intent) {
                 if (resultCode == Activity.RESULT_OK) {
-                    return photoUri;
+                    return input;
                 } else {
                     return null;
                 }
             }
         }, result -> {
             if (result != null) {
-                SlcUriCompatUtils.notifyMediaScannerScanFile(context.getApplicationContext(), (path, uri) -> new Handler(Looper.getMainLooper()).post(() -> activityResultCallback.onActivityResult(uri)), result);
+                SlcUriCompatUtils.notifyMediaScannerScanFile(Utils.getApp(), (path, uri) -> new Handler(Looper.getMainLooper()).post(() -> activityResultCallback.onActivityResult(uri)), result);
             } else {
                 activityResultCallback.onActivityResult(result);
             }
-        }).launch(photoUri);
+        });
     }
 
-    public static void cutOutPhoto(Context context,
-                                   ActivityResultCaller activityResultCaller,
-                                   Uri photoUri,
-                                   ActivityResultCallback<Uri> activityResultCallback) {
-        cutOutPhoto(context, activityResultCaller, photoUri, SlcUriCompatUtils.image2UriByInsert(context), activityResultCallback);
+    public static CutOutPhoto getCutOutPhoto(Uri photoUri) {
+        return getCutOutPhoto(photoUri, SlcUriCompatUtils.image2UriByInsert(Utils.getApp()));
     }
 
-    public static void cutOutPhoto(Context context,
-                                   ActivityResultCaller activityResultCaller,
-                                   Uri photoUri,
-                                   Uri outPutUri,
-                                   ActivityResultCallback<Uri> activityResultCallback) {
+    public static CutOutPhoto getCutOutPhoto(Uri photoUri, Uri outPutUri) {
         Bundle bundle = new Bundle();
         bundle.putString("crop", "true");
         bundle.putInt("aspectX", 1);
@@ -153,44 +143,51 @@ public class SlcIntentCompatUtils {
         } else {
             bundle.putParcelable(MediaStore.EXTRA_OUTPUT, Uri.fromFile(SlcUriCompatUtils.uri2File(outPutUri)));
         }
-
         bundle.putBoolean("return-data", false);
         bundle.putString("outputFormat", Bitmap.CompressFormat.PNG.toString());
         bundle.putBoolean("noFaceDetection", true);
-        cutOutPhoto(context, activityResultCaller, photoUri, bundle, activityResultCallback);
+        return getCutOutPhoto(photoUri, bundle);
     }
 
-    public static void cutOutPhoto(Context context,
-                                   ActivityResultCaller activityResultCaller,
-                                   Uri photoUri,
-                                   Bundle bundle,
-                                   ActivityResultCallback<Uri> activityResultCallback) {
-        activityResultCaller.registerForActivityResult(new ActivityResultContract<Uri, Uri>() {
+    public static CutOutPhoto getCutOutPhoto(Uri photoUri, Bundle bundle) {
+        CutOutPhoto cutOutPhoto = new CutOutPhoto();
+        cutOutPhoto.setInputUri(photoUri);
+        cutOutPhoto.setBundle(bundle);
+        return cutOutPhoto;
+    }
+
+    public static ActivityResultLauncher<CutOutPhoto> registerCutOutPhoto(ActivityResultCaller activityResultCaller,
+                                                                          ActivityResultCallback<Uri> activityResultCallback) {
+        return activityResultCaller.registerForActivityResult(new ActivityResultContract<CutOutPhoto, Uri>() {
+            private Uri extraOutput;
+
             @NonNull
             @Override
-            public Intent createIntent(@NonNull Context context, Uri input) {
+            public Intent createIntent(@NonNull Context context, CutOutPhoto cutOutPhoto) {
+                extraOutput = cutOutPhoto.getBundle().getParcelable(MediaStore.EXTRA_OUTPUT);
                 Intent intent = new Intent("com.android.camera.action.CROP");
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                intent.setDataAndType(input, context.getContentResolver().getType(input));
-                intent.putExtras(bundle);
+                intent.setDataAndType(cutOutPhoto.getInputUri(), context.getContentResolver().getType(cutOutPhoto.getInputUri()));
+                intent.putExtras(cutOutPhoto.getBundle());
                 return intent;
             }
 
             @Override
             public Uri parseResult(int resultCode, @Nullable Intent intent) {
                 if (resultCode == Activity.RESULT_OK) {
-                    return bundle.getParcelable(MediaStore.EXTRA_OUTPUT);
+                    return extraOutput;
                 } else {
                     return null;
                 }
+
             }
         }, result -> {
             if (result != null) {
-                SlcUriCompatUtils.notifyMediaScannerScanFile(context.getApplicationContext(), (path, uri) -> new Handler(Looper.getMainLooper()).post(() -> activityResultCallback.onActivityResult(uri)), result);
+                SlcUriCompatUtils.notifyMediaScannerScanFile(Utils.getApp(), (path, uri) -> new Handler(Looper.getMainLooper()).post(() -> activityResultCallback.onActivityResult(uri)), result);
             } else {
                 activityResultCallback.onActivityResult(result);
             }
-        }).launch(photoUri);
+        });
     }
 }

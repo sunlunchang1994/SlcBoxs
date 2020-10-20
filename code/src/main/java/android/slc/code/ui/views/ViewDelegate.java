@@ -1,5 +1,6 @@
 package android.slc.code.ui.views;
 
+import androidx.activity.result.ActivityResultCaller;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -12,4 +13,6 @@ public interface ViewDelegate {
     AppCompatActivity getActivityContext();
 
     LifecycleOwner getLifecycleOwner();
+
+    ActivityResultCaller getActivityResultCaller();
 }

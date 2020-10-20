@@ -1,7 +1,5 @@
 package android.slc.code.presenter;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
@@ -39,16 +37,6 @@ public class BasePresenterImp<V extends MvpContract.BaseMvpView> implements MvpC
     @Override
     public void init() {
         //TODO 开始方法
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //
-    }
-
-    @Override
-    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-        //
     }
 
     /**

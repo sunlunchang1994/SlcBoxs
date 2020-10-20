@@ -6,6 +6,7 @@ import android.slc.code.vm.BaseViewModel;
 import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
 
+import androidx.activity.result.ActivityResultCaller;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -125,7 +126,10 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
     public LifecycleOwner getLifecycleOwner() {
         return this;
     }
-
+    @Override
+    public ActivityResultCaller getActivityResultCaller() {
+        return this;
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

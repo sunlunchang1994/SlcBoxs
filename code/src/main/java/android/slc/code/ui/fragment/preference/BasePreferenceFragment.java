@@ -6,6 +6,7 @@ import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
 import android.slc.code.ui.activity.MvpActivity;
 
+import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 
@@ -42,6 +43,11 @@ public abstract class BasePreferenceFragment<P extends MvpContract.BasePresenter
 
     @Override
     public LifecycleOwner getLifecycleOwner() {
+        return this;
+    }
+
+    @Override
+    public ActivityResultCaller getActivityResultCaller() {
         return this;
     }
 

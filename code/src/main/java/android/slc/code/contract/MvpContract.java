@@ -1,8 +1,6 @@
 package android.slc.code.contract;
 
-import android.content.Intent;
-import android.os.Bundle;
-
+import androidx.activity.result.ActivityResultCaller;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -33,6 +31,13 @@ public interface MvpContract {
          * @return
          */
         LifecycleOwner getLifecycleOwner();
+
+        /**
+         * 获取ActivityResultCaller
+         *
+         * @return
+         */
+        ActivityResultCaller getActivityResultCaller();
     }
 
     interface BasePresenter<V extends BaseMvpView> extends LifecycleObserver {
@@ -48,24 +53,6 @@ public interface MvpContract {
          * @param view
          */
         void setView(V view);
-
-        /**
-         * activity的结果返回
-         *
-         * @param requestCode
-         * @param resultCode
-         * @param data
-         */
-        void onActivityResult(int requestCode, int resultCode, Intent data);
-
-        /**
-         * fragment的结果返回
-         *
-         * @param requestCode
-         * @param resultCode
-         * @param data
-         */
-        void onFragmentResult(int requestCode, int resultCode, Bundle data);
 
         /**
          * 销毁

@@ -1,6 +1,5 @@
 package android.slc.code.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
@@ -9,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
@@ -56,6 +56,11 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
         return this;
     }
 
+    @Override
+    public ActivityResultCaller getActivityResultCaller() {
+        return this;
+    }
+
     /**
      * 获取presenter
      *
@@ -68,27 +73,6 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
             throw new MvpNullPointerException("mPresenter destroyed");
         } else {
             throw new MvpUninitializedException("mPresenter uninitialized");
-        }
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            getPresenter().onActivityResult(requestCode, resultCode, data);
-        } catch (MvpUninitializedException e) {
-            //TODO
-        }
-    }
-
-    @Override
-    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
-        super.onFragmentResult(requestCode, resultCode, data);
-        try {
-            getPresenter().onFragmentResult(requestCode, resultCode, data);
-        } catch (MvpUninitializedException e) {
-            //TODO
         }
     }
 

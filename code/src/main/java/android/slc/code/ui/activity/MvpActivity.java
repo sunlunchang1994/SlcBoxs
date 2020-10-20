@@ -6,6 +6,7 @@ import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
 import android.slc.code.exception.MvpUninitializedException;
 
+import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
@@ -49,6 +50,11 @@ public abstract class MvpActivity<P extends MvpContract.BasePresenter> extends B
         return this;
     }
 
+    @Override
+    public ActivityResultCaller getActivityResultCaller() {
+        return this;
+    }
+
     /**
      * 获取presenter
      *
@@ -61,16 +67,6 @@ public abstract class MvpActivity<P extends MvpContract.BasePresenter> extends B
             throw new MvpNullPointerException("mPresenter destroyed");
         } else {
             throw new MvpUninitializedException("mPresenter uninitialized");
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            getPresenter().onActivityResult(requestCode, resultCode, data);
-        } catch (MvpUninitializedException e) {
-            //do nothing
         }
     }
 
