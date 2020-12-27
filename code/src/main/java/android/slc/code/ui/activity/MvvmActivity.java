@@ -1,5 +1,6 @@
 package android.slc.code.ui.activity;
 
+import android.os.Bundle;
 import android.slc.code.ui.CreateViewAuxiliaryBox;
 import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
@@ -7,6 +8,7 @@ import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
 
 import androidx.activity.result.ActivityResultCaller;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -27,9 +29,9 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
     protected VM viewModel;
 
     @Override
-    protected void interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
-        initDataBinding(createViewAuxiliaryBox);
+    public void initView(@Nullable Bundle savedInstanceState) {
         initViewModel();
+        super.initView(savedInstanceState);
         registerLiveEvent();
         registerViewDelegate();
         if (dataBinding != null) {
@@ -38,7 +40,8 @@ public abstract class MvvmActivity<V extends ViewDataBinding, VM extends BaseVie
         }
     }
 
-    protected void initDataBinding(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+    @Override
+    protected void interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
         Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
         if (layoutObj instanceof Integer) {
             int contentViewLayout = (int) layoutObj;

@@ -1,6 +1,5 @@
 package android.slc.code.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.slc.code.contract.MvpContract;
 import android.slc.code.exception.MvpNullPointerException;
@@ -22,9 +21,10 @@ public abstract class MvpActivity<P extends MvpContract.BasePresenter> extends B
     private P mPresenter;
     private boolean isInitPresenter;//是否初始化Presenter
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void initView(@Nullable Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
         initPresenter();
     }
 

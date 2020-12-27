@@ -24,13 +24,10 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
     private P mPresenter;
     private boolean isInitPresenter;//是否初始化Presenter
 
-    @Nullable
     @Override
-    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View contentView = super.onCreateView(inflater, container, savedInstanceState);
+    protected void initView(@Nullable Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
         initPresenter();
-        return contentView;
-
     }
 
     protected void initPresenter() {

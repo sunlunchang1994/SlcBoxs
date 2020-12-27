@@ -22,13 +22,17 @@ public abstract class BaseActivity extends EnhanceActivity implements BaseActivi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViewBefore();
+        initView(savedInstanceState);
+        initViewLater();
+    }
+
+    public void initView(@Nullable Bundle savedInstanceState) {
         Object layoutObj = setContentView();
         interfereLoadView(new CreateViewAuxiliaryBox(layoutObj, savedInstanceState));
         mBarIsLight = initBarStyle();
         syncBarStyle();
         mSlcToolBarDelegate = initSlcToolBarDelegate();
         onBindView(savedInstanceState);
-        initViewLater();
     }
 
     /**

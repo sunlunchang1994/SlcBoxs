@@ -1,5 +1,6 @@
 package android.slc.code.ui.fragment;
 
+import android.os.Bundle;
 import android.slc.code.ui.CreateViewAuxiliaryBox;
 import android.slc.code.ui.views.ViewDelegate;
 import android.slc.code.vm.BaseViewModel;
@@ -7,6 +8,7 @@ import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
 
 import androidx.activity.result.ActivityResultCaller;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -25,20 +27,20 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
     protected VM viewModel;
 
     @Override
-    protected View interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
-        View contentView = initDataBinding(createViewAuxiliaryBox);
+    public void initView(@Nullable Bundle savedInstanceState) {
         initViewModel();
+        super.initView(savedInstanceState);
         registerLiveEvent();
         registerViewDelegate();
         if (dataBinding != null) {
             dataBinding.setLifecycleOwner(this);
             bindingVariable();
         }
-        return contentView;
     }
 
-    protected View initDataBinding(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
-        View contentView = null;
+    @Override
+    protected View interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
+        View contentView;
         Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
         if (createViewAuxiliaryBox.getLayoutObj() instanceof Integer) {
             int contentViewLayout = (int) layoutObj;
@@ -126,10 +128,12 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
     public LifecycleOwner getLifecycleOwner() {
         return this;
     }
+
     @Override
     public ActivityResultCaller getActivityResultCaller() {
         return this;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

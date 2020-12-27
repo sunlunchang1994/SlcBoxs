@@ -18,21 +18,30 @@ import androidx.annotation.Nullable;
  */
 
 public abstract class BaseFragment extends EnhanceFragment {
+    private LayoutInflater createViewInflater;
+    private ViewGroup createViewContainer;
     protected BaseActivityDelegate mBaseActivityDelegate;
     protected ISlcToolBarDelegate mSlcToolBarDelegate;
     private View mContentView;
 
-
     @Nullable
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        this.createViewInflater = inflater;
+        this.createViewContainer = container;
         initViewBefore();
-        Object layoutObj = setContentView();
-        mContentView = interfereLoadView(new CreateViewAuxiliaryBox(layoutObj, inflater, container, savedInstanceState));
-        mSlcToolBarDelegate = initSlcToolBarDelegate();
-        onBindView(savedInstanceState);
+        initView(savedInstanceState);
         initViewLater();
         return mContentView;
+    }
+
+    protected void initView(@Nullable Bundle savedInstanceState) {
+        Object layoutObj = setContentView();
+        mContentView = interfereLoadView(new CreateViewAuxiliaryBox(layoutObj, this.createViewInflater, this.createViewContainer, savedInstanceState));
+        this.createViewInflater = null;
+        this.createViewContainer = null;
+        mSlcToolBarDelegate = initSlcToolBarDelegate();
+        onBindView(savedInstanceState);
     }
 
     /**
