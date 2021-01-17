@@ -11,8 +11,6 @@ implementation 'android.slc:box:lastVersion'
 #### SlcBoxs分为commonlibrary、toolbar、code、rx、rxlifecycle、codelifecycle、or这7个小模块，下文会对其进行详细介绍。
 ### commonlibrary
 ###### 这是SlcBoxde 中的常用工具类模块，其中80%Api均来自[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode "AndroidUtilCode")，相关文档可在[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode "AndroidUtilCode")中查看；
-###### 为了方便与本框架融合，以将[AndroidUtilCode](https://github.com/Blankj/AndroidUtilCode "AndroidUtilCode")中所有类名统一化；
-###### 其他相关api可在源码中进行查看。
 #### 如果仅使用该模块，可以使用以下方式导入
 ````java
 implementation 'android.slc:commonlibrary:lastVersion'

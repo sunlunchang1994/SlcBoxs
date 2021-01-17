@@ -17,10 +17,10 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
-        maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
-        //google()
-        //jcenter()
+        //maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
+        //maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
+        google()
+        jcenter()
         maven { url 'https://dl.bintray.com/sunlunchang/code/' }
     }
 }
@@ -60,23 +60,23 @@ ext {
     toolbarVersion = '0.0.6'
     toolbarPublishVersion = '0.0.6'
     //核心包
-    codeVersion = '0.2.3'
-    codePublishVersion = '0.2.3'
+    codeVersion = '0.2.5'
+    codePublishVersion = '0.2.5'
     //核心生命周期包
-    codeLifecycleVersion = '0.2.3'
-    codeLifecyclePublishVersion = '0.2.3'
+    codeLifecycleVersion = '0.2.5'
+    codeLifecyclePublishVersion = '0.2.5'
     //网络
-    orVersion = '0.0.7'
-    orPublishVersion = '0.0.7'
+    orVersion = '0.0.8'
+    orPublishVersion = '0.0.8'
     //rxJava
-    rxVersion = '0.0.6'
-    rxPublishVersion = '0.0.6'
+    rxVersion = '0.0.7'
+    rxPublishVersion = '0.0.7'
     //rx生命周期
-    rxLifecycleVersion = '0.0.6'
-    rxLifecyclePublishVersion = '0.0.6'
+    rxLifecycleVersion = '0.0.7'
+    rxLifecyclePublishVersion = '0.0.7'
     //继承盒子
-    boxsVersion = '0.2.3'
-    boxsPublishVersion = '0.2.3'
+    boxsVersion = '0.2.4'
+    boxsPublishVersion = '0.2.5'
     //Publish版本
     //publishVersion = '0.0.6'
 }

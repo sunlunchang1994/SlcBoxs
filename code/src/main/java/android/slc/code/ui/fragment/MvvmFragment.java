@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -79,8 +80,18 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
      * 注册liveData事件
      */
     protected void registerLiveEvent() {
-        viewModel.getFinishLiveData().observe(this, aVoid -> _mActivity.finish());
-        viewModel.getBackPressedLiveData().observe(this, aVoid -> _mActivity.onBackPressed());
+        viewModel.finishOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                _mActivity.finish();
+            }
+        });
+        viewModel.backPressedOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                _mActivity.onBackPressed();
+            }
+        });
     }
 
     protected void registerViewDelegate() {

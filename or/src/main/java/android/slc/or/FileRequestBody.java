@@ -2,6 +2,8 @@ package android.slc.or;
 
 import android.webkit.MimeTypeMap;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,11 +14,11 @@ import okio.BufferedSink;
 
 public class FileRequestBody extends RequestBody {
     public static int DEF_NOTIFY_INTERVAL = 512;
-    private File mFile;
-    private MediaType mMediaType;
-    private long mNotifyInterval;
-    private FileUploadListener mListener;
-    private long mContentLength;
+    private final File mFile;
+    private final MediaType mMediaType;
+    private final long mNotifyInterval;
+    private final FileUploadListener mListener;
+    private final long mContentLength;
 
     @SuppressWarnings("all")
     public FileRequestBody(final File file, final FileUploadListener listener) {
@@ -53,7 +55,7 @@ public class FileRequestBody extends RequestBody {
     }
 
     @Override
-    public void writeTo(BufferedSink sink) throws IOException {
+    public void writeTo(@NotNull BufferedSink sink) throws IOException {
         byte[] buffer = new byte[1024];
         FileInputStream in = new FileInputStream(mFile);
         long bytesWritten = 0;
@@ -81,30 +83,6 @@ public class FileRequestBody extends RequestBody {
             in.close();
         }
     }
-    /*@Override
-    public void writeTo(BufferedSink sink) throws IOException {
-        byte[] buffer = new byte[1024];
-        FileInputStream in = new FileInputStream(mFile);
-        long bytesWritten = 0;
-        try {
-            int read;
-            long startTime = System.currentTimeMillis();
-            while ((read = in.read(buffer)) != -1) {
-                long currentTime = System.currentTimeMillis();
-                if (currentTime - startTime >= mNotifyInterval) {
-                    startTime = currentTime;
-                    mHandler.post(mProgressUpdater.setData((int) (bytesWritten * 100 / mContentLength), bytesWritten));
-                }
-                bytesWritten += read;
-                sink.write(buffer, 0, read);
-            }
-            mHandler.post(new FinishUpdater());
-        } catch (Exception e) {
-            mHandler.post(new ErrorUpdater(e));
-        } finally {
-            in.close();
-        }
-    }*/
 
     /**
      * 获取文件后缀名
@@ -144,7 +122,7 @@ public class FileRequestBody extends RequestBody {
     private class ProgressUpdater implements Runnable {
         private int mProgress;
         private long mBytesWritten;
-        private long mContentLength;
+        private final long mContentLength;
 
         public ProgressUpdater(long contentLength) {
             this.mContentLength = contentLength;

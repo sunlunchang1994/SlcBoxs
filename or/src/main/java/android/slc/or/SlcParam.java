@@ -252,6 +252,11 @@ public class SlcParam {
             return this;
         }
 
+        public Builder put(@NonNull String key, Object value) {
+            paramMap.put(key, value);
+            return this;
+        }
+
         public Builder remove(@NonNull String key) {
             paramMap.remove(key);
             return this;

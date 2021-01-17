@@ -5,16 +5,16 @@ import android.slc.code.exception.MvvmNullPointerException;
 import android.slc.code.ui.views.ViewDelegate;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
 /**
  * @author slc
  * @date 2020/2/29 16:41
  */
 public class BaseViewModel extends AndroidViewModel {
-    private SingleLiveEvent<Void> finishLiveData = new SingleLiveEvent<>();
-    private SingleLiveEvent<Void> backPressedLiveData = new SingleLiveEvent<>();
+    public final ObservableField<Void> finishOf = new ObservableField<>();
+    public final ObservableField<Void> backPressedOf = new ObservableField<>();
     private ViewDelegate viewDelegate;
 
     public BaseViewModel(@NonNull Application application) {
@@ -26,35 +26,17 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     /**
-     * 获取返回按压liveData
-     *
-     * @return
-     */
-    public MutableLiveData<Void> getBackPressedLiveData() {
-        return backPressedLiveData;
-    }
-
-    /**
-     * 获取销毁livaData
-     *
-     * @return
-     */
-    public MutableLiveData<Void> getFinishLiveData() {
-        return finishLiveData;
-    }
-
-    /**
      * 销毁界面
      */
     protected void finish() {
-        finishLiveData.call();
+        finishOf.notifyChange();
     }
 
     /**
      * 返回按下
      */
     protected void backPressed() {
-        backPressedLiveData.call();
+        backPressedOf.notifyChange();
     }
 
     protected ViewDelegate getViewDelegate() {

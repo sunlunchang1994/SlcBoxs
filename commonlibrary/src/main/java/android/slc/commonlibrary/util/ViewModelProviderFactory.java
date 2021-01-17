@@ -13,7 +13,7 @@ public class ViewModelProviderFactory {
     /**
      * 全局的ViewModelStore
      */
-    private static ViewModelStore viewModelStore = new ViewModelStore();
+    private static final ViewModelStore viewModelStore = new ViewModelStore();
 
     /**
      * 获取AppViewModelProvider
