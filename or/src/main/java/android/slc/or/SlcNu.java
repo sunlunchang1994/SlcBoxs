@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.collection.SimpleArrayMap;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -14,19 +16,14 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SlcNu {
-    private static SlcNu SLC_NU = new SlcNu();
+    private static final SlcNu SLC_NU = new SlcNu();
     private final static SimpleArrayMap<String, SlcNu> otherSlcNu = new SimpleArrayMap<>();
     protected Context mAppContext;
     protected OkHttpClient mGlobalOkHttpClient;
     protected Retrofit mGlobalRetrofit;
 
     private SlcNu() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Log.d("OkHttp", message);
-            }
-        });
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(message -> Log.d("OkHttp", message));
         httpLoggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
         mGlobalOkHttpClient = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
