@@ -226,9 +226,9 @@ public class SlcToolBarDelegate implements ISlcToolBarDelegate {
     }
 
     public static class Builder<T extends Builder> {
-        private View mContentView;
-        private int mAppBarLayoutId = R.id.appBarLayout;
-        private int mToolbarId = R.id.toolBar;
+        protected View mContentView;
+        protected int mAppBarLayoutId = R.id.appBarLayout;
+        protected int mToolbarId = R.id.toolBar;
 
         public Builder(Activity activity) {
             this(activity.getWindow().getDecorView());
