@@ -60,8 +60,8 @@ ext {
     toolbarVersion = '0.0.7'
     toolbarPublishVersion = '0.0.7'
     //核心包 依赖以上两个
-    codeVersion = '0.2.8'
-    codePublishVersion = '0.2.8'
+    codeVersion = '0.2.9'
+    codePublishVersion = '0.2.9'
     //rxJava
     rxVersion = '0.0.7'
     rxPublishVersion = '0.0.7'
@@ -69,16 +69,16 @@ ext {
     rxLifecycleVersion = '0.0.7'
     rxLifecyclePublishVersion = '0.0.7'
     //核心生命周期包 依赖以上五个
-    codeLifecycleVersion = '0.2.8'
-    codeLifecyclePublishVersion = '0.2.8'
+    codeLifecycleVersion = '0.2.9'
+    codeLifecyclePublishVersion = '0.2.9'
 
     //网络 独立
     orVersion = '0.0.9'
     orPublishVersion = '0.0.9'
 
     //盒子 依赖以上所有
-    boxsVersion = '0.2.8'
-    boxsPublishVersion = '0.2.8'
+    boxsVersion = '0.2.9'
+    boxsPublishVersion = '0.2.9'
     //Publish版本
     //publishVersion = '0.0.6'
 }
