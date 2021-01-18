@@ -1,10 +1,10 @@
 <resources>
 
     <!-- 默认的主题 -->
-    <style name="DefAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="DefAppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
-        <item name="actionBarSize">@dimen/action_bar_size</item>
-        <!--<item name="android:windowAnimationStyle">@style/ActivityChangeAnim</item>-->
     </style>
     <!--activity切换动画-->
     <style name="ActivityChangeAnim" parent="@android:style/Animation.Activity">
