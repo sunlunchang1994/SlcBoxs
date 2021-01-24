@@ -195,7 +195,7 @@ public class SlcParam {
      *
      * @return
      */
-    public static MultipartBody.Builder createMultBodyBuilder() {
+    public static MultipartBody.Builder createMultipartBodyBuilder() {
         return new MultipartBody.Builder();
     }
 
@@ -462,7 +462,7 @@ public class SlcParam {
          * @return
          */
         public MultipartBody toMultipartBody() {
-            MultipartBody.Builder multipartBodyBuilder = createMultBodyBuilder();
+            MultipartBody.Builder multipartBodyBuilder = createMultipartBodyBuilder();
             for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
                 multipartBodyBuilder.addFormDataPart(entry.getKey(), entry.getValue().toString());
             }
