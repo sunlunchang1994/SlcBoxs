@@ -69,6 +69,10 @@ public class SlcNu {
         return create(mDefRetrofit, service);
     }
 
+    public <T> T create(String key, final Class<T> service) {
+        return create(getRetrofit(key), service);
+    }
+
     public <T> T create(Retrofit retrofit, final Class<T> service) {
         return retrofit.create(service);
     }

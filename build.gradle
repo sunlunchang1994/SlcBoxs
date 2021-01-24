@@ -73,12 +73,12 @@ ext {
     codeLifecyclePublishVersion = '0.2.9'
 
     //网络 独立
-    orVersion = '0.1.0'
-    orPublishVersion = '0.1.0'
+    orVersion = '0.1.1'
+    orPublishVersion = '0.1.1'
 
     //盒子 依赖以上所有
     boxsVersion = '0.2.9'
-    boxsPublishVersion = '0.3.0'
+    boxsPublishVersion = '0.3.1'
     //Publish版本
     //publishVersion = '0.0.6'
 }
