@@ -1,4 +1,4 @@
-package android.slc.code.ui;
+package android.slc.code.ui.delegate;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,27 +11,20 @@ import androidx.annotation.Nullable;
  * @date 2020/2/29 1
  */
 public class CreateViewAuxiliaryBox {
-    private Object layoutObj;
     private LayoutInflater inflater;
     @Nullable
     private ViewGroup container;
     @Nullable
-    private Bundle savedInstanceState;
+    private final Bundle savedInstanceState;
 
-    public CreateViewAuxiliaryBox(Object layoutObj, @Nullable Bundle savedInstanceState) {
-        this.layoutObj = layoutObj;
+    public CreateViewAuxiliaryBox(@Nullable Bundle savedInstanceState) {
         this.savedInstanceState = savedInstanceState;
     }
 
-    public CreateViewAuxiliaryBox(Object layoutObj, LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        this.layoutObj = layoutObj;
+    public CreateViewAuxiliaryBox(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.inflater = inflater;
         this.container = container;
         this.savedInstanceState = savedInstanceState;
-    }
-
-    public Object getLayoutObj() {
-        return layoutObj;
     }
 
     public LayoutInflater getInflater() {

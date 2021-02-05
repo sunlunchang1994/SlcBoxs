@@ -17,11 +17,11 @@ buildscript {
 
 allprojects {
     repositories {
-        //maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
-        //maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
-        google()
-        jcenter()
-        maven { url 'https://dl.bintray.com/sunlunchang/code/' }
+        maven { url 'https://dl.bintray.com/sunlunchang/code' }
+        maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
+        //google()
+        //jcenter()
     }
 }
 

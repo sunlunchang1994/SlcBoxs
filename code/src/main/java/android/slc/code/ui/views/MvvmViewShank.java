@@ -9,7 +9,7 @@ import androidx.lifecycle.LifecycleOwner;
  * @date 2020/3/12 9:40
  * @email sunlunchang@gmail.com
  */
-public interface ViewDelegate {
+public interface MvvmViewShank {
     AppCompatActivity getActivityContext();
 
     LifecycleOwner getLifecycleOwner();
