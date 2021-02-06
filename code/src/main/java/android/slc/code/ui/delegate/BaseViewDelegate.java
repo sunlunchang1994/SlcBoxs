@@ -61,7 +61,6 @@ public class BaseViewDelegate implements LifecycleObserver {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         this.mSupportView.initViewBefore();
         initView(new CreateViewAuxiliaryBox(savedInstanceState));
-        this.mSupportView.onBindView(savedInstanceState);
         this.mSupportView.initViewLater();
     }
 
@@ -77,7 +76,6 @@ public class BaseViewDelegate implements LifecycleObserver {
                          @Nullable Bundle savedInstanceState) {
         this.mSupportView.initViewBefore();
         initView(new CreateViewAuxiliaryBox(inflater, container, savedInstanceState));
-        this.mSupportView.onBindView(savedInstanceState);
         this.mSupportView.initViewLater();
     }
 
@@ -88,6 +86,7 @@ public class BaseViewDelegate implements LifecycleObserver {
      */
     protected void initView(@Nullable CreateViewAuxiliaryBox createViewAuxiliaryBox) {
         interfereLoadView(createViewAuxiliaryBox);
+        this.mSupportView.onBindView(createViewAuxiliaryBox.getSavedInstanceState());
     }
 
     /**
@@ -126,7 +125,7 @@ public class BaseViewDelegate implements LifecycleObserver {
      * @return
      */
     public View getContentView() {
-        return mContentView;
+        return this.mContentView;
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

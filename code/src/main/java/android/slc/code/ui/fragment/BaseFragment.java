@@ -21,13 +21,11 @@ public abstract class BaseFragment extends EnhanceFragment implements ISupportVi
     protected BarVm mBarVm;
     protected ISlcToolBarDelegate mSlcToolBarDelegate;
     protected BaseViewDelegate mViewDelegate;
-    private LayoutInflater createViewInflater;
-    private ViewGroup createViewContainer;
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        initViewDelegate(savedInstanceState);
+        initViewDelegate(inflater,container,savedInstanceState);
         return mViewDelegate.getContentView();
     }
 
@@ -36,9 +34,10 @@ public abstract class BaseFragment extends EnhanceFragment implements ISupportVi
      *
      * @param savedInstanceState
      */
-    protected void initViewDelegate(@Nullable Bundle savedInstanceState) {
+    protected void initViewDelegate(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                                    @Nullable Bundle savedInstanceState) {
         mViewDelegate = new BaseViewDelegate(this);
-        mViewDelegate.onCreate(this.createViewInflater, this.createViewContainer, savedInstanceState);
+        mViewDelegate.onCreate(inflater, container, savedInstanceState);
     }
 
     @Override

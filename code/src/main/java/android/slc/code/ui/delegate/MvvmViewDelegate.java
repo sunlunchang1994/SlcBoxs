@@ -23,20 +23,16 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     protected V mDataBinding;
     protected ViewModelProvider mActivityViewModelProvider, mFragmentViewModelProvider;
 
-    public MvvmViewDelegate(ISupportMvmView supportView) {
+    public MvvmViewDelegate(ISupportView supportView) {
         super(supportView);
     }
 
     @Override
     protected void initView(@Nullable CreateViewAuxiliaryBox createViewAuxiliaryBox) {
         super.initView(createViewAuxiliaryBox);
-        if (mDataBinding != null) {
-            mDataBinding.setLifecycleOwner(mActivity);
+        if (this.mDataBinding != null) {
+            this.mDataBinding.setLifecycleOwner(this.mActivity);
         }
-        getSupportMvmView().initViewModel();
-        //getSupportMvmView().registerLiveEvent();
-        //getSupportMvmView().registerViewDelegate();
-        //getSupportMvmView().bindingVariable();
     }
 
     @Override
@@ -45,14 +41,14 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
             Object layoutObj = this.mSupportView.setContentView();
             if (layoutObj instanceof Integer) {
                 int contentViewLayout = (int) layoutObj;
-                mDataBinding = DataBindingUtil.setContentView(this.mActivity, contentViewLayout);
-                if (mDataBinding == null) {
+                this.mDataBinding = DataBindingUtil.setContentView(this.mActivity, contentViewLayout);
+                if (this.mDataBinding == null) {
                     this.mActivity.setContentView(contentViewLayout);
                 }
             } else if (layoutObj instanceof View) {
                 View contentView = (View) layoutObj;
                 this.mActivity.setContentView((contentView));
-                mDataBinding = DataBindingUtil.bind(contentView);
+                this.mDataBinding = DataBindingUtil.bind(contentView);
             } else {
                 throw new ClassCastException("setContentView() type must be int or View");
             }
@@ -62,29 +58,19 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
             Object layoutObj = this.mSupportView.setContentView();
             if (layoutObj instanceof Integer) {
                 int contentViewLayout = (int) layoutObj;
-                mDataBinding = DataBindingUtil.inflate(createViewAuxiliaryBox.getInflater(), contentViewLayout, createViewAuxiliaryBox.getContainer(), false);
-                if (mDataBinding == null) {
+                this.mDataBinding = DataBindingUtil.inflate(createViewAuxiliaryBox.getInflater(), contentViewLayout, createViewAuxiliaryBox.getContainer(), false);
+                if (this.mDataBinding == null) {
                     this.mContentView = createViewAuxiliaryBox.getInflater().inflate((Integer) layoutObj, createViewAuxiliaryBox.getContainer(), false);
                 } else {
-                    this.mContentView = mDataBinding.getRoot();
+                    this.mContentView = this.mDataBinding.getRoot();
                 }
             } else if (layoutObj instanceof View) {
                 this.mContentView = (View) layoutObj;
-                mDataBinding = DataBindingUtil.bind(this.mContentView);
+                this.mDataBinding = DataBindingUtil.bind(this.mContentView);
             } else {
                 throw new ClassCastException("setContentView() type must be int or View");
             }
         }
-    }
-
-    /**
-     * 获取ISupportMvmView
-     * 提供给子类使用
-     *
-     * @return
-     */
-    protected ISupportMvmView getSupportMvmView() {
-        return (ISupportMvmView) mSupportView;
     }
 
     /**
@@ -93,7 +79,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      * @return
      */
     public V getDataBinding() {
-        return mDataBinding;
+        return this.mDataBinding;
     }
 
     /**
@@ -102,11 +88,11 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      * @return
      */
     protected MvvmViewShank getMvvmViewShank() {
-        if (mActivity instanceof MvvmViewShank) {
-            return (MvvmViewShank) mActivity;
+        if (this.mActivity instanceof MvvmViewShank) {
+            return (MvvmViewShank) this.mActivity;
         }
-        if (mFragment instanceof MvvmViewShank) {
-            return (MvvmViewShank) mFragment;
+        if (this.mFragment instanceof MvvmViewShank) {
+            return (MvvmViewShank) this.mFragment;
         }
         return null;
     }
@@ -128,10 +114,14 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      */
     @MainThread
     public ViewModelProvider getActivityViewModelProvider() {
-        if (mActivityViewModelProvider == null) {
-            mActivityViewModelProvider = new ViewModelProvider(mActivity, mActivity.getDefaultViewModelProviderFactory());
+        if (this.mActivityViewModelProvider == null) {
+            if (this.mActivity != null) {
+                this.mActivityViewModelProvider = new ViewModelProvider(this.mActivity, this.mActivity.getDefaultViewModelProviderFactory());
+            }else if(this.mFragment!=null){
+                this.mActivityViewModelProvider = new ViewModelProvider(this.mFragment.getActivity(), this.mFragment.getActivity().getDefaultViewModelProviderFactory());
+            }
         }
-        return mActivityViewModelProvider;
+        return this.mActivityViewModelProvider;
     }
 
     /**
@@ -141,10 +131,10 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      */
     @MainThread
     public ViewModelProvider getFragmentViewModelProvider() {
-        if (mFragmentViewModelProvider == null) {
-            mFragmentViewModelProvider = new ViewModelProvider(mFragment, mFragment.getDefaultViewModelProviderFactory());
+        if (this.mFragmentViewModelProvider == null) {
+            this.mFragmentViewModelProvider = new ViewModelProvider(this.mFragment, this.mFragment.getDefaultViewModelProviderFactory());
         }
-        return mFragmentViewModelProvider;
+        return this.mFragmentViewModelProvider;
     }
 
     /**
@@ -172,7 +162,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     }
 
     /**
-     * 根据ActivityViewModelProvider创建ViewModel
+     * 根据FragmentViewModelProvider创建ViewModel
      *
      * @param modelClass
      * @param <VM>
@@ -192,12 +182,12 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
         viewModel.finishOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                if (mActivity != null) {
-                    mActivity.finish();
+                if (MvvmViewDelegate.this.mActivity != null) {
+                    MvvmViewDelegate.this.mActivity.finish();
                     return;
                 }
-                if (mFragment != null) {
-                    FragmentActivity fragmentActivity = mFragment.getActivity();
+                if (MvvmViewDelegate.this.mFragment != null) {
+                    FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
                     if (fragmentActivity != null) {
                         fragmentActivity.finish();
                     }
@@ -208,12 +198,12 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
         viewModel.backPressedOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                if (mActivity != null) {
-                    mActivity.onBackPressed();
+                if (MvvmViewDelegate.this.mActivity != null) {
+                    MvvmViewDelegate.this.mActivity.onBackPressed();
                     return;
                 }
-                if (mFragment != null) {
-                    FragmentActivity fragmentActivity = mFragment.getActivity();
+                if (MvvmViewDelegate.this.mFragment != null) {
+                    FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
                     if (fragmentActivity != null) {
                         fragmentActivity.onBackPressed();
                     }
@@ -238,8 +228,8 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mDataBinding != null) {
-            mDataBinding.unbind();
+        if (this.mDataBinding != null) {
+            this.mDataBinding.unbind();
         }
     }
 }
