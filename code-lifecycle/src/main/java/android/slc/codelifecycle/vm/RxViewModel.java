@@ -1,7 +1,7 @@
 package android.slc.codelifecycle.vm;
 
 import android.app.Application;
-import android.slc.code.ui.views.ViewDelegate;
+import android.slc.code.ui.views.MvvmViewShank;
 import android.slc.code.vm.BaseViewModel;
 import android.slc.rxlifecycle.RxLifecycleDelegate;
 import android.slc.rxlifecycle.RxLifecycleDelegateImp;
@@ -23,9 +23,9 @@ public class RxViewModel extends BaseViewModel {
     }
 
     @Override
-    public void initViewDelegate(ViewDelegate viewDelegate) {
-        super.initViewDelegate(viewDelegate);
-        rxLifecycleDelegate = RxLifecycleDelegateImp.create(viewDelegate.getLifecycleOwner().getLifecycle());
+    public void initMvvmViewShank(MvvmViewShank mvvmViewShank) {
+        super.initMvvmViewShank(mvvmViewShank);
+        rxLifecycleDelegate = RxLifecycleDelegateImp.create(mvvmViewShank.getLifecycleOwner().getLifecycle());
     }
 
     /**

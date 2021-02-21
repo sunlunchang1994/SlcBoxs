@@ -22,10 +22,10 @@ import com.blankj.utilcode.util.Utils;
  */
 public class SlcNotifyCompatUtils {
     public static String DEF_CHANNEL_ID = "CommonNotify";
-    private NotificationManager notificationManager;
+    private final NotificationManager notificationManager;
 
     public static class Holder {
-        private static SlcNotifyCompatUtils INSTANCE = new SlcNotifyCompatUtils(Utils.getApp());
+        private static final SlcNotifyCompatUtils INSTANCE = new SlcNotifyCompatUtils(Utils.getApp());
     }
 
     /**

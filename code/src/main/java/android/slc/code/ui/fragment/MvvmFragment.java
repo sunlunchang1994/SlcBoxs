@@ -1,133 +1,44 @@
 package android.slc.code.ui.fragment;
 
 import android.os.Bundle;
-import android.slc.code.ui.CreateViewAuxiliaryBox;
-import android.slc.code.ui.views.ViewDelegate;
+import android.slc.code.ui.delegate.MvvmViewDelegate;
+import android.slc.code.ui.views.MvvmViewShank;
 import android.slc.code.vm.BaseViewModel;
-import android.slc.commonlibrary.util.ViewModelProviderFactory;
-import android.view.View;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResultCaller;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProvider;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import androidx.lifecycle.ViewModel;
 
 /**
  * @author slc
  * @date 2020/3/2 11:04
  */
-public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseFragment implements ViewDelegate {
-    protected V dataBinding;
-    protected VM viewModel;
-
-    @Override
-    public void initView(@Nullable Bundle savedInstanceState) {
-        initViewModel();
-        super.initView(savedInstanceState);
-        registerLiveEvent();
-        registerViewDelegate();
-        if (dataBinding != null) {
-            dataBinding.setLifecycleOwner(this);
-            bindingVariable();
-        }
-    }
-
-    @Override
-    protected View interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
-        View contentView;
-        Object layoutObj = createViewAuxiliaryBox.getLayoutObj();
-        if (createViewAuxiliaryBox.getLayoutObj() instanceof Integer) {
-            int contentViewLayout = (int) layoutObj;
-            dataBinding = DataBindingUtil.inflate(createViewAuxiliaryBox.getInflater(), contentViewLayout, createViewAuxiliaryBox.getContainer(), false);
-            if (dataBinding == null) {
-                contentView = createViewAuxiliaryBox.getInflater().inflate((Integer) layoutObj, createViewAuxiliaryBox.getContainer(), false);
-            } else {
-                contentView = dataBinding.getRoot();
-            }
-        } else if (layoutObj instanceof View) {
-            contentView = (View) layoutObj;
-            dataBinding = DataBindingUtil.bind(contentView);
-        } else {
-            throw new ClassCastException("setContentView() type must be int or View");
-        }
-        return contentView;
-    }
+public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragment implements MvvmViewShank {
 
     /**
-     * 初始化dataBind
+     * 初始化ViewDelegate
+     *
+     * @param savedInstanceState
      */
-    @SuppressWarnings("unchecked")
-    protected void initViewModel() {
-        Class modelClass;
-        Type type = getClass().getGenericSuperclass();
-        if (type instanceof ParameterizedType) {
-            modelClass = (Class) ((ParameterizedType) type).getActualTypeArguments()[1];
-        } else {
-            //如果没有指定泛型参数，则默认使用BaseViewModel
-            modelClass = BaseViewModel.class;
-        }
-        viewModel = (VM) getFragmentViewModelProvider().get(modelClass);
+    protected void initViewDelegate(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                                    @Nullable Bundle savedInstanceState) {
+        mViewDelegate = new MvvmViewDelegate<V>(this);
+        mViewDelegate.onCreate(inflater, container, savedInstanceState);
     }
 
     /**
-     * 注册liveData事件
-     */
-    protected void registerLiveEvent() {
-        viewModel.finishOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                _mActivity.finish();
-            }
-        });
-        viewModel.backPressedOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                _mActivity.onBackPressed();
-            }
-        });
-    }
-
-    protected void registerViewDelegate() {
-        viewModel.initViewDelegate(this);
-    }
-
-    /**
-     * 绑定Variable
-     */
-    protected abstract void bindingVariable();
-
-    /**
-     * 获取app的ViewModelProvider
+     * 获取mvvm代理
      *
      * @return
      */
-    protected ViewModelProvider getAppViewModelProvider() {
-        return ViewModelProviderFactory.getAppViewModelProvider();
-    }
-
-    /**
-     * 获取activity的ViewModelProvider
-     *
-     * @return
-     */
-    protected ViewModelProvider getActivityViewModelProvider() {
-        return new ViewModelProvider(_mActivity, _mActivity.getDefaultViewModelProviderFactory());
-    }
-
-    /**
-     * 获取fragment的ViewModelProvider
-     *
-     * @return
-     */
-    protected ViewModelProvider getFragmentViewModelProvider() {
-        return new ViewModelProvider(this, getDefaultViewModelProviderFactory());
+    protected MvvmViewDelegate<V> getMvvmViewDelegate() {
+        return (MvvmViewDelegate) mViewDelegate;
     }
 
     @Override
@@ -145,11 +56,63 @@ public abstract class MvvmFragment<V extends ViewDataBinding, VM extends BaseVie
         return this;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (dataBinding != null) {
-            dataBinding.unbind();
-        }
+    /**
+     * 根据AppProvider创建ViewModel
+     *
+     * @param modelClass
+     * @param <VM>
+     * @return
+     */
+    protected <VM extends ViewModel> VM getVmByAppProvider(@NonNull Class<VM> modelClass) {
+        return getMvvmViewDelegate().getVmByAppProvider(modelClass);
+    }
+
+    /**
+     * 根据ActivityViewModelProvider创建ViewModel
+     *
+     * @param modelClass
+     * @param <VM>
+     * @return
+     */
+    protected <VM extends ViewModel> VM getVmByActivityProvider(@NonNull Class<VM> modelClass) {
+        return getMvvmViewDelegate().getVmByActivityProvider(modelClass);
+    }
+
+    /**
+     * 根据FragmentViewModelProvider创建ViewModel
+     *
+     * @param modelClass
+     * @param <VM>
+     * @return
+     */
+    protected <VM extends ViewModel> VM getVmByFragmentProvider(@NonNull Class<VM> modelClass) {
+        return getMvvmViewDelegate().getVmByFragmentProvider(modelClass);
+    }
+
+    /**
+     * 注册事件
+     *
+     * @param viewModel
+     */
+    protected void registerLiveEvent(BaseViewModel viewModel) {
+        getMvvmViewDelegate().registerLiveEvent(viewModel);
+    }
+
+    /**
+     * 注册mvvm视图句柄
+     *
+     * @param viewModel
+     */
+    protected void registerMvvmViewShank(BaseViewModel viewModel) {
+        getMvvmViewDelegate().registerMvvmViewShank(viewModel);
+    }
+
+    /**
+     * 获取DataBinding
+     *
+     * @return
+     */
+    protected V getDataBinding() {
+        return getMvvmViewDelegate().getDataBinding();
     }
 }

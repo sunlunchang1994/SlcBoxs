@@ -25,8 +25,8 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
     private boolean isInitPresenter;//是否初始化Presenter
 
     @Override
-    protected void initView(@Nullable Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
+    public void onBindView(@Nullable Bundle savedInstanceState) {
+        super.onBindView(savedInstanceState);
         initPresenter();
     }
 
@@ -40,12 +40,11 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
 
     /**
      * 设置presenter
-     *
-     * @param presenter
      */
+    @Override
     public void setPresenter(P presenter) {
-        isInitPresenter = true;
         this.mPresenter = presenter;
+        isInitPresenter = true;
     }
 
     @Override
@@ -74,11 +73,11 @@ public abstract class MvpFragment<P extends MvpContract.BasePresenter> extends B
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
         if (mPresenter != null) {
             mPresenter.destroy();
             mPresenter = null;
         }
+        super.onDestroy();
     }
 }

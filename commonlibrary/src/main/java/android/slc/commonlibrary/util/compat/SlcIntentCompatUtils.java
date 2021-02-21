@@ -35,7 +35,7 @@ public class SlcIntentCompatUtils {
      *
      * @param path
      */
-    public static Intent openAndroidFile(String path) {
+    public static Intent getOpenAndroidFileIntent(String path) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (path.startsWith("http")) {
             String extension = MimeTypeMap.getFileExtensionFromUrl(path);
@@ -61,7 +61,7 @@ public class SlcIntentCompatUtils {
         return intent;
     }
 
-    public static Intent openAndroidFile(Uri uri, String type) {
+    public static Intent getOpenAndroidFileIntent(Uri uri, String type) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//兼容7.0及以上的写法
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

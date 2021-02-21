@@ -17,11 +17,11 @@ buildscript {
 
 allprojects {
     repositories {
-        //maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
-        //maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
-        google()
-        jcenter()
-        maven { url 'https://dl.bintray.com/sunlunchang/code/' }
+        maven { url 'https://dl.bintray.com/sunlunchang/code' }
+        maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
+        //google()
+        //jcenter()
     }
 }
 
@@ -54,14 +54,14 @@ ext {
     utilcodex = '1.30.5'
     //模块版本
     //常用包
-    commonLibreyVersion = '0.1.3'
-    commonLibreyPublishVersion = '0.1.3'
+    commonLibreyVersion = '0.1.5'
+    commonLibreyPublishVersion = '0.1.5'
     //toolbar
     toolbarVersion = '0.0.7'
     toolbarPublishVersion = '0.0.7'
     //核心包 依赖以上两个
-    codeVersion = '0.2.9'
-    codePublishVersion = '0.2.9'
+    codeVersion = '0.3.8'
+    codePublishVersion = '0.3.8'
     //rxJava
     rxVersion = '0.0.7'
     rxPublishVersion = '0.0.7'
@@ -69,16 +69,16 @@ ext {
     rxLifecycleVersion = '0.0.7'
     rxLifecyclePublishVersion = '0.0.7'
     //核心生命周期包 依赖以上五个
-    codeLifecycleVersion = '0.2.9'
-    codeLifecyclePublishVersion = '0.2.9'
+    codeLifecycleVersion = '0.3.8'
+    codeLifecyclePublishVersion = '0.3.8'
 
     //网络 独立
     orVersion = '0.1.1'
     orPublishVersion = '0.1.1'
 
     //盒子 依赖以上所有
-    boxsVersion = '0.3.1'
-    boxsPublishVersion = '0.3.1'
+    boxsVersion = '0.3.8'
+    boxsPublishVersion = '0.3.91'
     //Publish版本
     //publishVersion = '0.0.6'
 }

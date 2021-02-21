@@ -2,7 +2,7 @@ package android.slc.code.vm;
 
 import android.app.Application;
 import android.slc.code.exception.MvvmNullPointerException;
-import android.slc.code.ui.views.ViewDelegate;
+import android.slc.code.ui.views.MvvmViewShank;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
@@ -15,14 +15,14 @@ import androidx.lifecycle.AndroidViewModel;
 public class BaseViewModel extends AndroidViewModel {
     public final ObservableField<Void> finishOf = new ObservableField<>();
     public final ObservableField<Void> backPressedOf = new ObservableField<>();
-    private ViewDelegate viewDelegate;
+    private MvvmViewShank mvvmViewShank;
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void initViewDelegate(ViewDelegate viewDelegate) {
-        this.viewDelegate = viewDelegate;
+    public void initMvvmViewShank(MvvmViewShank mvvmViewShank) {
+        this.mvvmViewShank = mvvmViewShank;
     }
 
     /**
@@ -39,16 +39,21 @@ public class BaseViewModel extends AndroidViewModel {
         backPressedOf.notifyChange();
     }
 
-    protected ViewDelegate getViewDelegate() {
-        if (viewDelegate == null) {
+    /**
+     * 获取视图代理器
+     *
+     * @return
+     */
+    protected MvvmViewShank getMvvmViewShank() {
+        if (mvvmViewShank == null) {
             throw new MvvmNullPointerException("VM on Cleared");
         }
-        return viewDelegate;
+        return mvvmViewShank;
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        viewDelegate = null;
+        mvvmViewShank = null;
     }
 }

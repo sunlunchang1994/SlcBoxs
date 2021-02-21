@@ -21,10 +21,9 @@ public abstract class MvpActivity<P extends MvpContract.BasePresenter> extends B
     private P mPresenter;
     private boolean isInitPresenter;//是否初始化Presenter
 
-
     @Override
-    public void initView(@Nullable Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
+    public void onBindView(@Nullable Bundle savedInstanceState) {
+        super.onBindView(savedInstanceState);
         initPresenter();
     }
 
