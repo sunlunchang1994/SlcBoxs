@@ -51,7 +51,7 @@ ext {
     converterGson = '2.6.2'
     adapterRxjava2 = '2.6.2'
     fragmentationx = '1.0.2'
-    utilcodex = '1.29.0'
+    utilcodex = '1.30.5'
     //模块版本
     //常用包
     commonLibreyVersion = '0.1.3'
