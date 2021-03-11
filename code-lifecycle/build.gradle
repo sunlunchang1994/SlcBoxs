@@ -6,8 +6,6 @@ if (module_code_lifecycle.toBoolean()) {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     api "android.slc:code:$codeVersion"
     api "android.slc:rx:$rxVersion"
     api "android.slc:rxlifecycle:$rxLifecycleVersion"

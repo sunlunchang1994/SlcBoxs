@@ -27,3 +27,17 @@ android {
     }
 
 }
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation("androidx.appcompat:appcompat:$androidXAppcompat") {
+        exclude(group: 'androidx.activity, androidx.fragment, annotation:annotation, constraintlayout:constraintlayout')
+    }
+    implementation "androidx.activity:activity:$androidXActivity"
+    implementation "androidx.fragment:fragment:$androidXFragment"
+    implementation "androidx.annotation:annotation:1.2.0-rc01"
+
+    implementation ("com.google.android.material:material:$googleAndroidMaterial") {
+        exclude(group: 'appcompat:appcompat, constraintlayout:constraintlayout')
+    }
+    implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
+}

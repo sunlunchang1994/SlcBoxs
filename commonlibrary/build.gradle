@@ -6,8 +6,6 @@ if (module_commonlibrey.toBoolean()) {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.appcompat:appcompat:$androidXAppcompat"
-    implementation "com.google.android.material:material:$googleAndroidMaterial"
     implementation "com.google.code.gson:gson:$gson"
     api "com.blankj:utilcodex:$utilcodex"
 }

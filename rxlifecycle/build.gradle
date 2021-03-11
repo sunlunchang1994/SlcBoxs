@@ -3,10 +3,9 @@ if (module_rxlifecycle.toBoolean()) {
     apply plugin: 'maven'
     apply plugin: 'com.novoda.bintray-release'
 }
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     api "io.reactivex.rxjava2:rxandroid:$rxAndroid"
     api "io.reactivex.rxjava2:rxjava:$rxJava"
     api "com.trello.rxlifecycle3:rxlifecycle:$rxLifecycle"

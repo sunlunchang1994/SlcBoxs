@@ -5,7 +5,6 @@ if (module_rx.toBoolean()) {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:$androidXAppcompat"
     api "io.reactivex.rxjava2:rxandroid:$rxAndroid"
     api "io.reactivex.rxjava2:rxjava:$rxJava"
 }

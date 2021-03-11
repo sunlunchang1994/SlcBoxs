@@ -16,10 +16,9 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api "androidx.activity:activity:$androidXActivity"
-    api "androidx.fragment:fragment:$androidXFragment"
-    api "me.yokeyword:fragmentationx-core:$fragmentationx"
-    api "com.google.android.material:material:$googleAndroidMaterial"
+    api ("me.yokeyword:fragmentationx-core:$fragmentationx"){
+        exclude(group: 'appcompat:appcompat')
+    }
     api "android.slc:toolbar:$toolbarVersion"
     api "android.slc:commonlibrary:$commonLibreyVersion"
 }

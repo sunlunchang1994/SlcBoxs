@@ -24,13 +24,20 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:$androidXAppcompat"
+    implementation("androidx.appcompat:appcompat:$androidXAppcompat") {
+        exclude(group: 'androidx.activity, androidx.fragment, annotation:annotation, constraintlayout:constraintlayout')
+    }
+    implementation "androidx.activity:activity:$androidXActivity"
+    implementation "androidx.fragment:fragment:$androidXFragment"
+    implementation "androidx.annotation:annotation:1.2.0-rc01"
+
+    implementation ("com.google.android.material:material:$googleAndroidMaterial") {
+        exclude(group: 'appcompat:appcompat, constraintlayout:constraintlayout')
+    }
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
-    implementation "com.google.android.material:material:$googleAndroidMaterial"
-    if (module_box.toBoolean()) {
+    /*if (module_box.toBoolean()) {
         implementation 'android.slc:box:+'
     } else {
         implementation "android.slc:box:$boxsVersion"
-    }
+    }*/
 }
