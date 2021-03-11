@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:$androidXAppcompat") {
+    /*implementation("androidx.appcompat:appcompat:$androidXAppcompat") {
         exclude(group: 'androidx.activity, androidx.fragment, annotation:annotation, constraintlayout:constraintlayout')
     }
     implementation "androidx.activity:activity:$androidXActivity"
@@ -34,10 +34,10 @@ dependencies {
     implementation ("com.google.android.material:material:$googleAndroidMaterial") {
         exclude(group: 'appcompat:appcompat, constraintlayout:constraintlayout')
     }
-    implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
-    /*if (module_box.toBoolean()) {
+    implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"*/
+    if (module_box.toBoolean()) {
         implementation 'android.slc:box:+'
     } else {
         implementation "android.slc:box:$boxsVersion"
-    }*/
+    }
 }

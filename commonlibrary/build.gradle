@@ -7,7 +7,9 @@ if (module_commonlibrey.toBoolean()) {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.google.code.gson:gson:$gson"
-    api "com.blankj:utilcodex:$utilcodex"
+    api("com.blankj:utilcodex:$utilcodex") {
+        exclude(group: 'appcompat:appcompat')
+    }
 }
 if (module_commonlibrey.toBoolean()) {
     apply plugin: 'com.novoda.bintray-release'
