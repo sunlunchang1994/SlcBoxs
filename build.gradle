@@ -53,31 +53,31 @@ ext {
     utilcodex = '1.30.5'
     //模块版本
     //常用包
-    commonLibreyVersion = '0.1.5'
-    commonLibreyPublishVersion = '0.1.5'
+    commonLibreyVersion = '0.1.6'
+    commonLibreyPublishVersion = '0.1.6'
     //toolbar
-    toolbarVersion = '0.0.7'
-    toolbarPublishVersion = '0.0.7'
+    toolbarVersion = '0.0.8'
+    toolbarPublishVersion = '0.0.8'
     //核心包 依赖以上两个
-    codeVersion = '0.3.8'
-    codePublishVersion = '0.3.8'
+    codeVersion = '0.3.9'
+    codePublishVersion = '0.3.9'
     //rxJava
-    rxVersion = '0.0.7'
-    rxPublishVersion = '0.0.7'
+    rxVersion = '0.0.8'
+    rxPublishVersion = '0.0.8'
     //rx生命周期 依赖以上一个
-    rxLifecycleVersion = '0.0.7'
-    rxLifecyclePublishVersion = '0.0.7'
+    rxLifecycleVersion = '0.0.8'
+    rxLifecyclePublishVersion = '0.0.8'
     //核心生命周期包 依赖以上五个
-    codeLifecycleVersion = '0.3.8'
-    codeLifecyclePublishVersion = '0.3.8'
+    codeLifecycleVersion = '0.3.9'
+    codeLifecyclePublishVersion = '0.3.9'
 
     //网络 独立
-    orVersion = '0.1.1'
-    orPublishVersion = '0.1.1'
+    orVersion = '0.1.2'
+    orPublishVersion = '0.1.2'
 
     //盒子 依赖以上所有
-    boxsVersion = '0.3.8'
-    boxsPublishVersion = '0.3.91'
+    boxsVersion = '0.3.91'
+    boxsPublishVersion = '0.3.92'
     //Publish版本
     //publishVersion = '0.0.6'
 }
