@@ -39,6 +39,7 @@ import static android.Manifest.permission.EXPAND_STATUS_BAR;
 /**
  * 状态栏和导航栏状态操作工具
  */
+@Deprecated
 public final class SlcBarCompatUtils {
 
     ///////////////////////////////////////////////////////////////////////////

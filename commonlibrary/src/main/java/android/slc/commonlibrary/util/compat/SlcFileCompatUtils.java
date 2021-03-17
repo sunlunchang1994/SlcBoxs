@@ -41,7 +41,6 @@ public final class SlcFileCompatUtils {
         return blockSize * totalBlocks;
     }
 
-
     /**
      * 获取存储空间使用量
      *

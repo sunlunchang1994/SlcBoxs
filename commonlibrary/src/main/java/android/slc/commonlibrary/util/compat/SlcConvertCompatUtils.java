@@ -1,6 +1,9 @@
 package android.slc.commonlibrary.util.compat;
 
 
+import android.graphics.Bitmap;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.GsonUtils;
@@ -60,5 +63,45 @@ public class SlcConvertCompatUtils {
      */
     public static <T> T mapToObj(@NonNull Map map, @NonNull Type type) {
         return GsonUtils.fromJson(GsonUtils.toJson(map), type);
+    }
+
+    /**
+     * 时长转合适的时长字符串
+     *
+     * @param duration 时长 秒为单位
+     * @return
+     */
+    public static String duration2FitStr(long duration) {
+        StringBuilder timeStringBuilder = new StringBuilder();
+        if (duration >= 60 * 60) {
+            long hour = duration / 60 / 60;
+            if (hour < 10) {
+                timeStringBuilder.append("0");
+            }
+            timeStringBuilder.append(hour);
+            timeStringBuilder.append(":");
+        }
+        long minutes = duration / 60 % 60;
+        if (minutes < 10) {
+            timeStringBuilder.append("0");
+        }
+        timeStringBuilder.append(minutes);
+        timeStringBuilder.append(":");
+        long remainingSeconds = duration % 60;
+        if (remainingSeconds < 10) {
+            timeStringBuilder.append("0");
+        }
+        timeStringBuilder.append(remainingSeconds);
+        return timeStringBuilder.toString();
+    }
+
+    /**
+     * View 转换为bitmap
+     *
+     * @param v
+     * @return
+     */
+    public static Bitmap convertViewToBitmap(View v) {
+        return SlcImageCompatUtils.convertViewToBitmap(v);
     }
 }
