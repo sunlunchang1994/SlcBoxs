@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 
 /**
+ * MVP设计模式的activity，不推荐使用MVP设计模式
  * Created by on the way on 2018/11/5.
  */
 

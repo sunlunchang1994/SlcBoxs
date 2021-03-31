@@ -21,40 +21,43 @@ import android.widget.ListView;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * 此类慎用
+ */
 public abstract class PreferenceFragment extends EnhanceFragment implements
         PreferenceManagerCompat.OnPreferenceTreeClickListener {
-    
-	private static final String PREFERENCES_TAG = "android:preferences";
- 
+
+    private static final String PREFERENCES_TAG = "android:preferences";
+
     private PreferenceManager mPreferenceManager;
     private ListView mList;
     private boolean mHavePrefs;
     private boolean mInitDone;
- 
+
     /**
      * The starting request code given out to preference framework.
      */
     private static final int FIRST_REQUEST_CODE = 100;
- 
+
     private static final int MSG_BIND_PREFERENCES = 1;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
- 
+
                 case MSG_BIND_PREFERENCES:
                     bindPreferences();
                     break;
             }
         }
     };
- 
+
     final private Runnable mRequestFocus = new Runnable() {
         public void run() {
             mList.focusableViewAvailable(mList);
         }
     };
- 
+
     /**
      * Interface that PreferenceFragment's containing activity should
      * implement to be able to process preference items that wish to
@@ -69,31 +72,31 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
          */
         boolean onPreferenceStartFragment(PreferenceFragment caller, Preference pref);
     }
-	
+
     @Override
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
-		mPreferenceManager = PreferenceManagerCompat.newInstance(getActivity(), FIRST_REQUEST_CODE);
-		PreferenceManagerCompat.setFragment(mPreferenceManager, this);
-	}
-	
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        mPreferenceManager = PreferenceManagerCompat.newInstance(getActivity(), FIRST_REQUEST_CODE);
+        PreferenceManagerCompat.setFragment(mPreferenceManager, this);
+    }
+
     @Override
-	public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup,
+    public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup,
                              Bundle paramBundle) {
-		return paramLayoutInflater.inflate(R.layout.preference_list_fragment, paramViewGroup,
-				false);
-	}
-    
+        return paramLayoutInflater.inflate(R.layout.preference_list_fragment, paramViewGroup,
+                false);
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
- 
+
         if (mHavePrefs) {
             bindPreferences();
         }
- 
+
         mInitDone = true;
- 
+
         if (savedInstanceState != null) {
             Bundle container = savedInstanceState.getBundle(PREFERENCES_TAG);
             if (container != null) {
@@ -104,38 +107,38 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
             }
         }
     }
-    
+
     @Override
     public void onStart() {
         super.onStart();
         PreferenceManagerCompat.setOnPreferenceTreeClickListener(mPreferenceManager, this);
     }
-    
+
     @Override
-	public void onStop() {
-		super.onStop();
-		PreferenceManagerCompat.dispatchActivityStop(mPreferenceManager);
-		PreferenceManagerCompat.setOnPreferenceTreeClickListener(mPreferenceManager, null);
-	}
-    
+    public void onStop() {
+        super.onStop();
+        PreferenceManagerCompat.dispatchActivityStop(mPreferenceManager);
+        PreferenceManagerCompat.setOnPreferenceTreeClickListener(mPreferenceManager, null);
+    }
+
     @Override
-	public void onDestroyView() {
-		mList = null;
-		mHandler.removeCallbacks(mRequestFocus);
-		mHandler.removeMessages(MSG_BIND_PREFERENCES);
-		super.onDestroyView();
-	}
-    
+    public void onDestroyView() {
+        mList = null;
+        mHandler.removeCallbacks(mRequestFocus);
+        mHandler.removeMessages(MSG_BIND_PREFERENCES);
+        super.onDestroyView();
+    }
+
     @Override
-	public void onDestroy() {
-		super.onDestroy();
-		PreferenceManagerCompat.dispatchActivityDestroy(mPreferenceManager);
-	}
-    
+    public void onDestroy() {
+        super.onDestroy();
+        PreferenceManagerCompat.dispatchActivityDestroy(mPreferenceManager);
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
- 
+
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         if (preferenceScreen != null) {
             Bundle container = new Bundle();
@@ -143,22 +146,23 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
             outState.putBundle(PREFERENCES_TAG, container);
         }
     }
-    
+
     @Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         PreferenceManagerCompat.dispatchActivityResult(mPreferenceManager, requestCode, resultCode, data);
-	}
-    
+    }
+
     /**
      * Returns the {@link PreferenceManager} used by this fragment.
+     *
      * @return The {@link PreferenceManager}.
      */
     public PreferenceManager getPreferenceManager() {
         return mPreferenceManager;
     }
-    
+
     /**
      * Sets the root of the preference hierarchy that this fragment is showing.
      *
@@ -172,17 +176,17 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
             }
         }
     }
-    
+
     /**
      * Gets the root of the preference hierarchy that this fragment is showing.
      *
      * @return The {@link PreferenceScreen} that is the root of the preference
-     *         hierarchy.
+     * hierarchy.
      */
     public PreferenceScreen getPreferenceScreen() {
         return PreferenceManagerCompat.getPreferenceScreen(mPreferenceManager);
     }
-    
+
     /**
      * Adds preferences from activities that match the given {@link Intent}.
      *
@@ -190,10 +194,10 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
      */
     public void addPreferencesFromIntent(Intent intent) {
         requirePreferenceManager();
- 
+
         setPreferenceScreen(PreferenceManagerCompat.inflateFromIntent(mPreferenceManager, intent, getPreferenceScreen()));
     }
-    
+
     /**
      * Inflates the given XML resource and adds the preference hierarchy to the current
      * preference hierarchy.
@@ -202,25 +206,25 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
      */
     public void addPreferencesFromResource(int preferencesResId) {
         requirePreferenceManager();
- 
+
         setPreferenceScreen(PreferenceManagerCompat.inflateFromResource(mPreferenceManager, getActivity(),
-        		preferencesResId, getPreferenceScreen()));
+                preferencesResId, getPreferenceScreen()));
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-            Preference preference) {
+                                         Preference preference) {
         //if (preference.getFragment() != null &&
-    	if (
+        if (
                 getActivity() instanceof OnPreferenceStartFragmentCallback) {
-            return ((OnPreferenceStartFragmentCallback)getActivity()).onPreferenceStartFragment(
+            return ((OnPreferenceStartFragmentCallback) getActivity()).onPreferenceStartFragment(
                     this, preference);
         }
         return false;
     }
-	
+
     /**
      * Finds cpb_complete_state_selector {@link Preference} based on its key.
      *
@@ -234,24 +238,24 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
         }
         return mPreferenceManager.findPreference(key);
     }
-    
+
     private void requirePreferenceManager() {
         if (mPreferenceManager == null) {
             throw new RuntimeException("This should be called after super.onCreate.");
         }
     }
-	
+
     private void postBindPreferences() {
         if (mHandler.hasMessages(MSG_BIND_PREFERENCES)) return;
         mHandler.obtainMessage(MSG_BIND_PREFERENCES).sendToTarget();
     }
-    
+
     private void bindPreferences() {
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         if (preferenceScreen != null) {
             preferenceScreen.bind(getListView());
         }
- 
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
             // Workaround android bug for SDK 10 and below - see
             // https://github.com/android/platform_frameworks_base/commit/2d43d283fc0f22b08f43c6db4da71031168e7f59
@@ -260,14 +264,14 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // If the list has headers, subtract them from the index.
                     if (parent instanceof ListView) {
-                        position -= ((ListView)parent).getHeaderViewsCount();
+                        position -= ((ListView) parent).getHeaderViewsCount();
                     }
- 
+
                     Object item = preferenceScreen.getRootAdapter().getItem(position);
                     if (!(item instanceof Preference))
                         return;
- 
-                    final Preference preference = (Preference)item;
+
+                    final Preference preference = (Preference) item;
                     try {
                         Method performClick = Preference.class.getDeclaredMethod(
                                 "performClick", PreferenceScreen.class);
@@ -281,12 +285,12 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
             });
         }
     }
- 
+
     public ListView getListView() {
         ensureList();
         return mList;
     }
- 
+
     private void ensureList() {
         if (mList != null) {
             return;
@@ -299,34 +303,34 @@ public abstract class PreferenceFragment extends EnhanceFragment implements
         if (!(rawListView instanceof ListView)) {
             throw new RuntimeException(
                     "Content has view with id attribute 'android.R.id.list' "
-                    + "that is not cpb_complete_state_selector ListView class");
+                            + "that is not cpb_complete_state_selector ListView class");
         }
-        mList = (ListView)rawListView;
+        mList = (ListView) rawListView;
         if (mList == null) {
             throw new RuntimeException(
                     "Your content must have cpb_complete_state_selector ListView whose id attribute is " +
-                    "'android.R.id.list'");
+                            "'android.R.id.list'");
         }
         mList.setOnKeyListener(mListOnKeyListener);
         mHandler.post(mRequestFocus);
     }
- 
+
     private View.OnKeyListener mListOnKeyListener = new View.OnKeyListener() {
- 
+
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             Object selectedItem = mList.getSelectedItem();
             if (selectedItem instanceof Preference) {
                 @SuppressWarnings("unused")
-				View selectedView = mList.getSelectedView();
+                View selectedView = mList.getSelectedView();
                 //return ((Preference)selectedItem).onKey(
                 //        selectedView, keyCode, event);
                 return false;
             }
             return false;
         }
- 
+
     };
-	
- 
+
+
 }

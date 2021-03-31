@@ -12,11 +12,21 @@ import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by on the way on 2017/12/6.
+ * 基础的activity，在系统的{@link android.app.Activity#onCreate(Bundle)}中细分化了方法
+ * {@link android.app.Activity#onCreate(Bundle)}方法已交由{@link BaseViewDelegate}处理
  */
-
 public abstract class BaseActivity extends EnhanceActivity implements ISupportView {
+    /**
+     * 处理通知栏状态的viewModel
+     */
     protected BarVm mBarVm;
+    /**
+     * 工具栏代理
+     */
     protected ISlcToolBarDelegate mSlcToolBarDelegate;
+    /**
+     * 基础视图代理
+     */
     protected BaseViewDelegate mViewDelegate;
 
     @Override
@@ -25,6 +35,11 @@ public abstract class BaseActivity extends EnhanceActivity implements ISupportVi
         initViewDelegate(savedInstanceState);
     }
 
+    /**
+     * 初始化ViewDelegate
+     *
+     * @param savedInstanceState
+     */
     protected void initViewDelegate(@Nullable Bundle savedInstanceState) {
         mViewDelegate = new BaseViewDelegate(this);
         mViewDelegate.onCreate(savedInstanceState);
@@ -55,11 +70,17 @@ public abstract class BaseActivity extends EnhanceActivity implements ISupportVi
         return (T) mSlcToolBarDelegate;
     }
 
+    /**
+     * 初始化视图之前的回调，详细解析在{@link ISupportView}
+     */
     @Override
     public void initViewBefore() {
 
     }
 
+    /**
+     * 初始化视图之后的回调，详细解析在{@link ISupportView}
+     */
     @Override
     public void initViewLater() {
 

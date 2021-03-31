@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 /**
+ * 此方法只是为了使用{@link BaseViewDelegate}时传参更统一，方便{@link android.app.Activity}和{@link androidx.fragment.app.Fragment}互转更方便
+ *
  * @author slc
  * @date 2020/2/29 1
  */

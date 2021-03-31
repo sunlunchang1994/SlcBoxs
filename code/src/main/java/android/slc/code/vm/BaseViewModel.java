@@ -9,6 +9,9 @@ import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 
 /**
+ * 基础上viewModel
+ * 在官方的基础上增加了对视图操作的常用方法
+ *
  * @author slc
  * @date 2020/2/29 16:41
  */

@@ -16,17 +16,30 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 /**
+ * 使用与MVVM设计模式的ViewDelegate方法
+ *
  * @author slc
  * @date 2021/2/5 16:03
  */
 public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegate {
+    /**
+     * ViewDataBing
+     */
     protected V mDataBinding;
+    /**
+     * {@link android.app.Activity}和{@link androidx.fragment.app.Fragment}的{@link ViewModel}提供者
+     */
     protected ViewModelProvider mActivityViewModelProvider, mFragmentViewModelProvider;
 
     public MvvmViewDelegate(ISupportView supportView) {
         super(supportView);
     }
 
+    /**
+     * 此处给{@link ViewDataBinding}绑定可生命周期
+     *
+     * @param createViewAuxiliaryBox
+     */
     @Override
     protected void initView(@Nullable CreateViewAuxiliaryBox createViewAuxiliaryBox) {
         super.initView(createViewAuxiliaryBox);
@@ -35,6 +48,11 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
         }
     }
 
+    /**
+     * 此处使用{@link ViewDataBinding}的方式绑定视图
+     *
+     * @param createViewAuxiliaryBox
+     */
     @Override
     protected void interfereLoadView(CreateViewAuxiliaryBox createViewAuxiliaryBox) {
         if (this.mActivity != null) {
@@ -74,7 +92,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     }
 
     /**
-     * 获取 DataBinding
+     * 获取 {@link ViewDataBinding}
      *
      * @return
      */
@@ -83,7 +101,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     }
 
     /**
-     * 获取MvvmViewShank
+     * 获取{@link MvvmViewShank}
      *
      * @return
      */
@@ -98,7 +116,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     }
 
     /**
-     * 获取app的ViewModelProvider
+     * 获取application的{@link ViewModelProvider}
      *
      * @return
      */
@@ -108,7 +126,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     }
 
     /**
-     * 获取activity的ViewModelProvider
+     * 获取activity的{@link ViewModelProvider}
      *
      * @return
      */
@@ -117,7 +135,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
         if (this.mActivityViewModelProvider == null) {
             if (this.mActivity != null) {
                 this.mActivityViewModelProvider = new ViewModelProvider(this.mActivity, this.mActivity.getDefaultViewModelProviderFactory());
-            }else if(this.mFragment!=null){
+            } else if (this.mFragment != null) {
                 this.mActivityViewModelProvider = new ViewModelProvider(this.mFragment.getActivity(), this.mFragment.getActivity().getDefaultViewModelProviderFactory());
             }
         }
@@ -125,7 +143,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
     }
 
     /**
-     * 获取fragment的ViewModelProvider
+     * 获取fragment的{@link ViewModelProvider}
      *
      * @return
      */
@@ -175,6 +193,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
 
     /**
      * 注册事件
+     * 注册{@link BaseViewModel}的销毁和方法方法
      *
      * @param viewModel
      */
@@ -215,6 +234,8 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
 
     /**
      * 注册mvvm视图句柄
+     * 事实上，让{@link ViewModel}持有视图是不允许的，哪怕是{@link android.content.Context}也不允许，但为了某些时候方便写代码，此处还是这么做了
+     * 如有更好且合理的做法请告诉作者
      *
      * @param viewModel
      */

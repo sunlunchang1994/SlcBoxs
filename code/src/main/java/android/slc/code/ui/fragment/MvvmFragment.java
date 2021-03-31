@@ -58,6 +58,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
 
     /**
      * 根据AppProvider创建ViewModel
+     * 便于子类调用
      *
      * @param modelClass
      * @param <VM>
@@ -69,6 +70,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
 
     /**
      * 根据ActivityViewModelProvider创建ViewModel
+     * 便于子类调用
      *
      * @param modelClass
      * @param <VM>
@@ -80,6 +82,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
 
     /**
      * 根据FragmentViewModelProvider创建ViewModel
+     * 便于子类调用
      *
      * @param modelClass
      * @param <VM>
@@ -91,6 +94,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
 
     /**
      * 注册事件
+     * 便于子类调用
      *
      * @param viewModel
      */
@@ -100,6 +104,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
 
     /**
      * 注册mvvm视图句柄
+     * 便于子类调用
      *
      * @param viewModel
      */
@@ -109,6 +114,7 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
 
     /**
      * 获取DataBinding
+     * 便于子类调用
      *
      * @return
      */

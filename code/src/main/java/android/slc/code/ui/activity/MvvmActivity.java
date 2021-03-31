@@ -53,6 +53,7 @@ public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivi
 
     /**
      * 根据AppProvider创建ViewModel
+     * 便于子类调用
      *
      * @param modelClass
      * @param <VM>
@@ -64,6 +65,7 @@ public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivi
 
     /**
      * 根据ActivityViewModelProvider创建ViewModel
+     * 便于子类调用
      *
      * @param modelClass
      * @param <VM>
@@ -75,6 +77,7 @@ public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivi
 
     /**
      * 注册事件
+     * 便于子类调用
      *
      * @param viewModel
      */
@@ -84,6 +87,7 @@ public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivi
 
     /**
      * 注册mvvm视图句柄
+     * 便于子类调用
      *
      * @param viewModel
      */
@@ -93,6 +97,7 @@ public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivi
 
     /**
      * 获取DataBinding
+     * 便于子类调用
      *
      * @return
      */

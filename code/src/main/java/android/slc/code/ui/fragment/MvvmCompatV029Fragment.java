@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * 此类是为了兼容0.2.9版本
+ * 此类是为了兼容0.2.9版本,新项目不推荐继承此类，请直接使用{@link MvvmFragment}
  * 需要注意的是，部分方法声明类型也需要稍作调整
  *
  * @author slc

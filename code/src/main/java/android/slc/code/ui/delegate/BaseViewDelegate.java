@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
 /**
+ * 基础视图代理
+ * 将{@link android.app.Activity#onCreate(Bundle)}或{@link Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)}中设置视图相关的操作交由本类处理
+ * 单独拎出来作为一个类是为了降低耦合性，方便将此功能移植到此框架之外的框架中
+ *
  * @author slc
  * @date 2021/2/5 15:07
  */
@@ -20,7 +25,7 @@ public class BaseViewDelegate implements LifecycleObserver {
     /**
      * 基于activity的delegate
      */
-    protected AppCompatActivity mActivity;
+    protected FragmentActivity mActivity;
     /**
      * 基于fragment的delegate
      */
@@ -35,11 +40,13 @@ public class BaseViewDelegate implements LifecycleObserver {
     protected ISupportView mSupportView;
 
     /**
+     * 唯一构造函数
+     *
      * @param supportView
      */
     public BaseViewDelegate(ISupportView supportView) {
-        if (supportView instanceof AppCompatActivity) {
-            this.mActivity = (AppCompatActivity) supportView;
+        if (supportView instanceof FragmentActivity) {
+            this.mActivity = (FragmentActivity) supportView;
             this.mSupportView = supportView;
             this.mActivity.getLifecycle().addObserver(this);
             return;
@@ -54,7 +61,8 @@ public class BaseViewDelegate implements LifecycleObserver {
     }
 
     /**
-     * 创建
+     * 初始化方法，接管{@link android.app.Activity}的初始化方法
+     * 调用此方法后会回调{@link ISupportView#initViewBefore(),ISupportView#onBindView(),ISupportView#initViewLater()}方法
      *
      * @param savedInstanceState
      */
@@ -65,7 +73,8 @@ public class BaseViewDelegate implements LifecycleObserver {
     }
 
     /**
-     * 创建
+     * 初始化方法，接管{@link Fragment}的视图初始化方法
+     * 调用此方法后会回调{@link ISupportView#initViewBefore(),ISupportView#onBindView(Bundle),ISupportView#initViewLater()}方法
      *
      * @param inflater
      * @param container
@@ -81,6 +90,7 @@ public class BaseViewDelegate implements LifecycleObserver {
 
     /**
      * 初始化视图
+     * 调用此方法后会回调{@link ISupportView#onBindView(Bundle)}方法
      *
      * @param createViewAuxiliaryBox
      */
@@ -91,6 +101,7 @@ public class BaseViewDelegate implements LifecycleObserver {
 
     /**
      * 干扰视图加载方式
+     * 此方法会为{@link android.app.Activity,Fragment}设置视图
      *
      * @param createViewAuxiliaryBox
      */
@@ -128,6 +139,9 @@ public class BaseViewDelegate implements LifecycleObserver {
         return this.mContentView;
     }
 
+    /**
+     * 生命周期的onDestroy方法
+     */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onDestroy() {
 

@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by on the way on 2017/12/6.
+ * 基础的activity，在系统的{@link androidx.fragment.app.Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)}中细分化了方法
+ * {@link androidx.fragment.app.Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)}方法已交由{@link BaseViewDelegate}处理
  */
 public abstract class BaseFragment extends EnhanceFragment implements ISupportView {
     protected BarVm mBarVm;
@@ -25,7 +27,7 @@ public abstract class BaseFragment extends EnhanceFragment implements ISupportVi
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        initViewDelegate(inflater,container,savedInstanceState);
+        initViewDelegate(inflater, container, savedInstanceState);
         return mViewDelegate.getContentView();
     }
 
@@ -74,11 +76,17 @@ public abstract class BaseFragment extends EnhanceFragment implements ISupportVi
         return (T) mSlcToolBarDelegate;
     }
 
+    /**
+     * 初始化视图之前的回调，详细解析在{@link ISupportView}
+     */
     @Override
     public void initViewBefore() {
 
     }
 
+    /**
+     * 初始化视图之后的回调，详细解析在{@link ISupportView}
+     */
     @Override
     public void initViewLater() {
 
