@@ -9,9 +9,9 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -198,20 +198,34 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      * @param viewModel
      */
     public void registerLiveEvent(BaseViewModel viewModel) {
-        viewModel.finishOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        viewModel.finishOf.observe(MvvmViewDelegate.this.mActivity != null ? MvvmViewDelegate.this.mActivity : MvvmViewDelegate.this.mFragment, aVoid -> {
+            if (MvvmViewDelegate.this.mActivity != null) {
+                MvvmViewDelegate.this.mActivity.finish();
+                return;
+            }
+            if (MvvmViewDelegate.this.mFragment != null) {
+                FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
+                if (fragmentActivity != null) {
+                    fragmentActivity.finish();
+                }
+            }
+        });
+        viewModel.backPressedOf.observe(MvvmViewDelegate.this.mActivity != null ? MvvmViewDelegate.this.mActivity : MvvmViewDelegate.this.mFragment, aVoid -> {
+            if (MvvmViewDelegate.this.mActivity != null) {
+                MvvmViewDelegate.this.mActivity.onBackPressed();
+                return;
+            }
+            if (MvvmViewDelegate.this.mFragment != null) {
+                FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
+                if (fragmentActivity != null) {
+                    fragmentActivity.onBackPressed();
+                }
+            }
+        });
+        /*viewModel.finishOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                if (MvvmViewDelegate.this.mActivity != null) {
-                    MvvmViewDelegate.this.mActivity.finish();
-                    return;
-                }
-                if (MvvmViewDelegate.this.mFragment != null) {
-                    FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
-                    if (fragmentActivity != null) {
-                        fragmentActivity.finish();
-                    }
-                    return;
-                }
+
             }
         });
         viewModel.backPressedOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
@@ -229,7 +243,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
                     return;
                 }
             }
-        });
+        });*/
     }
 
     /**

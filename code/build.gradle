@@ -21,6 +21,7 @@ dependencies {
     }
     api "android.slc:toolbar:$toolbarVersion"
     api "android.slc:commonlibrary:$commonLibreyVersion"
+    api 'com.kunminx.archi:unpeek-livedata:4.+'
 }
 
 if (module_code.toBoolean()) {

@@ -16,8 +16,8 @@ import androidx.lifecycle.AndroidViewModel;
  * @date 2020/2/29 16:41
  */
 public class BaseViewModel extends AndroidViewModel {
-    public final ObservableField<Void> finishOf = new ObservableField<>();
-    public final ObservableField<Void> backPressedOf = new ObservableField<>();
+    public final SingleLiveEvent<Void> finishOf = new SingleLiveEvent<>();
+    public final SingleLiveEvent<Void> backPressedOf = new SingleLiveEvent<>();
     private MvvmViewShank mvvmViewShank;
 
     public BaseViewModel(@NonNull Application application) {
@@ -32,14 +32,14 @@ public class BaseViewModel extends AndroidViewModel {
      * 销毁界面
      */
     protected void finish() {
-        finishOf.notifyChange();
+        finishOf.call();
     }
 
     /**
      * 返回按下
      */
     protected void backPressed() {
-        backPressedOf.notifyChange();
+        backPressedOf.call();
     }
 
     /**
