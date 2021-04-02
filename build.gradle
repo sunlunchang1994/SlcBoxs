@@ -53,14 +53,14 @@ ext {
     utilcodex = '1.30.5'
     //模块版本
     //常用包
-    commonLibreyVersion = '0.1.7'
-    commonLibreyPublishVersion = '0.1.7'
+    commonLibreyVersion = '0.1.8'
+    commonLibreyPublishVersion = '0.1.8'
     //toolbar
     toolbarVersion = '0.0.8'
     toolbarPublishVersion = '0.0.8'
     //核心包 依赖以上两个
-    codeVersion = '0.3.93'
-    codePublishVersion = '0.3.93'
+    codeVersion = '0.3.94'
+    codePublishVersion = '0.3.94'
     //rxJava
     rxVersion = '0.0.8'
     rxPublishVersion = '0.0.8'
@@ -68,16 +68,16 @@ ext {
     rxLifecycleVersion = '0.0.8'
     rxLifecyclePublishVersion = '0.0.8'
     //核心生命周期包 依赖以上五个
-    codeLifecycleVersion = '0.3.93'
-    codeLifecyclePublishVersion = '0.3.93'
+    codeLifecycleVersion = '0.3.94'
+    codeLifecyclePublishVersion = '0.3.94'
 
     //网络 独立
     orVersion = '0.1.2'
     orPublishVersion = '0.1.2'
 
     //盒子 依赖以上所有
-    boxsVersion = '0.3.95'
-    boxsPublishVersion = '0.3.95'
+    boxsVersion = '0.3.96'
+    boxsPublishVersion = '0.3.96'
     //Publish版本
     //publishVersion = '0.0.6'
 }
