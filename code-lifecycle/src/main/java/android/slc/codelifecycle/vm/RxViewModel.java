@@ -46,4 +46,10 @@ public class RxViewModel extends BaseViewModel {
     public RxLifecycleDelegate getRxLifecycleDelegate() {
         return rxLifecycleDelegate;
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        rxLifecycleDelegate = null;
+    }
 }

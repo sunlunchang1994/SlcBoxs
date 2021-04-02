@@ -48,7 +48,7 @@ public class EnhanceFragment extends Fragment implements ISupportFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         mDelegate.onAttach(activity);
         _mActivity = (EnhanceActivity) mDelegate.getActivity();
