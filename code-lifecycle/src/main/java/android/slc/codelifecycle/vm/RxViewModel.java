@@ -35,7 +35,7 @@ public class RxViewModel extends BaseViewModel {
      * @return
      */
     public <T> LifecycleTransformer<T> bindToLifecycle() {
-        return rxLifecycleDelegate.bindToLifecycle();
+        return getRxLifecycleDelegate().bindToLifecycle();
     }
 
     /**

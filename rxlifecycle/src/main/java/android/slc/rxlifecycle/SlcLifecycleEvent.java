@@ -4,7 +4,7 @@ package android.slc.rxlifecycle;
  * @author slc
  * @date 2019/10/25 10:28
  */
-public enum SlcMvpViewEvent {
+public enum SlcLifecycleEvent {
     CREATE,
     START,
     RESUME,
@@ -12,6 +12,6 @@ public enum SlcMvpViewEvent {
     STOP,
     DESTROY;
 
-    SlcMvpViewEvent() {
+    SlcLifecycleEvent() {
     }
 }

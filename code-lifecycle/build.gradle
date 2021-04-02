@@ -6,9 +6,15 @@ if (module_code_lifecycle.toBoolean()) {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "android.slc:code:$codeVersion"
-    api "android.slc:rx:$rxVersion"
-    api "android.slc:rxlifecycle:$rxLifecycleVersion"
+    if (module_code_lifecycle.toBoolean()) {
+        api "android.slc:code:$codeVersion"
+        api "android.slc:rx:$rxVersion"
+        api "android.slc:rxlifecycle:$rxLifecycleVersion"
+    }else{
+        api project(path: ':code')
+        api project(path: ':rx')
+        api project(path: ':rxlifecycle')
+    }
 }
 
 if (module_code_lifecycle.toBoolean()) {

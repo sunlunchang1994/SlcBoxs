@@ -59,25 +59,25 @@ ext {
     toolbarVersion = '0.0.8'
     toolbarPublishVersion = '0.0.8'
     //核心包 依赖以上两个
-    codeVersion = '0.3.94'
-    codePublishVersion = '0.3.94'
+    codeVersion = '0.3.95'
+    codePublishVersion = '0.3.95'
     //rxJava
     rxVersion = '0.0.8'
     rxPublishVersion = '0.0.8'
     //rx生命周期 依赖以上一个
-    rxLifecycleVersion = '0.0.8'
-    rxLifecyclePublishVersion = '0.0.8'
+    rxLifecycleVersion = '0.0.9'
+    rxLifecyclePublishVersion = '0.0.9'
     //核心生命周期包 依赖以上五个
-    codeLifecycleVersion = '0.3.94'
-    codeLifecyclePublishVersion = '0.3.94'
+    codeLifecycleVersion = '0.3.95'
+    codeLifecyclePublishVersion = '0.3.95'
 
     //网络 独立
     orVersion = '0.1.2'
     orPublishVersion = '0.1.2'
 
     //盒子 依赖以上所有
-    boxsVersion = '0.3.96'
-    boxsPublishVersion = '0.3.96'
+    boxsVersion = '0.3.97'
+    boxsPublishVersion = '0.3.97'
     //Publish版本
     //publishVersion = '0.0.6'
 }

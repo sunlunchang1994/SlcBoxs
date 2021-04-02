@@ -16,11 +16,16 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api ("me.yokeyword:fragmentationx-core:$fragmentationx"){
+    api("me.yokeyword:fragmentationx-core:$fragmentationx") {
         exclude(group: 'appcompat:appcompat')
     }
-    api "android.slc:toolbar:$toolbarVersion"
-    api "android.slc:commonlibrary:$commonLibreyVersion"
+    if (module_code.toBoolean()) {
+        api "android.slc:toolbar:$toolbarVersion"
+        api "android.slc:commonlibrary:$commonLibreyVersion"
+    } else {
+        api project(path: ':toolbar')
+        api project(path: ':commonlibrary')
+    }
     api 'com.kunminx.archi:unpeek-livedata:4.+'
 }
 

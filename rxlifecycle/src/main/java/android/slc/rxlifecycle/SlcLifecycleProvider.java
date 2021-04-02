@@ -8,10 +8,10 @@ import io.reactivex.subjects.BehaviorSubject;
  * @author slc
  * @date 2019/10/25 10:27
  */
-public interface SlcLifecycleProvider extends LifecycleProvider<SlcMvpViewEvent> {
+public interface SlcLifecycleProvider extends LifecycleProvider<SlcLifecycleEvent> {
     /**
      * 获取生命周期调度器
      * @return
      */
-    BehaviorSubject<SlcMvpViewEvent> getLifecycleSubject();
+    BehaviorSubject<SlcLifecycleEvent> getLifecycleSubject();
 }
