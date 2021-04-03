@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding;
 public abstract class RxMvvmActivity<V extends ViewDataBinding> extends MvvmActivity<V> {
 
     @Override
-    protected final void registerLiveEvent(BaseViewModel viewModel) {
+    protected void registerLiveEvent(BaseViewModel viewModel) {
         if (viewModel instanceof RxViewModel) {
             initRxLifecycle((RxViewModel) viewModel);
         }
