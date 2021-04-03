@@ -1,9 +1,10 @@
 package android.slc.codelifecycle.vm;
 
 import android.app.Application;
-import android.slc.code.vm.BaseViewModel;
-import android.slc.codelifecycle.utils.RxLifecycleUtils;
+import android.slc.code.ui.views.MvvmViewShank;
+import android.slc.code.vm.BaseViewCompatV0395Model;
 import android.slc.rxlifecycle.RxLifecycleDelegate;
+import android.slc.rxlifecycle.RxLifecycleDelegateImp;
 
 import androidx.annotation.NonNull;
 
@@ -14,16 +15,18 @@ import com.trello.rxlifecycle3.LifecycleTransformer;
  * @date 2020/3/12 10:09
  * @email sunlunchang@gmail.com
  */
-public class RxViewModel extends BaseViewModel {
+public class RxViewCompatV0395Model extends BaseViewCompatV0395Model {
     protected RxLifecycleDelegate rxLifecycleDelegate;
-    private boolean isCleared;
 
-    public RxViewModel(@NonNull Application application) {
+    public RxViewCompatV0395Model(@NonNull Application application) {
         super(application);
     }
 
-    public void initRxLifecycle(RxLifecycleDelegate rxLifecycleDelegate) {
-        this.rxLifecycleDelegate = rxLifecycleDelegate;
+    @Override
+    public void initMvvmViewShank(MvvmViewShank mvvmViewShank) {
+        super.initMvvmViewShank(mvvmViewShank);
+
+        rxLifecycleDelegate = RxLifecycleDelegateImp.create(mvvmViewShank.getLifecycleOwner().getLifecycle());
     }
 
     /**
@@ -42,16 +45,12 @@ public class RxViewModel extends BaseViewModel {
      * @return
      */
     public RxLifecycleDelegate getRxLifecycleDelegate() {
-        if (rxLifecycleDelegate == null && !isCleared) {
-            rxLifecycleDelegate = RxLifecycleUtils.createByTopActivity();
-        }
         return rxLifecycleDelegate;
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        isCleared = true;
         rxLifecycleDelegate = null;
     }
 }

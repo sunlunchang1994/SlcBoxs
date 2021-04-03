@@ -1,4 +1,4 @@
-package android.slc.commonlibrary.util.compat.po;
+package android.slc.code.domain;
 
 import android.os.Build;
 import android.os.Bundle;

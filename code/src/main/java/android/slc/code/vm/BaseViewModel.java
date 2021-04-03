@@ -1,12 +1,15 @@
 package android.slc.code.vm;
 
 import android.app.Application;
-import android.slc.code.exception.MvvmNullPointerException;
-import android.slc.code.ui.views.MvvmViewShank;
+import android.content.Intent;
+import android.os.Bundle;
+import android.slc.code.domain.StartActivityComponent;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 基础上viewModel
@@ -18,14 +21,10 @@ import androidx.lifecycle.AndroidViewModel;
 public class BaseViewModel extends AndroidViewModel {
     public final SingleLiveEvent<Void> finishOf = new SingleLiveEvent<>();
     public final SingleLiveEvent<Void> backPressedOf = new SingleLiveEvent<>();
-    private MvvmViewShank mvvmViewShank;
+    public final SingleLiveEvent<StartActivityComponent> startActivityOf = new SingleLiveEvent<>();
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
-    }
-
-    public void initMvvmViewShank(MvvmViewShank mvvmViewShank) {
-        this.mvvmViewShank = mvvmViewShank;
     }
 
     /**
@@ -42,21 +41,8 @@ public class BaseViewModel extends AndroidViewModel {
         backPressedOf.call();
     }
 
-    /**
-     * 获取视图代理器
-     *
-     * @return
-     */
-    protected MvvmViewShank getMvvmViewShank() {
-        if (mvvmViewShank == null) {
-            throw new MvvmNullPointerException("VM on Cleared");
-        }
-        return mvvmViewShank;
+    protected void startActivity(Class<?> activityClass, Bundle bundle) {
+        startActivityOf.postValue(new StartActivityComponent(activityClass, bundle));
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        mvvmViewShank = null;
-    }
 }

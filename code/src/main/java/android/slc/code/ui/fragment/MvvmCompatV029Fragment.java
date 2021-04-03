@@ -1,6 +1,6 @@
 package android.slc.code.ui.fragment;
 
-import android.slc.code.vm.BaseViewModel;
+import android.slc.code.vm.BaseViewCompatV0395Model;
 
 import androidx.databinding.ViewDataBinding;
 
@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
  * @author slc
  * @date 2021/2/6 11:41
  */
-public abstract class MvvmCompatV029Fragment<V extends ViewDataBinding, VM extends BaseViewModel> extends MvvmFragment<V> {
+public abstract class MvvmCompatV029Fragment<V extends ViewDataBinding, VM extends BaseViewCompatV0395Model> extends MvvmCompatV0395Fragment<V> {
     protected VM viewModel;
 
     @Override
@@ -52,7 +52,7 @@ public abstract class MvvmCompatV029Fragment<V extends ViewDataBinding, VM exten
             return (Class<VM>) ((ParameterizedType) type).getActualTypeArguments()[1];
         } else {
             //如果没有指定泛型参数，则默认使用BaseViewModel
-            return (Class<VM>) BaseViewModel.class;
+            return (Class<VM>) BaseViewCompatV0395Model.class;
         }
     }
 

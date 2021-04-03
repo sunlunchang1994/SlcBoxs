@@ -2,15 +2,11 @@ package android.slc.code.ui.activity;
 
 import android.os.Bundle;
 import android.slc.code.ui.delegate.MvvmViewDelegate;
-import android.slc.code.ui.views.MvvmViewShank;
 import android.slc.code.vm.BaseViewModel;
 
-import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModel;
 
 /**
@@ -19,7 +15,7 @@ import androidx.lifecycle.ViewModel;
  * @author slc
  * @date 2020/3/2 9:48
  */
-public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivity implements MvvmViewShank {
+public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivity {
 
     @Override
     protected void initViewDelegate(@Nullable Bundle savedInstanceState) {
@@ -34,21 +30,6 @@ public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivi
      */
     protected MvvmViewDelegate<V> getMvvmViewDelegate() {
         return (MvvmViewDelegate) mViewDelegate;
-    }
-
-    @Override
-    public AppCompatActivity getActivityContext() {
-        return this;
-    }
-
-    @Override
-    public LifecycleOwner getLifecycleOwner() {
-        return this;
-    }
-
-    @Override
-    public ActivityResultCaller getActivityResultCaller() {
-        return this;
     }
 
     /**
@@ -83,16 +64,6 @@ public abstract class MvvmActivity<V extends ViewDataBinding> extends BaseActivi
      */
     protected void registerLiveEvent(BaseViewModel viewModel) {
         getMvvmViewDelegate().registerLiveEvent(viewModel);
-    }
-
-    /**
-     * 注册mvvm视图句柄
-     * 便于子类调用
-     *
-     * @param viewModel
-     */
-    protected void registerMvvmViewShank(BaseViewModel viewModel) {
-        getMvvmViewDelegate().registerMvvmViewShank(viewModel);
     }
 
     /**

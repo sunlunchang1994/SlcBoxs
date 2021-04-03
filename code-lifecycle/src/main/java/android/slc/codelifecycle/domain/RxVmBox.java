@@ -6,12 +6,14 @@ import android.slc.rxlifecycle.RxLifecycleDelegate;
 
 import com.trello.rxlifecycle3.LifecycleTransformer;
 
+import java.lang.ref.WeakReference;
+
 /**
  * @author slc
  * @date 2021/4/2 12:47
  */
 public class RxVmBox extends VmBox {
-    private RxLifecycleDelegate rxLifecycleDelegate;
+    private WeakReference<RxLifecycleDelegate> rxLifecycleDelegateWeakReference;
 
     /**
      * 设置 RxLifecycleDelegate
@@ -19,7 +21,7 @@ public class RxVmBox extends VmBox {
      * @param rxLifecycleDelegate
      */
     public void setRxLifecycleDelegate(RxLifecycleDelegate rxLifecycleDelegate) {
-        this.rxLifecycleDelegate = rxLifecycleDelegate;
+        this.rxLifecycleDelegateWeakReference = new WeakReference<>(rxLifecycleDelegate);
     }
 
     /**
@@ -38,9 +40,9 @@ public class RxVmBox extends VmBox {
      * @return
      */
     public RxLifecycleDelegate getRxLifecycleDelegate() {
-        if (rxLifecycleDelegate == null) {
-            rxLifecycleDelegate = RxLifecycleUtils.createByTopActivity();
+        if (rxLifecycleDelegateWeakReference == null) {
+            rxLifecycleDelegateWeakReference = new WeakReference<>(RxLifecycleUtils.createByTopActivity());
         }
-        return rxLifecycleDelegate;
+        return rxLifecycleDelegateWeakReference.get();
     }
 }

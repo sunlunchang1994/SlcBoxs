@@ -1,6 +1,5 @@
 package android.slc.code.ui.delegate;
 
-import android.slc.code.ui.views.MvvmViewShank;
 import android.slc.code.vm.BaseViewModel;
 import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
@@ -11,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -98,21 +96,6 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      */
     public V getDataBinding() {
         return this.mDataBinding;
-    }
-
-    /**
-     * 获取{@link MvvmViewShank}
-     *
-     * @return
-     */
-    protected MvvmViewShank getMvvmViewShank() {
-        if (this.mActivity instanceof MvvmViewShank) {
-            return (MvvmViewShank) this.mActivity;
-        }
-        if (this.mFragment instanceof MvvmViewShank) {
-            return (MvvmViewShank) this.mFragment;
-        }
-        return null;
     }
 
     /**
@@ -222,42 +205,6 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
                 }
             }
         });
-        /*viewModel.finishOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-
-            }
-        });
-        viewModel.backPressedOf.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                if (MvvmViewDelegate.this.mActivity != null) {
-                    MvvmViewDelegate.this.mActivity.onBackPressed();
-                    return;
-                }
-                if (MvvmViewDelegate.this.mFragment != null) {
-                    FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
-                    if (fragmentActivity != null) {
-                        fragmentActivity.onBackPressed();
-                    }
-                    return;
-                }
-            }
-        });*/
-    }
-
-    /**
-     * 注册mvvm视图句柄
-     * 事实上，让{@link ViewModel}持有视图是不允许的，哪怕是{@link android.content.Context}也不允许，但为了某些时候方便写代码，此处还是这么做了
-     * 如有更好且合理的做法请告诉作者
-     *
-     * @param viewModel
-     */
-    public void registerMvvmViewShank(BaseViewModel viewModel) {
-        MvvmViewShank mvvmViewShank = getMvvmViewShank();
-        if (mvvmViewShank != null) {
-            viewModel.initMvvmViewShank(mvvmViewShank);
-        }
     }
 
     @Override

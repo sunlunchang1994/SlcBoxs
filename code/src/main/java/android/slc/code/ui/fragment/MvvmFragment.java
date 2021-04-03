@@ -2,24 +2,20 @@ package android.slc.code.ui.fragment;
 
 import android.os.Bundle;
 import android.slc.code.ui.delegate.MvvmViewDelegate;
-import android.slc.code.ui.views.MvvmViewShank;
 import android.slc.code.vm.BaseViewModel;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import androidx.activity.result.ActivityResultCaller;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModel;
 
 /**
  * @author slc
  * @date 2020/3/2 11:04
  */
-public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragment implements MvvmViewShank {
+public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragment {
 
     /**
      * 初始化ViewDelegate
@@ -39,21 +35,6 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
      */
     protected MvvmViewDelegate<V> getMvvmViewDelegate() {
         return (MvvmViewDelegate) mViewDelegate;
-    }
-
-    @Override
-    public AppCompatActivity getActivityContext() {
-        return _mActivity;
-    }
-
-    @Override
-    public LifecycleOwner getLifecycleOwner() {
-        return this;
-    }
-
-    @Override
-    public ActivityResultCaller getActivityResultCaller() {
-        return this;
     }
 
     /**
@@ -100,16 +81,6 @@ public abstract class MvvmFragment<V extends ViewDataBinding> extends BaseFragme
      */
     protected void registerLiveEvent(BaseViewModel viewModel) {
         getMvvmViewDelegate().registerLiveEvent(viewModel);
-    }
-
-    /**
-     * 注册mvvm视图句柄
-     * 便于子类调用
-     *
-     * @param viewModel
-     */
-    protected void registerMvvmViewShank(BaseViewModel viewModel) {
-        getMvvmViewDelegate().registerMvvmViewShank(viewModel);
     }
 
     /**
