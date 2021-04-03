@@ -1,15 +1,13 @@
 package android.slc.code.vm;
 
 import android.app.Application;
-import android.content.Intent;
 import android.os.Bundle;
+import android.slc.code.domain.SlcActivityResult;
 import android.slc.code.domain.StartActivityComponent;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-
-import java.util.HashMap;
-import java.util.Map;
+import androidx.lifecycle.LiveData;
 
 /**
  * 基础上viewModel
@@ -19,13 +17,29 @@ import java.util.Map;
  * @date 2020/2/29 16:41
  */
 public class BaseViewModel extends AndroidViewModel {
-    public final SingleLiveEvent<Void> finishOf = new SingleLiveEvent<>();
-    public final SingleLiveEvent<Void> backPressedOf = new SingleLiveEvent<>();
-    public final SingleLiveEvent<StartActivityComponent> startActivityOf = new SingleLiveEvent<>();
-    public final SingleLiveEvent<Bundle> fillResultOf = new SingleLiveEvent<>();
+    protected final SingleLiveEvent<Void> finishOf = new SingleLiveEvent<>();
+    protected final SingleLiveEvent<Void> backPressedOf = new SingleLiveEvent<>();
+    protected final SingleLiveEvent<StartActivityComponent> startActivityOf = new SingleLiveEvent<>();
+    protected final SingleLiveEvent<SlcActivityResult> fillResultOf = new SingleLiveEvent<>();
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
+    }
+
+    public LiveData<Void> getFinishLiveData() {
+        return finishOf;
+    }
+
+    public LiveData<Void> getBackPressedLiveData() {
+        return backPressedOf;
+    }
+
+    public LiveData<StartActivityComponent> getStartActivityLiveData() {
+        return startActivityOf;
+    }
+
+    public LiveData<SlcActivityResult> getFillResultLiveData() {
+        return fillResultOf;
     }
 
     /**
@@ -51,6 +65,16 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     protected void fillResult(Bundle bundle) {
-        fillResultOf.setValue(bundle);
+        fillResult(SlcActivityResult.createBuilder().setBundle(bundle).build());
     }
+
+    protected void fillResultAndFinish(Bundle bundle) {
+        fillResult(SlcActivityResult.createBuilder().setBundle(bundle).setFinish(true).build());
+    }
+
+    protected void fillResult(SlcActivityResult slcActivityResult) {
+        fillResultOf.postValue(slcActivityResult);
+    }
+
+
 }

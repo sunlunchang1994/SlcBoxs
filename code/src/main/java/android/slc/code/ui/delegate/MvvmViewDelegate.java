@@ -2,8 +2,7 @@ package android.slc.code.ui.delegate;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.slc.code.domain.StartActivityComponent;
+import android.slc.code.domain.SlcActivityResult;
 import android.slc.code.vm.BaseViewModel;
 import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
@@ -190,7 +189,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      */
     public void registerLiveEvent(BaseViewModel viewModel) {
         LifecycleOwner lifecycleOwner = MvvmViewDelegate.this.mActivity != null ? MvvmViewDelegate.this.mActivity : MvvmViewDelegate.this.mFragment;
-        viewModel.finishOf.observe(lifecycleOwner, aVoid -> {
+        viewModel.getFinishLiveData().observe(lifecycleOwner, aVoid -> {
             if (MvvmViewDelegate.this.mActivity != null) {
                 MvvmViewDelegate.this.mActivity.finish();
                 return;
@@ -202,7 +201,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
                 }
             }
         });
-        viewModel.backPressedOf.observe(lifecycleOwner, aVoid -> {
+        viewModel.getBackPressedLiveData().observe(lifecycleOwner, aVoid -> {
             if (MvvmViewDelegate.this.mActivity != null) {
                 MvvmViewDelegate.this.mActivity.onBackPressed();
                 return;
@@ -214,7 +213,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
                 }
             }
         });
-        viewModel.startActivityOf.observe(lifecycleOwner, startActivityComponent -> {
+        viewModel.getStartActivityLiveData().observe(lifecycleOwner, startActivityComponent -> {
             Intent intent = new Intent(Utils.getApp(), startActivityComponent.getStartActivityClass());
             if (startActivityComponent.getBundle() != null) {
                 intent.putExtras(startActivityComponent.getBundle());
@@ -227,17 +226,21 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
                 MvvmViewDelegate.this.mFragment.startActivity(intent);
             }
         });
-        viewModel.fillResultOf.observe(lifecycleOwner, bundle -> {
-            Intent intent = new Intent();
-            intent.putExtras(bundle);
+        viewModel.getFillResultLiveData().observe(lifecycleOwner, slcActivityResult -> {
+            Activity activityTemp = null;
             if (MvvmViewDelegate.this.mActivity != null) {
-                MvvmViewDelegate.this.mActivity.setResult(Activity.RESULT_OK, intent);
-                return;
+                activityTemp = MvvmViewDelegate.this.mActivity;
+            } else if (MvvmViewDelegate.this.mFragment != null) {
+                activityTemp = MvvmViewDelegate.this.mFragment.getActivity();
             }
-            if (MvvmViewDelegate.this.mFragment != null) {
-                FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
-                if (fragmentActivity != null) {
-                    fragmentActivity.setResult(Activity.RESULT_OK, intent);
+            if (activityTemp != null) {
+                Intent intent = new Intent();
+                if (slcActivityResult.getBundle() != null) {
+                    intent.putExtras(slcActivityResult.getBundle());
+                }
+                activityTemp.setResult(slcActivityResult.getResultCode(), intent);
+                if (slcActivityResult.isFinish()) {
+                    activityTemp.finish();
                 }
             }
         });
