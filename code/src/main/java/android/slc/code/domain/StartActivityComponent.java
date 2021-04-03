@@ -9,6 +9,10 @@ public class StartActivityComponent {
     public StartActivityComponent() {
     }
 
+    public StartActivityComponent(Class<?> startActivityClass) {
+        this.startActivityClass = startActivityClass;
+    }
+
     public StartActivityComponent(Class<?> startActivityClass, Bundle bundle) {
         this.startActivityClass = startActivityClass;
         this.bundle = bundle;

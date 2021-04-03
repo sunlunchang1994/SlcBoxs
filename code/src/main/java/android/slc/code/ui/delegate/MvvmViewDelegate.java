@@ -1,5 +1,9 @@
 package android.slc.code.ui.delegate;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.slc.code.domain.StartActivityComponent;
 import android.slc.code.vm.BaseViewModel;
 import android.slc.commonlibrary.util.ViewModelProviderFactory;
 import android.view.View;
@@ -10,8 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.blankj.utilcode.util.Utils;
 
 /**
  * 使用与MVVM设计模式的ViewDelegate方法
@@ -181,7 +189,8 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
      * @param viewModel
      */
     public void registerLiveEvent(BaseViewModel viewModel) {
-        viewModel.finishOf.observe(MvvmViewDelegate.this.mActivity != null ? MvvmViewDelegate.this.mActivity : MvvmViewDelegate.this.mFragment, aVoid -> {
+        LifecycleOwner lifecycleOwner = MvvmViewDelegate.this.mActivity != null ? MvvmViewDelegate.this.mActivity : MvvmViewDelegate.this.mFragment;
+        viewModel.finishOf.observe(lifecycleOwner, aVoid -> {
             if (MvvmViewDelegate.this.mActivity != null) {
                 MvvmViewDelegate.this.mActivity.finish();
                 return;
@@ -193,7 +202,7 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
                 }
             }
         });
-        viewModel.backPressedOf.observe(MvvmViewDelegate.this.mActivity != null ? MvvmViewDelegate.this.mActivity : MvvmViewDelegate.this.mFragment, aVoid -> {
+        viewModel.backPressedOf.observe(lifecycleOwner, aVoid -> {
             if (MvvmViewDelegate.this.mActivity != null) {
                 MvvmViewDelegate.this.mActivity.onBackPressed();
                 return;
@@ -202,6 +211,33 @@ public class MvvmViewDelegate<V extends ViewDataBinding> extends BaseViewDelegat
                 FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
                 if (fragmentActivity != null) {
                     fragmentActivity.onBackPressed();
+                }
+            }
+        });
+        viewModel.startActivityOf.observe(lifecycleOwner, startActivityComponent -> {
+            Intent intent = new Intent(Utils.getApp(), startActivityComponent.getStartActivityClass());
+            if (startActivityComponent.getBundle() != null) {
+                intent.putExtras(startActivityComponent.getBundle());
+            }
+            if (MvvmViewDelegate.this.mActivity != null) {
+                MvvmViewDelegate.this.mActivity.startActivity(intent);
+                return;
+            }
+            if (MvvmViewDelegate.this.mFragment != null) {
+                MvvmViewDelegate.this.mFragment.startActivity(intent);
+            }
+        });
+        viewModel.fillResultOf.observe(lifecycleOwner, bundle -> {
+            Intent intent = new Intent();
+            intent.putExtras(bundle);
+            if (MvvmViewDelegate.this.mActivity != null) {
+                MvvmViewDelegate.this.mActivity.setResult(Activity.RESULT_OK, intent);
+                return;
+            }
+            if (MvvmViewDelegate.this.mFragment != null) {
+                FragmentActivity fragmentActivity = MvvmViewDelegate.this.mFragment.getActivity();
+                if (fragmentActivity != null) {
+                    fragmentActivity.setResult(Activity.RESULT_OK, intent);
                 }
             }
         });

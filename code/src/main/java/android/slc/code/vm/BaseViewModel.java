@@ -22,6 +22,7 @@ public class BaseViewModel extends AndroidViewModel {
     public final SingleLiveEvent<Void> finishOf = new SingleLiveEvent<>();
     public final SingleLiveEvent<Void> backPressedOf = new SingleLiveEvent<>();
     public final SingleLiveEvent<StartActivityComponent> startActivityOf = new SingleLiveEvent<>();
+    public final SingleLiveEvent<Bundle> fillResultOf = new SingleLiveEvent<>();
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
@@ -41,8 +42,15 @@ public class BaseViewModel extends AndroidViewModel {
         backPressedOf.call();
     }
 
+    protected void startActivity(Class<?> activityClass) {
+        startActivity(activityClass, null);
+    }
+
     protected void startActivity(Class<?> activityClass, Bundle bundle) {
         startActivityOf.postValue(new StartActivityComponent(activityClass, bundle));
     }
 
+    protected void fillResult(Bundle bundle) {
+        fillResultOf.setValue(bundle);
+    }
 }
