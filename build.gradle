@@ -59,8 +59,8 @@ ext {
     toolbarVersion = '0.0.8'
     toolbarPublishVersion = '0.0.8'
     //核心包 依赖以上两个
-    codeVersion = '0.3.98'
-    codePublishVersion = '0.3.98'
+    codeVersion = '0.3.99'
+    codePublishVersion = '0.3.99'
     //rxJava
     rxVersion = '0.0.8'
     rxPublishVersion = '0.0.8'
@@ -68,8 +68,8 @@ ext {
     rxLifecycleVersion = '0.0.9'
     rxLifecyclePublishVersion = '0.0.9'
     //核心生命周期包 依赖以上五个
-    codeLifecycleVersion = '0.3.98'
-    codeLifecyclePublishVersion = '0.3.98'
+    codeLifecycleVersion = '0.3.99'
+    codeLifecyclePublishVersion = '0.3.99'
 
     //网络 独立
     orVersion = '0.1.2'
@@ -77,7 +77,7 @@ ext {
 
     //盒子 依赖以上所有
     boxsVersion = '0.3.99'
-    boxsPublishVersion = '0.4'
+    boxsPublishVersion = '0.4.01'
     //Publish版本
     //publishVersion = '0.0.6'
 }
