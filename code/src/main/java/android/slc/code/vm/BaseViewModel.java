@@ -4,10 +4,14 @@ import android.app.Application;
 import android.os.Bundle;
 import android.slc.code.domain.SlcActivityResult;
 import android.slc.code.domain.StartActivityComponent;
+import android.slc.code.domain.VmBox;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 基础上viewModel
@@ -21,6 +25,7 @@ public class BaseViewModel extends AndroidViewModel {
     protected final SingleLiveEvent<Void> backPressedOf = new SingleLiveEvent<>();
     protected final SingleLiveEvent<StartActivityComponent> startActivityOf = new SingleLiveEvent<>();
     protected final SingleLiveEvent<SlcActivityResult> fillResultOf = new SingleLiveEvent<>();
+    protected final List<VmBox> vmBoxList = new ArrayList<>();
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
@@ -76,5 +81,25 @@ public class BaseViewModel extends AndroidViewModel {
         fillResultOf.postValue(slcActivityResult);
     }
 
+    protected void registerVmBox(VmBox vmBox) {
+        if (vmBox != null && !vmBoxList.contains(vmBox)) {
+            vmBox.registerLiveEventFromVm(finishOf, backPressedOf, startActivityOf, fillResultOf);
+            vmBoxList.add(vmBox);
+        }
+    }
 
+    protected void unRegisterVmBox(VmBox vmBox) {
+        vmBoxList.remove(vmBox);
+    }
+
+    @Override
+    protected void onCleared() {
+        for (VmBox vmBox : vmBoxList) {
+            if (vmBox != null) {
+                vmBox.clear();
+            }
+        }
+        vmBoxList.clear();
+        super.onCleared();
+    }
 }

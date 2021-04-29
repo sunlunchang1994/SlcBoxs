@@ -1,15 +1,16 @@
 package android.slc.rx;
 
 import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableMaybeObserver;
 
 /**
  * @author slc
- * @date 2021/1/14 14:16
+ * @date 2019/10/23 15:38
  */
-public class SimpleDisposableObserver<T> extends DisposableObserver<T> {
+public class SimpleDisposableMaybeObserver<T> extends DisposableMaybeObserver<T> {
+
     @Override
-    public void onNext(@NonNull T t) {
+    public void onSuccess(@NonNull T t) {
 
     }
 
