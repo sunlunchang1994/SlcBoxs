@@ -26,5 +26,5 @@ dependencies {
         api project(path: ':toolbar')
         api project(path: ':commonlibrary')
     }
-    api 'com.kunminx.archi:unpeek-livedata:4.+'
+    api 'com.kunminx.archi:unpeek-livedata:4.5.0-beta1'
 }
