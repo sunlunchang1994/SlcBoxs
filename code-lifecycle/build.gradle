@@ -1,7 +1,7 @@
 apply from: "${project.rootDir}/code_module_config.gradle"
 if (module_code_lifecycle.toBoolean()) {
-    apply plugin: 'maven'
-    apply plugin: 'com.novoda.bintray-release'
+    apply plugin: 'com.github.dcendents.android-maven'
+    group = 'com.github.sunlunchang1994'
 }
 
 dependencies {
@@ -14,17 +14,5 @@ dependencies {
         api project(path: ':code')
         api project(path: ':rx')
         api project(path: ':rxlifecycle')
-    }
-}
-
-if (module_code_lifecycle.toBoolean()) {
-    publish {
-        repoName = 'code'
-        userOrg = "sunlunchang"
-        groupId = 'android.slc'
-        artifactId = 'code-lifecycle'
-        publishVersion = "$codeLifecyclePublishVersion"
-        desc = 'Develop Android apps quickly'
-        website = "https://github.com/sunlunchang1994/$rootProject.name"
     }
 }

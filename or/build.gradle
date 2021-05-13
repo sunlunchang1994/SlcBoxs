@@ -1,7 +1,7 @@
 apply from: "${project.rootDir}/code_module_config.gradle"
 if (module_or.toBoolean()) {
-    apply plugin: 'maven'
-    apply plugin: 'com.novoda.bintray-release'
+    apply plugin: 'com.github.dcendents.android-maven'
+    group = 'com.github.sunlunchang1994'
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -12,15 +12,4 @@ dependencies {
     api "com.squareup.retrofit2:adapter-rxjava2:$adapterRxjava2"
     api "io.reactivex.rxjava2:rxandroid:$rxAndroid"
     api "io.reactivex.rxjava2:rxjava:$rxJava"
-}
-if (module_or.toBoolean()) {
-    publish {
-        repoName = 'code'
-        userOrg = "sunlunchang"
-        groupId = 'android.slc'
-        artifactId = 'or'
-        publishVersion = "$orPublishVersion"
-        desc = 'Develop Android apps quickly'
-        website = "https://github.com/sunlunchang1994/$rootProject.name"
-    }
 }

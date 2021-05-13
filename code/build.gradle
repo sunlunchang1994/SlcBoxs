@@ -1,7 +1,7 @@
 apply from: "${project.rootDir}/code_module_config.gradle"
 if (module_code.toBoolean()) {
-    apply plugin: 'maven'
-    apply plugin: 'com.novoda.bintray-release'
+    apply plugin: 'com.github.dcendents.android-maven'
+    group = 'com.github.sunlunchang1994'
 }
 android {
     sourceSets {
@@ -27,16 +27,4 @@ dependencies {
         api project(path: ':commonlibrary')
     }
     api 'com.kunminx.archi:unpeek-livedata:4.+'
-}
-
-if (module_code.toBoolean()) {
-    publish {
-        repoName = 'code'
-        userOrg = "sunlunchang"
-        groupId = 'android.slc'
-        artifactId = 'code'
-        publishVersion = "$codePublishVersion"
-        desc = 'Develop Android apps quickly'
-        website = "https://github.com/sunlunchang1994/$rootProject.name"
-    }
 }

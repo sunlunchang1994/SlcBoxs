@@ -1,7 +1,7 @@
 apply from: "${project.rootDir}/code_module_config.gradle"
 if (module_rxlifecycle.toBoolean()) {
-    apply plugin: 'maven'
-    apply plugin: 'com.novoda.bintray-release'
+    apply plugin: 'com.github.dcendents.android-maven'
+    group = 'com.github.sunlunchang1994'
 }
 
 dependencies {
@@ -9,16 +9,4 @@ dependencies {
     api "io.reactivex.rxjava2:rxandroid:$rxAndroid"
     api "io.reactivex.rxjava2:rxjava:$rxJava"
     api "com.trello.rxlifecycle3:rxlifecycle:$rxLifecycle"
-}
-
-if (module_rxlifecycle.toBoolean()) {
-    publish {
-        repoName = 'code'
-        userOrg = "sunlunchang"
-        groupId = 'android.slc'
-        artifactId = 'rxlifecycle'
-        publishVersion = "$rxLifecyclePublishVersion"
-        desc = 'Develop Android apps quickly'
-        website = "https://github.com/sunlunchang1994/$rootProject.name"
-    }
 }
