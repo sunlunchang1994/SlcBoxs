@@ -1,8 +1,6 @@
 apply from: "${project.rootDir}/code_module_config.gradle"
-if (module_code_lifecycle.toBoolean()) {
-    apply plugin: 'com.github.dcendents.android-maven'
-    group = 'com.github.sunlunchang1994'
-}
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.sunlunchang1994'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

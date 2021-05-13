@@ -1,8 +1,7 @@
 apply from: "${project.rootDir}/code_module_config.gradle"
-if (module_rx.toBoolean()) {
-    apply plugin: 'com.github.dcendents.android-maven'
-    group = 'com.github.sunlunchang1994'
-}
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.sunlunchang1994'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "io.reactivex.rxjava2:rxandroid:$rxAndroid"
