@@ -1,2 +1,2 @@
-include ':app', ':toolbar', ':rx', ':rxlifecycle', ':or', ':commonlibrary', ':code-lifecycle', ':code', ':box'
+include ':app', ':toolbar', ':rx', ':rxlifecycle', ':or', ':commonlibrary', ':code-lifecycle', ':code'/*, ':box'*/
 rootProject.name='slc_boxes'

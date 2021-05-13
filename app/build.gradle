@@ -36,7 +36,8 @@ dependencies {
     }
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
     //implementation "com.github.sunlunchang1994.slc_boxes:box:$boxesVersionName"
-    api project(path: ':box')
+    api project(path: ':or')
+    api project(path: ':code-lifecycle')
     /*if (module_box.toBoolean()) {
         implementation "android.slc:box:$boxsVersion"
     } else {
