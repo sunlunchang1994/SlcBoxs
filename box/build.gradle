@@ -5,8 +5,10 @@ if (module_box.toBoolean()) {
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "android.slc:or:$orVersion"
-    api "android.slc:code-lifecycle:$codeLifecycleVersion"
+    api project(path: ':or')
+    api project(path: ':code-lifecycle')
+    /*api "android.slc:or:$orVersion"
+    api "android.slc:code-lifecycle:$codeLifecycleVersion"*/
 }
 /*if (module_box.toBoolean()) {
     publish {

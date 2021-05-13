@@ -17,7 +17,7 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'https://dl.bintray.com/sunlunchang/code' }
+        //maven { url 'https://dl.bintray.com/sunlunchang/code' }
         maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
         maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
         maven { url "https://jitpack.io" }
@@ -37,9 +37,9 @@ ext {
     compileSdkVersion = 30
 
     // App dependencies
-    androidXAppcompat = '1.3.0-beta01'
+    androidXAppcompat = '1.3.0-rc01'
     androidXActivity = '1.3.0-alpha04'
-    androidXFragment = '1.3.1'
+    androidXFragment = '1.3.3'
     androidXConstraintlayout = '2.0.4'
     googleAndroidMaterial = '1.4.0-alpha01'
     rxAndroid = '2.1.1'

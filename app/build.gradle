@@ -29,15 +29,16 @@ dependencies {
     }
     implementation "androidx.activity:activity:$androidXActivity"
     implementation "androidx.fragment:fragment:$androidXFragment"
-    implementation "androidx.annotation:annotation:1.2.0-rc01"
+    implementation "androidx.annotation:annotation:1.2.0"
 
     implementation ("com.google.android.material:material:$googleAndroidMaterial") {
         exclude(group: 'appcompat:appcompat, constraintlayout:constraintlayout')
     }
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
-    if (module_box.toBoolean()) {
+    api project(path: ':box')
+    /*if (module_box.toBoolean()) {
         implementation "android.slc:box:$boxsVersion"
     } else {
         implementation "android.slc:box:$boxsVersion"
-    }
+    }*/
 }

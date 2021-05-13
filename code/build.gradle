@@ -19,12 +19,14 @@ dependencies {
     api("me.yokeyword:fragmentationx-core:$fragmentationx") {
         exclude(group: 'appcompat:appcompat')
     }
-    if (module_code.toBoolean()) {
+    api project(path: ':toolbar')
+    api project(path: ':commonlibrary')
+/*    if (module_code.toBoolean()) {
         api "android.slc:toolbar:$toolbarVersion"
         api "android.slc:commonlibrary:$commonLibreyVersion"
     } else {
         api project(path: ':toolbar')
         api project(path: ':commonlibrary')
-    }
+    }*/
     api 'com.kunminx.archi:unpeek-livedata:4.5.0-beta1'
 }
