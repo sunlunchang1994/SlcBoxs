@@ -35,6 +35,7 @@ dependencies {
         exclude(group: 'appcompat:appcompat, constraintlayout:constraintlayout')
     }
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintlayout"
+    //implementation "com.github.sunlunchang1994.slc_boxes:box:$boxesVersionName"
     api project(path: ':box')
     /*if (module_box.toBoolean()) {
         implementation "android.slc:box:$boxsVersion"

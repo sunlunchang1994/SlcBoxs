@@ -52,7 +52,11 @@ ext {
     adapterRxjava2 = '2.9.0'
     fragmentationx = '1.0.2'
     utilcodex = '1.30.5'
+
     //模块版本
+    boxesVersion = 52
+    boxesVersionName = '0.5.2'
+    //以下暂时作废
     //常用包
     commonLibreyVersion = '0.1.8'
     commonLibreyPublishVersion = '0.1.8'
@@ -79,6 +83,7 @@ ext {
     //盒子 依赖以上所有
     boxsVersion = '0.4.01'
     boxsPublishVersion = '0.4.2'
+
     //Publish版本
     //publishVersion = '0.0.6'
 }
