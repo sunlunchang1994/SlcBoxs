@@ -6,6 +6,7 @@
         <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
     </style>
+    <!--尽量不要使用，推荐使用系统动画-->
     <!--activity切换动画-->
     <style name="ActivityChangeAnim" parent="@android:style/Animation.Activity">
         <!--A到B,B进入动画-->
