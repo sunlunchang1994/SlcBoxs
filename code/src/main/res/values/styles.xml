@@ -1,13 +1,15 @@
 <resources>
 
     <!-- 默认的主题 -->
-    <style name="DefAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="windowActionBar">false</item>
+    <style name="DefAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+.        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">?attr/colorPrimaryVariant</item>
+        <item name="colorAccent">?attr/colorSecondary</item>
         <!-- Customize your theme here. -->
     </style>
     <!--dialog风格activity-->
-    <style name="DefDialogActivityTheme" parent="@style/Theme.MaterialComponents.Light.Dialog">
+    <style name="DefDialogActivityTheme" parent="@style/Theme.MaterialComponents.Light.Dialog.Bridge">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
