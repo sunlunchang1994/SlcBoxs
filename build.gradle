@@ -55,7 +55,7 @@ ext {
 
     //模块版本
     boxesVersion = 53
-    boxesVersionName = '0.5.3'
+    boxesVersionName = '0.5.4'
     //以下暂时作废
     //常用包
     commonLibreyVersion = '0.1.8'
