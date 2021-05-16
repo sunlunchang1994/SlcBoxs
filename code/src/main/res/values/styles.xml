@@ -1,10 +1,15 @@
 <resources>
 
     <!-- 默认的主题 -->
-    <style name="DefAppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
+    <style name="DefAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
+    </style>
+    <!--dialog风格activity-->
+    <style name="DefDialogActivityTheme" parent="@style/Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
     <!--尽量不要使用，推荐使用系统动画-->
     <!--activity切换动画-->
