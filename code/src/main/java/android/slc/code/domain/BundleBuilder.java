@@ -45,6 +45,33 @@ public class BundleBuilder {
         return this;
     }
 
+    public BundleBuilder putBoolean(@Nullable String key, boolean value) {
+        bundle.putBoolean(key, value);
+        return this;
+    }
+
+
+    public BundleBuilder putInt(@Nullable String key, int value) {
+        bundle.putInt(key, value);
+        return this;
+    }
+
+    public BundleBuilder putLong(@Nullable String key, long value) {
+        bundle.putLong(key, value);
+        return this;
+    }
+
+
+    public BundleBuilder putDouble(@Nullable String key, double value) {
+        bundle.putDouble(key, value);
+        return this;
+    }
+
+    public BundleBuilder putString(@Nullable String key, @Nullable String value) {
+        bundle.putString(key, value);
+        return this;
+    }
+
     public BundleBuilder putCharSequence(@Nullable String key, @Nullable CharSequence value) {
         bundle.putCharSequence(key, value);
         return this;
@@ -102,6 +129,11 @@ public class BundleBuilder {
         return this;
     }
 
+    public BundleBuilder putBooleanArray(@Nullable String key, @Nullable boolean[] value) {
+        bundle.putBooleanArray(key, value);
+        return this;
+    }
+
     public BundleBuilder putSerializable(@Nullable String key, @Nullable Serializable value) {
         bundle.putSerializable(key, value);
         return this;
@@ -119,6 +151,16 @@ public class BundleBuilder {
 
     public BundleBuilder putCharArray(@Nullable String key, @Nullable char[] value) {
         bundle.putCharArray(key, value);
+        return this;
+    }
+
+    public BundleBuilder putIntArray(@Nullable String key, @Nullable int[] value) {
+        bundle.putIntArray(key, value);
+        return this;
+    }
+
+    public BundleBuilder putLongArray(@Nullable String key, @Nullable long[] value) {
+        bundle.putLongArray(key, value);
         return this;
     }
 
