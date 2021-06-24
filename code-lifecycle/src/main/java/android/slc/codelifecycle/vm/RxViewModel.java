@@ -1,7 +1,9 @@
 package android.slc.codelifecycle.vm;
 
 import android.app.Application;
+import android.slc.code.domain.VmBox;
 import android.slc.code.vm.BaseViewModel;
+import android.slc.codelifecycle.domain.RxVmBox;
 import android.slc.codelifecycle.utils.RxLifecycleUtils;
 import android.slc.rxlifecycle.RxLifecycleDelegate;
 
@@ -46,6 +48,15 @@ public class RxViewModel extends BaseViewModel {
             rxLifecycleDelegate = RxLifecycleUtils.createByTopActivity();
         }
         return rxLifecycleDelegate;
+    }
+
+    @Override
+    protected void registerVmBox(VmBox vmBox) {
+        if(vmBox instanceof RxVmBox){
+            RxVmBox rxVmBox = (RxVmBox) vmBox;
+            rxVmBox.setRxLifecycleDelegate(getRxLifecycleDelegate());
+        }
+        super.registerVmBox(vmBox);
     }
 
     @Override
