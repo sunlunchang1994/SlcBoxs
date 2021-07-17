@@ -66,7 +66,7 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     protected void startActivity(Class<?> activityClass, Bundle bundle) {
-        startActivityOf.postValue(new StartActivityComponent(activityClass, bundle));
+        startActivityOf.setValue(new StartActivityComponent(activityClass, bundle));
     }
 
     protected void fillResult(Bundle bundle) {
@@ -78,7 +78,7 @@ public class BaseViewModel extends AndroidViewModel {
     }
 
     protected void fillResult(SlcActivityResult slcActivityResult) {
-        fillResultOf.postValue(slcActivityResult);
+        fillResultOf.setValue(slcActivityResult);
     }
 
     protected void registerVmBox(VmBox vmBox) {
